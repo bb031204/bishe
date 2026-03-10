@@ -1,0 +1,99 @@
+2024-10-09 19:47:33,174 - INFO - Log directory: ./libcity/log
+2024-10-09 19:47:33,175 - INFO - Begin pipeline, task=MTS_pred, model_name=LSTM, dataset_name=METR_LA, exp_id=251221
+2024-10-09 19:47:33,175 - INFO - {'task': 'MTS_pred', 'model': 'RNN', 'dataset': 'METR_LA', 'saved_model': True, 'exp_id': '251221', 'seed': 0, 'max_epoch': 50, 'dataset_class': 'StatePointDataset', 'executor': 'StateExecutor', 'evaluator': 'StateEvaluator', 'rnn_type': 'LSTM', 'hidden_size': 64, 'num_layers': 1, 'dropout': 0, 'bidirectional': False, 'teacher_forcing_ratio': 0, 'scaler': 'standard', 'load_external': False, 'normal_external': False, 'ext_scaler': 'none', 'add_time_in_day': True, 'add_day_in_week': False, 'learner': 'adam', 'learning_rate': 0.01, 'lr_decay': True, 'lr_scheduler': 'multisteplr', 'lr_decay_ratio': 0.1, 'steps': [5, 20, 40, 70], 'clip_grad_norm': True, 'max_grad_norm': 5, 'use_early_stop': True, 'patience': 50, 'batch_size': 64, 'cache_dataset': True, 'num_workers': 0, 'pad_with_last_sample': True, 'train_rate': 0.7, 'eval_rate': 0.1, 'input_window': 12, 'output_window': 12, 'robustness_test': False, 'noise_type': 'gaussian', 'disturb_rate': 0.5, 'noise_mean': [5], 'noise_SD': [10], 'gpu': True, 'gpu_id': 0, 'train_loss': 'none', 'epoch': 0, 'weight_decay': 0, 'lr_epsilon': 1e-08, 'lr_beta1': 0.9, 'lr_beta2': 0.999, 'lr_alpha': 0.99, 'lr_momentum': 0, 'step_size': 10, 'lr_T_max': 30, 'lr_eta_min': 0, 'lr_patience': 10, 'lr_threshold': 0.0001, 'log_level': 'INFO', 'log_every': 1, 'load_best_epoch': True, 'hyper_tune': False, 'metrics': ['MAE', 'MAPE', 'RMSE'], 'evaluator_mode': 'single', 'save_mode': ['csv'], 'geo': {'including_types': ['Point'], 'Point': {}}, 'rel': {'including_types': ['geo'], 'geo': {'cost': 'num'}}, 'dyna': {'including_types': ['state'], 'state': {'entity_id': 'geo_id', 'traffic_speed': 'num'}}, 'data_col': ['traffic_speed'], 'weight_col': 'cost', 'data_files': ['METR_LA'], 'geo_file': 'METR_LA', 'rel_file': 'METR_LA', 'output_dim': 1, 'time_intervals': 300, 'init_weight_inf_or_zero': 'inf', 'set_weight_link_or_dist': 'dist', 'calculate_weight_adj': True, 'weight_adj_epsilon': 0.1, 'device': device(type='cuda', index=0)}
+2024-10-09 19:47:33,657 - INFO - Loaded file METR_LA_feature.csv, shape=(34272, 207, 1)
+2024-10-09 19:47:34,666 - INFO - Dataset created
+2024-10-09 19:47:34,666 - INFO - x shape: (34249, 12, 207, 1), y shape: (34249, 12, 207, 1)
+2024-10-09 19:47:34,669 - INFO - train	x: (23974, 12, 207, 1), y: (23974, 12, 207, 1)
+2024-10-09 19:47:34,670 - INFO - eval	x: (3425, 12, 207, 1), y: (3425, 12, 207, 1)
+2024-10-09 19:47:34,670 - INFO - test	x: (6850, 12, 207, 1), y: (6850, 12, 207, 1)
+2024-10-09 19:47:47,710 - INFO - Saved at ./libcity/cache/dataset_cache/point_based_METR_LA_12_12_0.7_0.1_standard_64_False_True_False_True.npz
+2024-10-09 19:47:47,887 - INFO - StandardScaler mean: 54.40592829587626, std: 19.493739270573098
+2024-10-09 19:47:47,887 - INFO - NoneScaler
+2024-10-09 19:47:48,732 - INFO - You select rnn_type LSTM in RNN!
+2024-10-09 19:47:48,831 - INFO - RNN(
+  (rnn): LSTM(207, 64)
+  (fc): Linear(in_features=64, out_features=207, bias=True)
+)
+2024-10-09 19:47:48,831 - INFO - rnn.weight_ih_l0	torch.Size([256, 207])	cuda:0	True
+2024-10-09 19:47:48,831 - INFO - rnn.weight_hh_l0	torch.Size([256, 64])	cuda:0	True
+2024-10-09 19:47:48,831 - INFO - rnn.bias_ih_l0	torch.Size([256])	cuda:0	True
+2024-10-09 19:47:48,831 - INFO - rnn.bias_hh_l0	torch.Size([256])	cuda:0	True
+2024-10-09 19:47:48,831 - INFO - fc.weight	torch.Size([207, 64])	cuda:0	True
+2024-10-09 19:47:48,831 - INFO - fc.bias	torch.Size([207])	cuda:0	True
+2024-10-09 19:47:48,831 - INFO - Total parameter numbers: 83343
+2024-10-09 19:47:48,831 - INFO - You select `adam` optimizer.
+2024-10-09 19:47:49,236 - INFO - You select `multisteplr` lr_scheduler.
+2024-10-09 19:47:49,237 - WARNING - Received none train loss func and will use the loss func defined in the model.
+2024-10-09 19:47:49,237 - INFO - Start training ...
+2024-10-09 19:47:49,237 - INFO - num_batches:375
+2024-10-09 19:47:56,241 - INFO - epoch complete!
+2024-10-09 19:47:56,242 - INFO - evaluating now!
+2024-10-09 19:47:56,447 - INFO - Epoch [0/50] train_loss: 4.3535, val_loss: 3.9090, lr: 0.010000, 7.21s
+2024-10-09 19:47:56,449 - INFO - Saved model at 0
+2024-10-09 19:47:56,450 - INFO - Val loss decrease from inf to 3.9090, saving to ./libcity/cache/251221/model_cache/RNN_METR_LA_epoch0.tar
+2024-10-09 19:48:03,549 - INFO - epoch complete!
+2024-10-09 19:48:03,549 - INFO - evaluating now!
+2024-10-09 19:48:03,760 - INFO - Epoch [1/50] train_loss: 3.7640, val_loss: 3.7449, lr: 0.010000, 7.31s
+2024-10-09 19:48:03,763 - INFO - Saved model at 1
+2024-10-09 19:48:03,763 - INFO - Val loss decrease from 3.9090 to 3.7449, saving to ./libcity/cache/251221/model_cache/RNN_METR_LA_epoch1.tar
+2024-10-09 19:48:10,776 - INFO - epoch complete!
+2024-10-09 19:48:10,777 - INFO - evaluating now!
+2024-10-09 19:48:10,982 - INFO - Epoch [2/50] train_loss: 3.6797, val_loss: 3.6705, lr: 0.010000, 7.22s
+2024-10-09 19:48:10,984 - INFO - Saved model at 2
+2024-10-09 19:48:10,984 - INFO - Val loss decrease from 3.7449 to 3.6705, saving to ./libcity/cache/251221/model_cache/RNN_METR_LA_epoch2.tar
+2024-10-09 19:48:17,652 - INFO - epoch complete!
+2024-10-09 19:48:17,653 - INFO - evaluating now!
+2024-10-09 19:48:17,858 - INFO - Epoch [3/50] train_loss: 3.6769, val_loss: 3.6948, lr: 0.010000, 6.87s
+2024-10-09 19:48:24,594 - INFO - epoch complete!
+2024-10-09 19:48:24,595 - INFO - evaluating now!
+2024-10-09 19:48:24,804 - INFO - Epoch [4/50] train_loss: 3.7341, val_loss: 3.7463, lr: 0.001000, 6.95s
+2024-10-09 19:48:32,091 - INFO - epoch complete!
+2024-10-09 19:48:32,091 - INFO - evaluating now!
+2024-10-09 19:48:32,298 - INFO - Epoch [5/50] train_loss: 3.5022, val_loss: 3.5821, lr: 0.001000, 7.49s
+2024-10-09 19:48:32,300 - INFO - Saved model at 5
+2024-10-09 19:48:32,300 - INFO - Val loss decrease from 3.6705 to 3.5821, saving to ./libcity/cache/251221/model_cache/RNN_METR_LA_epoch5.tar
+2024-10-09 19:48:39,174 - INFO - epoch complete!
+2024-10-09 19:48:39,174 - INFO - evaluating now!
+2024-10-09 19:48:39,380 - INFO - Epoch [6/50] train_loss: 3.4607, val_loss: 3.5689, lr: 0.001000, 7.08s
+2024-10-09 19:48:39,383 - INFO - Saved model at 6
+2024-10-09 19:48:39,383 - INFO - Val loss decrease from 3.5821 to 3.5689, saving to ./libcity/cache/251221/model_cache/RNN_METR_LA_epoch6.tar
+2024-10-09 19:48:46,362 - INFO - epoch complete!
+2024-10-09 19:48:46,363 - INFO - evaluating now!
+2024-10-09 19:48:46,569 - INFO - Epoch [7/50] train_loss: 3.4368, val_loss: 3.5613, lr: 0.001000, 7.19s
+2024-10-09 19:48:46,571 - INFO - Saved model at 7
+2024-10-09 19:48:46,571 - INFO - Val loss decrease from 3.5689 to 3.5613, saving to ./libcity/cache/251221/model_cache/RNN_METR_LA_epoch7.tar
+2024-10-09 19:48:53,692 - INFO - epoch complete!
+2024-10-09 19:48:53,692 - INFO - evaluating now!
+2024-10-09 19:48:53,899 - INFO - Epoch [8/50] train_loss: 3.4228, val_loss: 3.5498, lr: 0.001000, 7.33s
+2024-10-09 19:48:53,901 - INFO - Saved model at 8
+2024-10-09 19:48:53,901 - INFO - Val loss decrease from 3.5613 to 3.5498, saving to ./libcity/cache/251221/model_cache/RNN_METR_LA_epoch8.tar
+2024-10-09 19:49:00,862 - INFO - epoch complete!
+2024-10-09 19:49:00,863 - INFO - evaluating now!
+2024-10-09 19:49:01,071 - INFO - Epoch [9/50] train_loss: 3.4077, val_loss: 3.5377, lr: 0.001000, 7.17s
+2024-10-09 19:49:01,074 - INFO - Saved model at 9
+2024-10-09 19:49:01,074 - INFO - Val loss decrease from 3.5498 to 3.5377, saving to ./libcity/cache/251221/model_cache/RNN_METR_LA_epoch9.tar
+2024-10-09 19:49:08,313 - INFO - epoch complete!
+2024-10-09 19:49:08,313 - INFO - evaluating now!
+2024-10-09 19:49:08,522 - INFO - Epoch [10/50] train_loss: 3.3899, val_loss: 3.5495, lr: 0.001000, 7.45s
+2024-10-09 19:49:15,229 - INFO - epoch complete!
+2024-10-09 19:49:15,229 - INFO - evaluating now!
+2024-10-09 19:49:15,437 - INFO - Epoch [11/50] train_loss: 3.3659, val_loss: 3.5218, lr: 0.001000, 6.91s
+2024-10-09 19:49:15,439 - INFO - Saved model at 11
+2024-10-09 19:49:15,439 - INFO - Val loss decrease from 3.5377 to 3.5218, saving to ./libcity/cache/251221/model_cache/RNN_METR_LA_epoch11.tar
+2024-10-09 19:49:22,477 - INFO - epoch complete!
+2024-10-09 19:49:22,477 - INFO - evaluating now!
+2024-10-09 19:49:22,686 - INFO - Epoch [12/50] train_loss: 3.3521, val_loss: 3.5176, lr: 0.001000, 7.25s
+2024-10-09 19:49:22,688 - INFO - Saved model at 12
+2024-10-09 19:49:22,688 - INFO - Val loss decrease from 3.5218 to 3.5176, saving to ./libcity/cache/251221/model_cache/RNN_METR_LA_epoch12.tar
+2024-10-09 19:49:30,004 - INFO - epoch complete!
+2024-10-09 19:49:30,004 - INFO - evaluating now!
+2024-10-09 19:49:30,211 - INFO - Epoch [13/50] train_loss: 3.3389, val_loss: 3.5020, lr: 0.001000, 7.52s
+2024-10-09 19:49:30,213 - INFO - Saved model at 13
+2024-10-09 19:49:30,214 - INFO - Val loss decrease from 3.5176 to 3.5020, saving to ./libcity/cache/251221/model_cache/RNN_METR_LA_epoch13.tar
+2024-10-09 19:49:37,020 - INFO - epoch complete!
+2024-10-09 19:49:37,020 - INFO - evaluating now!
+2024-10-09 19:49:37,226 - INFO - Epoch [14/50] train_loss: 3.3323, val_loss: 3.5201, lr: 0.001000, 7.01s
+2024-10-09 19:49:44,279 - INFO - epoch complete!
+2024-10-09 19:49:44,279 - INFO - evaluating now!
+2024-10-09 19:49:44,488 - INFO - Epoch [15/50] train_loss: 3.3180, val_loss: 3.5042, lr: 0.001000, 7.26s

@@ -1,0 +1,114 @@
+# ========================================
+# WYB_bishe - 完整依赖包列表
+# 适配: P100 16GB (Pascal 架构, compute capability 6.0)
+# CUDA: 11.8
+# Python: 3.8+
+# ========================================
+
+# ========================================
+# PyTorch + CUDA (适配 P100)
+# ========================================
+# PyTorch 2.0+ 兼容 CUDA 11.8
+# 安装命令: pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
+torch==2.0.1
+torchvision==0.15.2
+torchaudio==2.0.2
+
+# ========================================
+# KAN 实现 (HyperGKAN)
+# ========================================
+pykan>=0.2.0
+
+# ========================================
+# 图神经网络 (基线模型)
+# ========================================
+# PyTorch Geometric (与 torch 2.0.1 + CUDA 11.8 匹配)
+torch-geometric==2.3.1
+# PyTorch Scatter - CUDA 11.8 版本
+torch-scatter>=2.1.1
+# PyTorch Sparse - CUDA 11.8 版本
+torch-sparse>=0.6.17
+
+# Deep Graph Library
+dgl==1.0.2
+
+# ========================================
+# 科学计算基础库
+# ========================================
+numpy==1.24.4
+scipy>=1.10.0
+pandas==2.0.0
+
+# ========================================
+# 机器学习工具
+# ========================================
+scikit-learn==1.3.0
+
+# ========================================
+# 数据处理与配置
+# ========================================
+pyyaml>=6.0
+pickle5>=0.0.11
+tqdm>=4.65.0
+
+# ========================================
+# 可视化
+# ========================================
+matplotlib>=3.7.0
+seaborn>=0.12.0
+tensorboard==2.13.0
+tensorboardx==2.2
+
+# ========================================
+# 地理距离计算
+# ========================================
+geopy==2.3.0
+
+# ========================================
+# 图与网络分析
+# ========================================
+networkx>=2.5.1
+einops>=0.6.0
+
+# ========================================
+# 时间序列分析
+# ========================================
+fastdtw==0.3.4
+
+# ========================================
+# 其他工具库
+# ========================================
+tabulate==0.8.9
+statsmodels>=0.13.0
+
+# ========================================
+# 超参数优化
+# ========================================
+hyperopt==0.2.5
+
+# ========================================
+# 注意: 以下包为可选依赖，按需安装
+# ========================================
+# torchdiffeq==0.2.3  # 用于一些微分方程模型
+# infomap             # Windows需要C++编译器, Linux可正常安装
+
+# ========================================
+# 安装说明
+# ========================================
+# 1. 确保安装了 CUDA 11.8:
+#    wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_linux.run
+#    sudo sh cuda_11.8.0_linux.run
+#
+# 2. 安装 PyTorch (CUDA 11.8 版本):
+#    pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
+#
+# 3. 安装 PyTorch Geometric 及扩展:
+#    pip install torch-geometric==2.3.1
+#    pip install torch-scatter torch-sparse -f https://data.pyg.org/whl/torch-2.0.1+cu118.html
+#
+# 4. 安装其他依赖:
+#    pip install -r requirements.txt (跳过已安装的 torch 相关包)
+#
+# 5. 验证安装:
+#    python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))"
+#    python -c "import torch_geometric; print(torch_geometric.__version__)"

@@ -1,0 +1,45 @@
+2025-05-28 14:27:46,751 - INFO - Log directory: ./libcity/log
+2025-05-28 14:27:46,751 - INFO - Begin pipeline, task=MTS_pred, model_name=RNN, dataset_name=cloud, exp_id=cloud_RNN1
+2025-05-28 14:27:46,751 - INFO - {'task': 'MTS_pred', 'model': 'RNN', 'dataset': 'cloud', 'saved_model': False, 'exp_id': 'cloud_RNN1', 'seed': 0, 'dataset_class': 'StatePointDataset', 'executor': 'StateExecutor', 'evaluator': 'StateEvaluator', 'rnn_type': 'RNN', 'hidden_size': 64, 'num_layers': 1, 'dropout': 0, 'bidirectional': False, 'teacher_forcing_ratio': 0, 'scaler': 'standard', 'load_external': False, 'normal_external': False, 'ext_scaler': 'none', 'add_time_in_day': True, 'add_day_in_week': False, 'max_epoch': 100, 'learner': 'adam', 'learning_rate': 0.01, 'lr_decay': True, 'lr_scheduler': 'multisteplr', 'lr_decay_ratio': 0.1, 'steps': [5, 20, 40, 70], 'clip_grad_norm': True, 'max_grad_norm': 5, 'use_early_stop': True, 'patience': 50, 'batch_size': 64, 'cache_dataset': True, 'num_workers': 0, 'pad_with_last_sample': True, 'train_rate': 0.7, 'eval_rate': 0.1, 'input_window': 12, 'output_window': 12, 'robustness_test': False, 'noise_type': 'gaussian', 'disturb_rate': 0.5, 'noise_mean': [5], 'noise_SD': [10], 'gpu': True, 'gpu_id': 0, 'train_loss': 'none', 'epoch': 0, 'weight_decay': 0, 'lr_epsilon': 1e-08, 'lr_beta1': 0.9, 'lr_beta2': 0.999, 'lr_alpha': 0.99, 'lr_momentum': 0, 'step_size': 10, 'lr_T_max': 30, 'lr_eta_min': 0, 'lr_patience': 10, 'lr_threshold': 0.0001, 'log_level': 'INFO', 'log_every': 1, 'load_best_epoch': True, 'hyper_tune': False, 'metrics': ['MAE', 'MAPE', 'RMSE'], 'evaluator_mode': 'single', 'save_mode': ['csv'], 'geo': {'including_types': ['Point'], 'Point': {}}, 'rel': {'including_types': ['geo'], 'geo': {'cost': 'num'}}, 'dyna': {'including_types': ['state'], 'state': {'entity_id': 'geo_id', 'traffic_speed': 'num'}}, 'data_col': ['traffic_speed'], 'weight_col': 'cost', 'data_files': ['cloud'], 'geo_file': 'cloud', 'rel_file': 'cloud', 'output_dim': 1, 'time_intervals': 300, 'init_weight_inf_or_zero': 'inf', 'set_weight_link_or_dist': 'dist', 'calculate_weight_adj': True, 'weight_adj_epsilon': 0.1, 'device': device(type='cuda', index=0)}
+2025-05-28 14:27:48,242 - INFO - Loaded file cloud_feature.csv, shape=(3322, 2048, 1)
+2025-05-28 14:27:49,337 - INFO - Dataset created
+2025-05-28 14:27:49,337 - INFO - x shape: (3299, 12, 2048, 1), y shape: (3299, 12, 2048, 1)
+2025-05-28 14:27:49,371 - INFO - train	x: (2309, 12, 2048, 1), y: (2309, 12, 2048, 1)
+2025-05-28 14:27:49,371 - INFO - eval	x: (330, 12, 2048, 1), y: (330, 12, 2048, 1)
+2025-05-28 14:27:49,371 - INFO - test	x: (660, 12, 2048, 1), y: (660, 12, 2048, 1)
+2025-05-28 14:28:52,006 - INFO - Saved at ./libcity/cache/dataset_cache/point_based_cloud_12_12_0.7_0.1_standard_64_False_True_False_True.npz
+2025-05-28 14:28:52,221 - INFO - StandardScaler mean: 0.6730361005208646, std: 0.3631566026517174
+2025-05-28 14:28:52,222 - INFO - NoneScaler
+2025-05-28 14:28:53,470 - INFO - You select rnn_type RNN in RNN!
+2025-05-28 14:28:53,657 - INFO - RNN(
+  (rnn): RNN(2048, 64)
+  (fc): Linear(in_features=64, out_features=2048, bias=True)
+)
+2025-05-28 14:28:53,657 - INFO - rnn.weight_ih_l0	torch.Size([64, 2048])	cuda:0	True
+2025-05-28 14:28:53,657 - INFO - rnn.weight_hh_l0	torch.Size([64, 64])	cuda:0	True
+2025-05-28 14:28:53,658 - INFO - rnn.bias_ih_l0	torch.Size([64])	cuda:0	True
+2025-05-28 14:28:53,658 - INFO - rnn.bias_hh_l0	torch.Size([64])	cuda:0	True
+2025-05-28 14:28:53,658 - INFO - fc.weight	torch.Size([2048, 64])	cuda:0	True
+2025-05-28 14:28:53,658 - INFO - fc.bias	torch.Size([2048])	cuda:0	True
+2025-05-28 14:28:53,658 - INFO - Total parameter numbers: 268416
+2025-05-28 14:28:53,658 - INFO - You select `adam` optimizer.
+2025-05-28 14:28:54,820 - INFO - You select `multisteplr` lr_scheduler.
+2025-05-28 14:28:54,820 - WARNING - Received none train loss func and will use the loss func defined in the model.
+2025-05-28 14:28:54,820 - INFO - Loaded model at ./libcity/cache/cloud_RNN1/model_cache/RNN_cloud.m
+2025-05-28 14:28:54,847 - INFO - Start evaluating ...
+2025-05-28 14:28:58,769 - INFO - Note that you select the single mode to evaluate!
+2025-05-28 14:28:58,773 - INFO - Evaluate result is saved at ./libcity/cache/cloud_RNN1/evaluate_cache\2025_05_28_14_28_58_RNN_cloud.csv
+2025-05-28 14:28:58,778 - INFO - 
+         MAE      MAPE      RMSE
+1   0.220814  8.081309  0.322878
+2   0.220677  8.224268  0.322726
+3   0.220668  8.123173  0.322672
+4   0.220530  8.118055  0.322451
+5   0.220491  8.085112  0.322432
+6   0.220508  8.058860  0.322490
+7   0.220565  8.037972  0.322578
+8   0.220598  8.008836  0.322620
+9   0.220654  7.994892  0.322694
+10  0.220653  7.969160  0.322686
+11  0.220588  7.961898  0.322597
+12  0.220554  7.947447  0.322547

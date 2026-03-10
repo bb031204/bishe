@@ -1,0 +1,26 @@
+# Core Dependencies
+torch>=2.0.0
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# KAN Implementation
+pykan>=0.2.0
+
+# Graph & Spatial
+scikit-learn>=1.3.0
+
+# Data Processing
+pyyaml>=6.0
+pickle5>=0.0.11
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Utilities
+tqdm>=4.65.0
+tensorboard>=2.13.0
+
+# Optional: Geospatial distance calculation
+geopy>=2.3.0

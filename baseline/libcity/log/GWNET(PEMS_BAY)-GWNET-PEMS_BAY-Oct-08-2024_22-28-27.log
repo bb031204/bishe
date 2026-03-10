@@ -1,0 +1,289 @@
+2024-10-08 22:28:27,446 - INFO - Log directory: ./libcity/log
+2024-10-08 22:28:27,446 - INFO - Begin pipeline, task=MTS_pred, model_name=GWNET, dataset_name=PEMS_BAY, exp_id=GWNET(PEMS_BAY)
+2024-10-08 22:28:27,446 - INFO - {'task': 'MTS_pred', 'model': 'GWNET', 'dataset': 'PEMS_BAY', 'saved_model': True, 'exp_id': 'GWNET(PEMS_BAY)', 'seed': 0, 'batch_size': 32, 'max_epoch': 60, 'dataset_class': 'StatePointDataset', 'executor': 'StateExecutor', 'evaluator': 'StateEvaluator', 'dropout': 0.3, 'blocks': 4, 'layers': 2, 'apt_layer': True, 'gcn_bool': True, 'addaptadj': True, 'adjtype': 'doubletransition', 'bidir_adj_mx': False, 'randomadj': True, 'aptonly': True, 'kernel_size': 2, 'nhid': 32, 'residual_channels': 32, 'dilation_channels': 32, 'skip_channels': 256, 'end_channels': 512, 'scaler': 'standard', 'load_external': False, 'normal_external': False, 'ext_scaler': 'none', 'add_time_in_day': False, 'add_day_in_week': False, 'learner': 'adam', 'learning_rate': 0.001, 'lr_decay': False, 'clip_grad_norm': True, 'max_grad_norm': 5, 'use_early_stop': False, 'cache_dataset': True, 'num_workers': 0, 'pad_with_last_sample': True, 'train_rate': 0.7, 'eval_rate': 0.1, 'input_window': 12, 'output_window': 12, 'robustness_test': False, 'noise_type': 'gaussian', 'disturb_rate': 0.5, 'noise_mean': [5], 'noise_SD': [10], 'gpu': True, 'gpu_id': 0, 'train_loss': 'none', 'epoch': 0, 'weight_decay': 0, 'lr_epsilon': 1e-08, 'lr_beta1': 0.9, 'lr_beta2': 0.999, 'lr_alpha': 0.99, 'lr_momentum': 0, 'lr_scheduler': 'multisteplr', 'lr_decay_ratio': 0.1, 'steps': [5, 20, 40, 70], 'step_size': 10, 'lr_T_max': 30, 'lr_eta_min': 0, 'lr_patience': 10, 'lr_threshold': 0.0001, 'patience': 50, 'log_level': 'INFO', 'log_every': 1, 'load_best_epoch': True, 'hyper_tune': False, 'metrics': ['MAE', 'MAPE', 'RMSE'], 'evaluator_mode': 'single', 'save_mode': ['csv'], 'geo': {'including_types': ['Point'], 'Point': {}}, 'rel': {'including_types': ['geo'], 'geo': {'cost': 'num'}}, 'dyna': {'including_types': ['state'], 'state': {'entity_id': 'geo_id', 'traffic_speed': 'num'}}, 'data_col': ['traffic_speed'], 'weight_col': 'cost', 'data_files': ['PEMS_BAY'], 'geo_file': 'PEMS_BAY', 'rel_file': 'PEMS_BAY', 'output_dim': 1, 'time_intervals': 300, 'init_weight_inf_or_zero': 'inf', 'set_weight_link_or_dist': 'dist', 'calculate_weight_adj': True, 'weight_adj_epsilon': 0.1, 'device': device(type='cuda', index=0)}
+2024-10-08 22:28:28,108 - INFO - Loaded file PEMS_BAY_feature.csv, shape=(52116, 325, 1)
+2024-10-08 22:28:30,709 - INFO - Dataset created
+2024-10-08 22:28:30,709 - INFO - x shape: (52093, 12, 325, 1), y shape: (52093, 12, 325, 1)
+2024-10-08 22:28:30,718 - INFO - train	x: (36465, 12, 325, 1), y: (36465, 12, 325, 1)
+2024-10-08 22:28:30,718 - INFO - eval	x: (5209, 12, 325, 1), y: (5209, 12, 325, 1)
+2024-10-08 22:28:30,718 - INFO - test	x: (10419, 12, 325, 1), y: (10419, 12, 325, 1)
+2024-10-08 22:29:22,627 - INFO - Saved at ./libcity/cache/dataset_cache/point_based_PEMS_BAY_12_12_0.7_0.1_standard_32_False_False_False_True.npz
+2024-10-08 22:29:23,038 - INFO - StandardScaler mean: 62.73567651594296, std: 9.438173664359947
+2024-10-08 22:29:23,038 - INFO - NoneScaler
+2024-10-08 22:29:25,838 - INFO - receptive_field: 13
+2024-10-08 22:29:25,885 - INFO - GWNET(
+  (filter_convs): ModuleList(
+    (0): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (1): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (2): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (3): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (4): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (5): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (6): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (7): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+  )
+  (gate_convs): ModuleList(
+    (0): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (1): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (2): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (3): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (4): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (5): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (6): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (7): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+  )
+  (residual_convs): ModuleList(
+    (0-7): 8 x Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (skip_convs): ModuleList(
+    (0-7): 8 x Conv2d(32, 256, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (bn): ModuleList(
+    (0-7): 8 x BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (gconv): ModuleList(
+    (0-7): 8 x GCN(
+      (nconv): NConv()
+      (mlp): Linear(
+        (mlp): Conv2d(96, 32, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+  )
+  (start_conv): Conv2d(1, 32, kernel_size=(1, 1), stride=(1, 1))
+  (end_conv_1): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1))
+  (end_conv_2): Conv2d(512, 12, kernel_size=(1, 1), stride=(1, 1))
+)
+2024-10-08 22:29:25,886 - INFO - nodevec1	torch.Size([325, 10])	cuda:0	True
+2024-10-08 22:29:25,886 - INFO - nodevec2	torch.Size([10, 325])	cuda:0	True
+2024-10-08 22:29:25,886 - INFO - filter_convs.0.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,886 - INFO - filter_convs.0.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,886 - INFO - filter_convs.1.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,886 - INFO - filter_convs.1.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,886 - INFO - filter_convs.2.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,886 - INFO - filter_convs.2.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,886 - INFO - filter_convs.3.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,886 - INFO - filter_convs.3.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,886 - INFO - filter_convs.4.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,886 - INFO - filter_convs.4.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - filter_convs.5.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - filter_convs.5.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - filter_convs.6.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - filter_convs.6.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - filter_convs.7.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - filter_convs.7.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.0.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.0.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.1.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.1.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.2.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.2.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.3.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.3.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.4.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.4.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.5.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.5.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.6.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.6.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.7.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - gate_convs.7.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - residual_convs.0.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - residual_convs.0.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - residual_convs.1.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,887 - INFO - residual_convs.1.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - residual_convs.2.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - residual_convs.2.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - residual_convs.3.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - residual_convs.3.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - residual_convs.4.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - residual_convs.4.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - residual_convs.5.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - residual_convs.5.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - residual_convs.6.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - residual_convs.6.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - residual_convs.7.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - residual_convs.7.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.0.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.0.bias	torch.Size([256])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.1.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.1.bias	torch.Size([256])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.2.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.2.bias	torch.Size([256])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.3.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.3.bias	torch.Size([256])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.4.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.4.bias	torch.Size([256])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.5.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.5.bias	torch.Size([256])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.6.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,888 - INFO - skip_convs.6.bias	torch.Size([256])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - skip_convs.7.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - skip_convs.7.bias	torch.Size([256])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.0.weight	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.0.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.1.weight	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.1.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.2.weight	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.2.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.3.weight	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.3.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.4.weight	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.4.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.5.weight	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.5.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.6.weight	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.6.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.7.weight	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - bn.7.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - gconv.0.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - gconv.0.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - gconv.1.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - gconv.1.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - gconv.2.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - gconv.2.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,889 - INFO - gconv.3.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - gconv.3.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - gconv.4.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - gconv.4.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - gconv.5.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - gconv.5.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - gconv.6.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - gconv.6.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - gconv.7.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - gconv.7.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - start_conv.weight	torch.Size([32, 1, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - start_conv.bias	torch.Size([32])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - end_conv_1.weight	torch.Size([512, 256, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - end_conv_1.bias	torch.Size([512])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - end_conv_2.weight	torch.Size([12, 512, 1, 1])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - end_conv_2.bias	torch.Size([12])	cuda:0	True
+2024-10-08 22:29:25,890 - INFO - Total parameter numbers: 278960
+2024-10-08 22:29:25,890 - INFO - You select `adam` optimizer.
+2024-10-08 22:29:26,320 - WARNING - Received none train loss func and will use the loss func defined in the model.
+2024-10-08 22:29:26,320 - INFO - Start training ...
+2024-10-08 22:29:26,320 - INFO - num_batches:1140
+2024-10-08 22:31:10,835 - INFO - epoch complete!
+2024-10-08 22:31:10,835 - INFO - evaluating now!
+2024-10-08 22:31:20,106 - INFO - Epoch [0/60] train_loss: 2.0072, val_loss: 2.0036, lr: 0.001000, 113.79s
+2024-10-08 22:31:20,167 - INFO - Saved model at 0
+2024-10-08 22:31:20,167 - INFO - Val loss decrease from inf to 2.0036, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch0.tar
+2024-10-08 22:33:03,993 - INFO - epoch complete!
+2024-10-08 22:33:03,993 - INFO - evaluating now!
+2024-10-08 22:33:13,217 - INFO - Epoch [1/60] train_loss: 1.8222, val_loss: 1.9407, lr: 0.001000, 113.05s
+2024-10-08 22:33:13,241 - INFO - Saved model at 1
+2024-10-08 22:33:13,241 - INFO - Val loss decrease from 2.0036 to 1.9407, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch1.tar
+2024-10-08 22:34:57,086 - INFO - epoch complete!
+2024-10-08 22:34:57,086 - INFO - evaluating now!
+2024-10-08 22:35:06,246 - INFO - Epoch [2/60] train_loss: 1.7529, val_loss: 1.8671, lr: 0.001000, 113.00s
+2024-10-08 22:35:06,271 - INFO - Saved model at 2
+2024-10-08 22:35:06,271 - INFO - Val loss decrease from 1.9407 to 1.8671, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch2.tar
+2024-10-08 22:36:50,174 - INFO - epoch complete!
+2024-10-08 22:36:50,174 - INFO - evaluating now!
+2024-10-08 22:36:59,253 - INFO - Epoch [3/60] train_loss: 1.7131, val_loss: 1.8443, lr: 0.001000, 112.98s
+2024-10-08 22:36:59,274 - INFO - Saved model at 3
+2024-10-08 22:36:59,274 - INFO - Val loss decrease from 1.8671 to 1.8443, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch3.tar
+2024-10-08 22:38:43,333 - INFO - epoch complete!
+2024-10-08 22:38:43,333 - INFO - evaluating now!
+2024-10-08 22:38:52,654 - INFO - Epoch [4/60] train_loss: 1.6853, val_loss: 1.7936, lr: 0.001000, 113.38s
+2024-10-08 22:38:52,676 - INFO - Saved model at 4
+2024-10-08 22:38:52,676 - INFO - Val loss decrease from 1.8443 to 1.7936, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch4.tar
+2024-10-08 22:40:36,742 - INFO - epoch complete!
+2024-10-08 22:40:36,742 - INFO - evaluating now!
+2024-10-08 22:40:46,084 - INFO - Epoch [5/60] train_loss: 1.6597, val_loss: 1.8030, lr: 0.001000, 113.41s
+2024-10-08 22:42:30,156 - INFO - epoch complete!
+2024-10-08 22:42:30,156 - INFO - evaluating now!
+2024-10-08 22:42:39,404 - INFO - Epoch [6/60] train_loss: 1.6412, val_loss: 1.7571, lr: 0.001000, 113.32s
+2024-10-08 22:42:39,428 - INFO - Saved model at 6
+2024-10-08 22:42:39,428 - INFO - Val loss decrease from 1.7936 to 1.7571, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch6.tar
+2024-10-08 22:44:23,364 - INFO - epoch complete!
+2024-10-08 22:44:23,364 - INFO - evaluating now!
+2024-10-08 22:44:32,712 - INFO - Epoch [7/60] train_loss: 1.6231, val_loss: 1.7496, lr: 0.001000, 113.28s
+2024-10-08 22:44:32,772 - INFO - Saved model at 7
+2024-10-08 22:44:32,772 - INFO - Val loss decrease from 1.7571 to 1.7496, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch7.tar
+2024-10-08 22:46:16,492 - INFO - epoch complete!
+2024-10-08 22:46:16,492 - INFO - evaluating now!
+2024-10-08 22:46:25,794 - INFO - Epoch [8/60] train_loss: 1.6102, val_loss: 1.7313, lr: 0.001000, 113.02s
+2024-10-08 22:46:25,815 - INFO - Saved model at 8
+2024-10-08 22:46:25,815 - INFO - Val loss decrease from 1.7496 to 1.7313, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch8.tar
+2024-10-08 22:48:09,968 - INFO - epoch complete!
+2024-10-08 22:48:09,969 - INFO - evaluating now!
+2024-10-08 22:48:19,255 - INFO - Epoch [9/60] train_loss: 1.5990, val_loss: 1.7248, lr: 0.001000, 113.44s
+2024-10-08 22:48:19,280 - INFO - Saved model at 9
+2024-10-08 22:48:19,280 - INFO - Val loss decrease from 1.7313 to 1.7248, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch9.tar
+2024-10-08 22:50:03,211 - INFO - epoch complete!
+2024-10-08 22:50:03,211 - INFO - evaluating now!
+2024-10-08 22:50:12,513 - INFO - Epoch [10/60] train_loss: 1.5871, val_loss: 1.7222, lr: 0.001000, 113.23s
+2024-10-08 22:50:12,534 - INFO - Saved model at 10
+2024-10-08 22:50:12,534 - INFO - Val loss decrease from 1.7248 to 1.7222, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch10.tar
+2024-10-08 22:51:56,570 - INFO - epoch complete!
+2024-10-08 22:51:56,570 - INFO - evaluating now!
+2024-10-08 22:52:05,663 - INFO - Epoch [11/60] train_loss: 1.5785, val_loss: 1.7135, lr: 0.001000, 113.13s
+2024-10-08 22:52:05,688 - INFO - Saved model at 11
+2024-10-08 22:52:05,688 - INFO - Val loss decrease from 1.7222 to 1.7135, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch11.tar
+2024-10-08 22:53:49,374 - INFO - epoch complete!
+2024-10-08 22:53:49,374 - INFO - evaluating now!
+2024-10-08 22:53:58,558 - INFO - Epoch [12/60] train_loss: 1.5691, val_loss: 1.7169, lr: 0.001000, 112.87s
+2024-10-08 22:55:42,562 - INFO - epoch complete!
+2024-10-08 22:55:42,563 - INFO - evaluating now!
+2024-10-08 22:55:52,090 - INFO - Epoch [13/60] train_loss: 1.5618, val_loss: 1.7141, lr: 0.001000, 113.53s
+2024-10-08 22:57:36,077 - INFO - epoch complete!
+2024-10-08 22:57:36,077 - INFO - evaluating now!
+2024-10-08 22:57:45,354 - INFO - Epoch [14/60] train_loss: 1.5522, val_loss: 1.6760, lr: 0.001000, 113.26s
+2024-10-08 22:57:45,375 - INFO - Saved model at 14
+2024-10-08 22:57:45,375 - INFO - Val loss decrease from 1.7135 to 1.6760, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch14.tar
+2024-10-08 22:59:29,532 - INFO - epoch complete!
+2024-10-08 22:59:29,532 - INFO - evaluating now!
+2024-10-08 22:59:38,808 - INFO - Epoch [15/60] train_loss: 1.5452, val_loss: 1.6726, lr: 0.001000, 113.43s
+2024-10-08 22:59:38,833 - INFO - Saved model at 15
+2024-10-08 22:59:38,833 - INFO - Val loss decrease from 1.6760 to 1.6726, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch15.tar
+2024-10-08 23:01:23,056 - INFO - epoch complete!
+2024-10-08 23:01:23,056 - INFO - evaluating now!
+2024-10-08 23:01:32,390 - INFO - Epoch [16/60] train_loss: 1.5416, val_loss: 1.6755, lr: 0.001000, 113.56s
+2024-10-08 23:03:16,441 - INFO - epoch complete!
+2024-10-08 23:03:16,441 - INFO - evaluating now!
+2024-10-08 23:03:25,761 - INFO - Epoch [17/60] train_loss: 1.5345, val_loss: 1.6659, lr: 0.001000, 113.37s
+2024-10-08 23:03:25,786 - INFO - Saved model at 17
+2024-10-08 23:03:25,786 - INFO - Val loss decrease from 1.6726 to 1.6659, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch17.tar
+2024-10-08 23:05:10,155 - INFO - epoch complete!
+2024-10-08 23:05:10,155 - INFO - evaluating now!
+2024-10-08 23:05:19,442 - INFO - Epoch [18/60] train_loss: 1.5298, val_loss: 1.6672, lr: 0.001000, 113.66s
+2024-10-08 23:07:03,683 - INFO - epoch complete!
+2024-10-08 23:07:03,684 - INFO - evaluating now!
+2024-10-08 23:07:12,950 - INFO - Epoch [19/60] train_loss: 1.5219, val_loss: 1.6644, lr: 0.001000, 113.51s
+2024-10-08 23:07:12,975 - INFO - Saved model at 19
+2024-10-08 23:07:12,975 - INFO - Val loss decrease from 1.6659 to 1.6644, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch19.tar
+2024-10-08 23:08:56,868 - INFO - epoch complete!
+2024-10-08 23:08:56,869 - INFO - evaluating now!
+2024-10-08 23:09:05,944 - INFO - Epoch [20/60] train_loss: 1.5196, val_loss: 1.6674, lr: 0.001000, 112.97s
+2024-10-08 23:10:50,146 - INFO - epoch complete!
+2024-10-08 23:10:50,146 - INFO - evaluating now!
+2024-10-08 23:10:59,500 - INFO - Epoch [21/60] train_loss: 1.5162, val_loss: 1.6646, lr: 0.001000, 113.56s
+2024-10-08 23:12:43,711 - INFO - epoch complete!
+2024-10-08 23:12:43,711 - INFO - evaluating now!
+2024-10-08 23:12:52,960 - INFO - Epoch [22/60] train_loss: 1.5108, val_loss: 1.6493, lr: 0.001000, 113.46s
+2024-10-08 23:12:52,981 - INFO - Saved model at 22
+2024-10-08 23:12:52,982 - INFO - Val loss decrease from 1.6644 to 1.6493, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch22.tar
+2024-10-08 23:14:37,074 - INFO - epoch complete!
+2024-10-08 23:14:37,074 - INFO - evaluating now!
+2024-10-08 23:14:46,328 - INFO - Epoch [23/60] train_loss: 1.5074, val_loss: 1.6534, lr: 0.001000, 113.35s
+2024-10-08 23:16:30,314 - INFO - epoch complete!
+2024-10-08 23:16:30,314 - INFO - evaluating now!
+2024-10-08 23:16:39,582 - INFO - Epoch [24/60] train_loss: 1.5043, val_loss: 1.6449, lr: 0.001000, 113.25s
+2024-10-08 23:16:39,603 - INFO - Saved model at 24
+2024-10-08 23:16:39,603 - INFO - Val loss decrease from 1.6493 to 1.6449, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch24.tar
+2024-10-08 23:18:23,662 - INFO - epoch complete!
+2024-10-08 23:18:23,662 - INFO - evaluating now!
+2024-10-08 23:18:32,995 - INFO - Epoch [25/60] train_loss: 1.5011, val_loss: 1.6461, lr: 0.001000, 113.39s
+2024-10-08 23:20:13,296 - INFO - epoch complete!
+2024-10-08 23:20:13,296 - INFO - evaluating now!
+2024-10-08 23:20:22,494 - INFO - Epoch [26/60] train_loss: 1.4985, val_loss: 1.6405, lr: 0.001000, 109.50s
+2024-10-08 23:20:22,515 - INFO - Saved model at 26
+2024-10-08 23:20:22,515 - INFO - Val loss decrease from 1.6449 to 1.6405, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch26.tar
+2024-10-08 23:22:01,444 - INFO - epoch complete!
+2024-10-08 23:22:01,445 - INFO - evaluating now!
+2024-10-08 23:22:10,633 - INFO - Epoch [27/60] train_loss: 1.4958, val_loss: 1.6490, lr: 0.001000, 108.12s
+2024-10-08 23:23:49,670 - INFO - epoch complete!
+2024-10-08 23:23:49,670 - INFO - evaluating now!
+2024-10-08 23:23:58,815 - INFO - Epoch [28/60] train_loss: 1.4926, val_loss: 1.6381, lr: 0.001000, 108.18s
+2024-10-08 23:23:58,836 - INFO - Saved model at 28
+2024-10-08 23:23:58,836 - INFO - Val loss decrease from 1.6405 to 1.6381, saving to ./libcity/cache/GWNET(PEMS_BAY)/model_cache/GWNET_PEMS_BAY_epoch28.tar

@@ -1,0 +1,15 @@
+{
+  "hidden_size": 64,
+  "num_layers": 2,
+  "dropout": 0.3,
+  "lr": 0.001,
+  "G_method": "mtgnn",
+  "G_k": 3,
+  "G_dim": 10,
+  "G_alpha": 3,
+  "T_ks": [2, 3, 6, 7],
+  "T_dilation": 1,
+  "R_routing": ["T", "S", "T"],
+  "mid_channel": 64,
+  "batch_size": 32
+}

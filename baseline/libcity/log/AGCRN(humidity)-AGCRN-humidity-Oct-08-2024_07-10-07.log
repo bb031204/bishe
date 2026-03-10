@@ -1,0 +1,240 @@
+2024-10-08 07:10:07,179 - INFO - Log directory: ./libcity/log
+2024-10-08 07:10:07,180 - INFO - Begin pipeline, task=MTS_pred, model_name=AGCRN, dataset_name=humidity, exp_id=AGCRN(humidity)
+2024-10-08 07:10:07,180 - INFO - {'task': 'MTS_pred', 'model': 'AGCRN', 'dataset': 'humidity', 'saved_model': True, 'exp_id': 'AGCRN(humidity)', 'seed': 0, 'batch_size': 64, 'max_epoch': 60, 'dataset_class': 'StatePointDataset', 'executor': 'StateExecutor', 'evaluator': 'StateEvaluator', 'embed_dim': 10, 'rnn_units': 64, 'num_layers': 2, 'cheb_order': 2, 'bidir_adj_mx': True, 'scaler': 'standard', 'load_external': False, 'normal_external': False, 'ext_scaler': 'none', 'add_time_in_day': False, 'add_day_in_week': False, 'learner': 'adam', 'learning_rate': 0.003, 'lr_decay': False, 'clip_grad_norm': False, 'use_early_stop': True, 'patience': 50, 'cache_dataset': True, 'num_workers': 0, 'pad_with_last_sample': True, 'train_rate': 0.7, 'eval_rate': 0.1, 'input_window': 12, 'output_window': 12, 'robustness_test': False, 'noise_type': 'gaussian', 'disturb_rate': 0.5, 'noise_mean': [5], 'noise_SD': [10], 'gpu': True, 'gpu_id': 0, 'train_loss': 'none', 'epoch': 0, 'weight_decay': 0, 'lr_epsilon': 1e-08, 'lr_beta1': 0.9, 'lr_beta2': 0.999, 'lr_alpha': 0.99, 'lr_momentum': 0, 'lr_scheduler': 'multisteplr', 'lr_decay_ratio': 0.1, 'steps': [5, 20, 40, 70], 'step_size': 10, 'lr_T_max': 30, 'lr_eta_min': 0, 'lr_patience': 10, 'lr_threshold': 0.0001, 'max_grad_norm': 1.0, 'log_level': 'INFO', 'log_every': 1, 'load_best_epoch': True, 'hyper_tune': False, 'metrics': ['MAE', 'MAPE', 'RMSE'], 'evaluator_mode': 'single', 'save_mode': ['csv'], 'geo': {'including_types': ['Point'], 'Point': {}}, 'rel': {'including_types': ['geo'], 'geo': {'cost': 'num'}}, 'dyna': {'including_types': ['state'], 'state': {'entity_id': 'geo_id', 'traffic_speed': 'num'}}, 'data_col': ['traffic_speed'], 'weight_col': 'cost', 'data_files': ['humidity'], 'geo_file': 'humidity', 'rel_file': 'humidity', 'output_dim': 1, 'time_intervals': 300, 'init_weight_inf_or_zero': 'inf', 'set_weight_link_or_dist': 'dist', 'calculate_weight_adj': True, 'weight_adj_epsilon': 0.1, 'device': device(type='cuda', index=0)}
+2024-10-08 07:10:08,943 - INFO - Loaded file humidity_feature.csv, shape=(3322, 2048, 1)
+2024-10-08 07:10:09,794 - INFO - Dataset created
+2024-10-08 07:10:09,795 - INFO - x shape: (3299, 12, 2048, 1), y shape: (3299, 12, 2048, 1)
+2024-10-08 07:10:09,798 - INFO - train	x: (2309, 12, 2048, 1), y: (2309, 12, 2048, 1)
+2024-10-08 07:10:09,798 - INFO - eval	x: (330, 12, 2048, 1), y: (330, 12, 2048, 1)
+2024-10-08 07:10:09,798 - INFO - test	x: (660, 12, 2048, 1), y: (660, 12, 2048, 1)
+2024-10-08 07:11:49,919 - INFO - Saved at ./libcity/cache/dataset_cache/point_based_humidity_12_12_0.7_0.1_standard_64_False_False_False_True.npz
+2024-10-08 07:11:50,090 - INFO - StandardScaler mean: 78.66855544535464, std: 17.406175498267864
+2024-10-08 07:11:50,091 - INFO - NoneScaler
+2024-10-08 07:11:50,979 - INFO - AGCRN(
+  (encoder): AVWDCRNN(
+    (dcrnn_cells): ModuleList(
+      (0-1): 2 x AGCRNCell(
+        (gate): AVWGCN()
+        (update): AVWGCN()
+      )
+    )
+  )
+  (end_conv): Conv2d(1, 12, kernel_size=(1, 64), stride=(1, 1))
+)
+2024-10-08 07:11:50,979 - INFO - node_embeddings	torch.Size([2048, 10])	cuda:0	True
+2024-10-08 07:11:50,979 - INFO - encoder.dcrnn_cells.0.gate.weights_pool	torch.Size([10, 2, 65, 128])	cuda:0	True
+2024-10-08 07:11:50,979 - INFO - encoder.dcrnn_cells.0.gate.bias_pool	torch.Size([10, 128])	cuda:0	True
+2024-10-08 07:11:50,979 - INFO - encoder.dcrnn_cells.0.update.weights_pool	torch.Size([10, 2, 65, 64])	cuda:0	True
+2024-10-08 07:11:50,979 - INFO - encoder.dcrnn_cells.0.update.bias_pool	torch.Size([10, 64])	cuda:0	True
+2024-10-08 07:11:50,979 - INFO - encoder.dcrnn_cells.1.gate.weights_pool	torch.Size([10, 2, 128, 128])	cuda:0	True
+2024-10-08 07:11:50,980 - INFO - encoder.dcrnn_cells.1.gate.bias_pool	torch.Size([10, 128])	cuda:0	True
+2024-10-08 07:11:50,980 - INFO - encoder.dcrnn_cells.1.update.weights_pool	torch.Size([10, 2, 128, 64])	cuda:0	True
+2024-10-08 07:11:50,980 - INFO - encoder.dcrnn_cells.1.update.bias_pool	torch.Size([10, 64])	cuda:0	True
+2024-10-08 07:11:50,980 - INFO - end_conv.weight	torch.Size([12, 1, 1, 64])	cuda:0	True
+2024-10-08 07:11:50,980 - INFO - end_conv.bias	torch.Size([12])	cuda:0	True
+2024-10-08 07:11:50,980 - INFO - Total parameter numbers: 766220
+2024-10-08 07:11:50,980 - INFO - You select `adam` optimizer.
+2024-10-08 07:11:51,396 - WARNING - Received none train loss func and will use the loss func defined in the model.
+2024-10-08 07:11:51,396 - INFO - Start training ...
+2024-10-08 07:11:51,396 - INFO - num_batches:37
+2024-10-08 07:12:17,485 - INFO - epoch complete!
+2024-10-08 07:12:17,485 - INFO - evaluating now!
+2024-10-08 07:12:19,578 - INFO - Epoch [0/60] train_loss: 11.7048, val_loss: 9.2409, lr: 0.003000, 28.18s
+2024-10-08 07:12:19,588 - INFO - Saved model at 0
+2024-10-08 07:12:19,588 - INFO - Val loss decrease from inf to 9.2409, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch0.tar
+2024-10-08 07:12:45,234 - INFO - epoch complete!
+2024-10-08 07:12:45,234 - INFO - evaluating now!
+2024-10-08 07:12:47,342 - INFO - Epoch [1/60] train_loss: 8.8350, val_loss: 8.4323, lr: 0.003000, 27.75s
+2024-10-08 07:12:47,352 - INFO - Saved model at 1
+2024-10-08 07:12:47,352 - INFO - Val loss decrease from 9.2409 to 8.4323, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch1.tar
+2024-10-08 07:13:13,217 - INFO - epoch complete!
+2024-10-08 07:13:13,217 - INFO - evaluating now!
+2024-10-08 07:13:15,315 - INFO - Epoch [2/60] train_loss: 8.4201, val_loss: 8.2912, lr: 0.003000, 27.96s
+2024-10-08 07:13:15,324 - INFO - Saved model at 2
+2024-10-08 07:13:15,325 - INFO - Val loss decrease from 8.4323 to 8.2912, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch2.tar
+2024-10-08 07:13:41,028 - INFO - epoch complete!
+2024-10-08 07:13:41,028 - INFO - evaluating now!
+2024-10-08 07:13:43,132 - INFO - Epoch [3/60] train_loss: 8.3235, val_loss: 8.2363, lr: 0.003000, 27.81s
+2024-10-08 07:13:43,142 - INFO - Saved model at 3
+2024-10-08 07:13:43,142 - INFO - Val loss decrease from 8.2912 to 8.2363, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch3.tar
+2024-10-08 07:14:08,882 - INFO - epoch complete!
+2024-10-08 07:14:08,882 - INFO - evaluating now!
+2024-10-08 07:14:10,988 - INFO - Epoch [4/60] train_loss: 8.2863, val_loss: 8.2040, lr: 0.003000, 27.85s
+2024-10-08 07:14:10,998 - INFO - Saved model at 4
+2024-10-08 07:14:10,998 - INFO - Val loss decrease from 8.2363 to 8.2040, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch4.tar
+2024-10-08 07:14:36,754 - INFO - epoch complete!
+2024-10-08 07:14:36,754 - INFO - evaluating now!
+2024-10-08 07:14:38,864 - INFO - Epoch [5/60] train_loss: 8.2642, val_loss: 8.1806, lr: 0.003000, 27.87s
+2024-10-08 07:14:38,874 - INFO - Saved model at 5
+2024-10-08 07:14:38,874 - INFO - Val loss decrease from 8.2040 to 8.1806, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch5.tar
+2024-10-08 07:15:04,648 - INFO - epoch complete!
+2024-10-08 07:15:04,648 - INFO - evaluating now!
+2024-10-08 07:15:06,759 - INFO - Epoch [6/60] train_loss: 8.2463, val_loss: 8.1599, lr: 0.003000, 27.89s
+2024-10-08 07:15:06,769 - INFO - Saved model at 6
+2024-10-08 07:15:06,769 - INFO - Val loss decrease from 8.1806 to 8.1599, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch6.tar
+2024-10-08 07:15:32,510 - INFO - epoch complete!
+2024-10-08 07:15:32,511 - INFO - evaluating now!
+2024-10-08 07:15:34,621 - INFO - Epoch [7/60] train_loss: 8.2240, val_loss: 8.1528, lr: 0.003000, 27.85s
+2024-10-08 07:15:34,630 - INFO - Saved model at 7
+2024-10-08 07:15:34,631 - INFO - Val loss decrease from 8.1599 to 8.1528, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch7.tar
+2024-10-08 07:16:00,414 - INFO - epoch complete!
+2024-10-08 07:16:00,415 - INFO - evaluating now!
+2024-10-08 07:16:02,522 - INFO - Epoch [8/60] train_loss: 8.2036, val_loss: 8.1403, lr: 0.003000, 27.89s
+2024-10-08 07:16:02,532 - INFO - Saved model at 8
+2024-10-08 07:16:02,532 - INFO - Val loss decrease from 8.1528 to 8.1403, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch8.tar
+2024-10-08 07:16:28,312 - INFO - epoch complete!
+2024-10-08 07:16:28,312 - INFO - evaluating now!
+2024-10-08 07:16:30,425 - INFO - Epoch [9/60] train_loss: 8.1862, val_loss: 8.1470, lr: 0.003000, 27.89s
+2024-10-08 07:16:56,217 - INFO - epoch complete!
+2024-10-08 07:16:56,217 - INFO - evaluating now!
+2024-10-08 07:16:58,331 - INFO - Epoch [10/60] train_loss: 8.1735, val_loss: 8.1297, lr: 0.003000, 27.91s
+2024-10-08 07:16:58,342 - INFO - Saved model at 10
+2024-10-08 07:16:58,342 - INFO - Val loss decrease from 8.1403 to 8.1297, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch10.tar
+2024-10-08 07:17:24,119 - INFO - epoch complete!
+2024-10-08 07:17:24,119 - INFO - evaluating now!
+2024-10-08 07:17:26,228 - INFO - Epoch [11/60] train_loss: 8.1598, val_loss: 8.1186, lr: 0.003000, 27.89s
+2024-10-08 07:17:26,238 - INFO - Saved model at 11
+2024-10-08 07:17:26,238 - INFO - Val loss decrease from 8.1297 to 8.1186, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch11.tar
+2024-10-08 07:17:52,018 - INFO - epoch complete!
+2024-10-08 07:17:52,018 - INFO - evaluating now!
+2024-10-08 07:17:54,126 - INFO - Epoch [12/60] train_loss: 8.1370, val_loss: 8.1123, lr: 0.003000, 27.89s
+2024-10-08 07:17:54,136 - INFO - Saved model at 12
+2024-10-08 07:17:54,136 - INFO - Val loss decrease from 8.1186 to 8.1123, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch12.tar
+2024-10-08 07:18:19,909 - INFO - epoch complete!
+2024-10-08 07:18:19,909 - INFO - evaluating now!
+2024-10-08 07:18:22,018 - INFO - Epoch [13/60] train_loss: 8.1172, val_loss: 8.0944, lr: 0.003000, 27.88s
+2024-10-08 07:18:22,028 - INFO - Saved model at 13
+2024-10-08 07:18:22,028 - INFO - Val loss decrease from 8.1123 to 8.0944, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch13.tar
+2024-10-08 07:18:47,810 - INFO - epoch complete!
+2024-10-08 07:18:47,810 - INFO - evaluating now!
+2024-10-08 07:18:49,917 - INFO - Epoch [14/60] train_loss: 8.1071, val_loss: 8.0718, lr: 0.003000, 27.89s
+2024-10-08 07:18:49,927 - INFO - Saved model at 14
+2024-10-08 07:18:49,927 - INFO - Val loss decrease from 8.0944 to 8.0718, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch14.tar
+2024-10-08 07:19:15,699 - INFO - epoch complete!
+2024-10-08 07:19:15,699 - INFO - evaluating now!
+2024-10-08 07:19:17,818 - INFO - Epoch [15/60] train_loss: 8.0770, val_loss: 8.0479, lr: 0.003000, 27.89s
+2024-10-08 07:19:17,827 - INFO - Saved model at 15
+2024-10-08 07:19:17,828 - INFO - Val loss decrease from 8.0718 to 8.0479, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch15.tar
+2024-10-08 07:19:43,607 - INFO - epoch complete!
+2024-10-08 07:19:43,607 - INFO - evaluating now!
+2024-10-08 07:19:45,715 - INFO - Epoch [16/60] train_loss: 8.0566, val_loss: 8.0481, lr: 0.003000, 27.89s
+2024-10-08 07:20:11,494 - INFO - epoch complete!
+2024-10-08 07:20:11,494 - INFO - evaluating now!
+2024-10-08 07:20:13,601 - INFO - Epoch [17/60] train_loss: 8.0497, val_loss: 8.0322, lr: 0.003000, 27.89s
+2024-10-08 07:20:13,611 - INFO - Saved model at 17
+2024-10-08 07:20:13,611 - INFO - Val loss decrease from 8.0479 to 8.0322, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch17.tar
+2024-10-08 07:20:39,382 - INFO - epoch complete!
+2024-10-08 07:20:39,382 - INFO - evaluating now!
+2024-10-08 07:20:41,496 - INFO - Epoch [18/60] train_loss: 8.0367, val_loss: 8.0326, lr: 0.003000, 27.89s
+2024-10-08 07:21:07,289 - INFO - epoch complete!
+2024-10-08 07:21:07,290 - INFO - evaluating now!
+2024-10-08 07:21:09,400 - INFO - Epoch [19/60] train_loss: 8.0328, val_loss: 8.0258, lr: 0.003000, 27.90s
+2024-10-08 07:21:09,409 - INFO - Saved model at 19
+2024-10-08 07:21:09,409 - INFO - Val loss decrease from 8.0322 to 8.0258, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch19.tar
+2024-10-08 07:21:35,255 - INFO - epoch complete!
+2024-10-08 07:21:35,256 - INFO - evaluating now!
+2024-10-08 07:21:37,371 - INFO - Epoch [20/60] train_loss: 8.0199, val_loss: 8.0024, lr: 0.003000, 27.96s
+2024-10-08 07:21:37,380 - INFO - Saved model at 20
+2024-10-08 07:21:37,380 - INFO - Val loss decrease from 8.0258 to 8.0024, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch20.tar
+2024-10-08 07:22:03,201 - INFO - epoch complete!
+2024-10-08 07:22:03,202 - INFO - evaluating now!
+2024-10-08 07:22:05,314 - INFO - Epoch [21/60] train_loss: 8.0066, val_loss: 7.9995, lr: 0.003000, 27.93s
+2024-10-08 07:22:05,324 - INFO - Saved model at 21
+2024-10-08 07:22:05,324 - INFO - Val loss decrease from 8.0024 to 7.9995, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch21.tar
+2024-10-08 07:22:31,132 - INFO - epoch complete!
+2024-10-08 07:22:31,132 - INFO - evaluating now!
+2024-10-08 07:22:33,242 - INFO - Epoch [22/60] train_loss: 7.9940, val_loss: 7.9917, lr: 0.003000, 27.92s
+2024-10-08 07:22:33,251 - INFO - Saved model at 22
+2024-10-08 07:22:33,251 - INFO - Val loss decrease from 7.9995 to 7.9917, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch22.tar
+2024-10-08 07:22:59,072 - INFO - epoch complete!
+2024-10-08 07:22:59,072 - INFO - evaluating now!
+2024-10-08 07:23:01,184 - INFO - Epoch [23/60] train_loss: 7.9818, val_loss: 7.9796, lr: 0.003000, 27.93s
+2024-10-08 07:23:01,194 - INFO - Saved model at 23
+2024-10-08 07:23:01,194 - INFO - Val loss decrease from 7.9917 to 7.9796, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch23.tar
+2024-10-08 07:23:27,017 - INFO - epoch complete!
+2024-10-08 07:23:27,017 - INFO - evaluating now!
+2024-10-08 07:23:29,132 - INFO - Epoch [24/60] train_loss: 7.9666, val_loss: 7.9625, lr: 0.003000, 27.94s
+2024-10-08 07:23:29,142 - INFO - Saved model at 24
+2024-10-08 07:23:29,142 - INFO - Val loss decrease from 7.9796 to 7.9625, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch24.tar
+2024-10-08 07:23:54,970 - INFO - epoch complete!
+2024-10-08 07:23:54,970 - INFO - evaluating now!
+2024-10-08 07:23:57,088 - INFO - Epoch [25/60] train_loss: 7.9450, val_loss: 7.9518, lr: 0.003000, 27.95s
+2024-10-08 07:23:57,098 - INFO - Saved model at 25
+2024-10-08 07:23:57,098 - INFO - Val loss decrease from 7.9625 to 7.9518, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch25.tar
+2024-10-08 07:24:22,923 - INFO - epoch complete!
+2024-10-08 07:24:22,923 - INFO - evaluating now!
+2024-10-08 07:24:25,039 - INFO - Epoch [26/60] train_loss: 7.9290, val_loss: 7.9440, lr: 0.003000, 27.94s
+2024-10-08 07:24:25,048 - INFO - Saved model at 26
+2024-10-08 07:24:25,048 - INFO - Val loss decrease from 7.9518 to 7.9440, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch26.tar
+2024-10-08 07:24:50,857 - INFO - epoch complete!
+2024-10-08 07:24:50,857 - INFO - evaluating now!
+2024-10-08 07:24:52,967 - INFO - Epoch [27/60] train_loss: 7.9213, val_loss: 7.9422, lr: 0.003000, 27.92s
+2024-10-08 07:24:52,976 - INFO - Saved model at 27
+2024-10-08 07:24:52,976 - INFO - Val loss decrease from 7.9440 to 7.9422, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch27.tar
+2024-10-08 07:25:18,769 - INFO - epoch complete!
+2024-10-08 07:25:18,770 - INFO - evaluating now!
+2024-10-08 07:25:20,883 - INFO - Epoch [28/60] train_loss: 7.9076, val_loss: 7.9341, lr: 0.003000, 27.91s
+2024-10-08 07:25:20,893 - INFO - Saved model at 28
+2024-10-08 07:25:20,893 - INFO - Val loss decrease from 7.9422 to 7.9341, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch28.tar
+2024-10-08 07:25:46,702 - INFO - epoch complete!
+2024-10-08 07:25:46,703 - INFO - evaluating now!
+2024-10-08 07:25:48,814 - INFO - Epoch [29/60] train_loss: 7.9024, val_loss: 7.9371, lr: 0.003000, 27.92s
+2024-10-08 07:26:14,622 - INFO - epoch complete!
+2024-10-08 07:26:14,622 - INFO - evaluating now!
+2024-10-08 07:26:16,733 - INFO - Epoch [30/60] train_loss: 7.8941, val_loss: 7.9343, lr: 0.003000, 27.92s
+2024-10-08 07:26:42,564 - INFO - epoch complete!
+2024-10-08 07:26:42,564 - INFO - evaluating now!
+2024-10-08 07:26:44,676 - INFO - Epoch [31/60] train_loss: 7.8883, val_loss: 7.9127, lr: 0.003000, 27.94s
+2024-10-08 07:26:44,686 - INFO - Saved model at 31
+2024-10-08 07:26:44,686 - INFO - Val loss decrease from 7.9341 to 7.9127, saving to ./libcity/cache/AGCRN(humidity)/model_cache/AGCRN_humidity_epoch31.tar
+2024-10-08 07:27:10,485 - INFO - epoch complete!
+2024-10-08 07:27:10,486 - INFO - evaluating now!
+2024-10-08 07:27:12,599 - INFO - Epoch [32/60] train_loss: 7.8833, val_loss: 7.9136, lr: 0.003000, 27.91s
+2024-10-08 07:27:38,432 - INFO - epoch complete!
+2024-10-08 07:27:38,432 - INFO - evaluating now!
+2024-10-08 07:27:40,542 - INFO - Epoch [33/60] train_loss: 7.8770, val_loss: 7.9354, lr: 0.003000, 27.94s
+2024-10-08 07:28:06,384 - INFO - epoch complete!
+2024-10-08 07:28:06,384 - INFO - evaluating now!
+2024-10-08 07:28:08,494 - INFO - Epoch [34/60] train_loss: 7.8751, val_loss: 7.9286, lr: 0.003000, 27.95s
+2024-10-08 07:28:34,317 - INFO - epoch complete!
+2024-10-08 07:28:34,318 - INFO - evaluating now!
+2024-10-08 07:28:36,428 - INFO - Epoch [35/60] train_loss: 7.8709, val_loss: 7.9423, lr: 0.003000, 27.93s
+2024-10-08 07:29:02,271 - INFO - epoch complete!
+2024-10-08 07:29:02,271 - INFO - evaluating now!
+2024-10-08 07:29:04,384 - INFO - Epoch [36/60] train_loss: 7.8668, val_loss: 7.9426, lr: 0.003000, 27.96s
+2024-10-08 07:29:30,253 - INFO - epoch complete!
+2024-10-08 07:29:30,254 - INFO - evaluating now!
+2024-10-08 07:29:32,365 - INFO - Epoch [37/60] train_loss: 7.8671, val_loss: 7.9234, lr: 0.003000, 27.98s
+2024-10-08 07:29:58,194 - INFO - epoch complete!
+2024-10-08 07:29:58,194 - INFO - evaluating now!
+2024-10-08 07:30:00,307 - INFO - Epoch [38/60] train_loss: 7.8609, val_loss: 7.9342, lr: 0.003000, 27.94s
+2024-10-08 07:30:26,136 - INFO - epoch complete!
+2024-10-08 07:30:26,136 - INFO - evaluating now!
+2024-10-08 07:30:28,250 - INFO - Epoch [39/60] train_loss: 7.8565, val_loss: 7.9300, lr: 0.003000, 27.94s
+2024-10-08 07:30:54,096 - INFO - epoch complete!
+2024-10-08 07:30:54,097 - INFO - evaluating now!
+2024-10-08 07:30:56,214 - INFO - Epoch [40/60] train_loss: 7.8563, val_loss: 7.9274, lr: 0.003000, 27.96s
+2024-10-08 07:31:22,046 - INFO - epoch complete!
+2024-10-08 07:31:22,046 - INFO - evaluating now!
+2024-10-08 07:31:24,160 - INFO - Epoch [41/60] train_loss: 7.8522, val_loss: 7.9314, lr: 0.003000, 27.95s
+2024-10-08 07:31:49,999 - INFO - epoch complete!
+2024-10-08 07:31:50,000 - INFO - evaluating now!
+2024-10-08 07:31:52,121 - INFO - Epoch [42/60] train_loss: 7.8498, val_loss: 7.9401, lr: 0.003000, 27.96s
+2024-10-08 07:32:17,958 - INFO - epoch complete!
+2024-10-08 07:32:17,959 - INFO - evaluating now!
+2024-10-08 07:32:20,071 - INFO - Epoch [43/60] train_loss: 7.8461, val_loss: 7.9216, lr: 0.003000, 27.95s
+2024-10-08 07:32:45,905 - INFO - epoch complete!
+2024-10-08 07:32:45,905 - INFO - evaluating now!
+2024-10-08 07:32:48,021 - INFO - Epoch [44/60] train_loss: 7.8409, val_loss: 7.9395, lr: 0.003000, 27.95s
+2024-10-08 07:33:13,872 - INFO - epoch complete!
+2024-10-08 07:33:13,873 - INFO - evaluating now!
+2024-10-08 07:33:15,995 - INFO - Epoch [45/60] train_loss: 7.8394, val_loss: 7.9685, lr: 0.003000, 27.97s
+2024-10-08 07:33:41,872 - INFO - epoch complete!
+2024-10-08 07:33:41,872 - INFO - evaluating now!
+2024-10-08 07:33:43,993 - INFO - Epoch [46/60] train_loss: 7.8391, val_loss: 7.9418, lr: 0.003000, 28.00s
+2024-10-08 07:34:09,840 - INFO - epoch complete!
+2024-10-08 07:34:09,840 - INFO - evaluating now!
+2024-10-08 07:34:11,954 - INFO - Epoch [47/60] train_loss: 7.8329, val_loss: 7.9435, lr: 0.003000, 27.96s
+2024-10-08 07:34:37,786 - INFO - epoch complete!
+2024-10-08 07:34:37,786 - INFO - evaluating now!
+2024-10-08 07:34:39,896 - INFO - Epoch [48/60] train_loss: 7.8276, val_loss: 7.9377, lr: 0.003000, 27.94s

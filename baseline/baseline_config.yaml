@@ -1,0 +1,70 @@
+# ========================================
+# Baseline Models 统一配置文件
+# 用于气象预测对比实验 (与 HyperGKAN 对齐)
+# ========================================
+
+# 🔥 数据集选择（严格互斥：每次只能有一个为 true）
+dataset_selection:
+  Temperature: false     # 温度 (K→°C, output_dim=1)
+  Cloud: false          # 云量 (fraction [0,1], output_dim=1)
+  Humidity: false     # 湿度 (%, output_dim=1)
+  Wind: true            # 风速 (m/s, u+v分量, output_dim=2)
+
+# 🔥 基线模型选择（可同时选择多个，批量跑）
+models:
+  - STGCN
+  - GWNET
+ # - AGCRN
+ # - ASTGCN
+  - GRU
+  - LSTM
+  - STGNN
+
+# 全局设置
+global:
+  seed: 42
+  device: "cuda"        # cuda / cpu
+  gpu_id: 0
+
+# 🔥 Context特征选择（8个特征的独立开关）
+# 这些特征将与数据集特征拼接后参与训练
+# True: 使用该特征; False: 不使用该特征
+context_features:
+  use_longitude: true    # 经度
+  use_latitude: true     # 纬度
+  use_altitude: true     # 海拔
+  use_year: true         # 年份
+  use_month: true        # 月份
+  use_day: true          # 日期
+  use_hour: true         # 小时
+  use_region: false      # 区域标志（气候区域）
+
+# 🔥 站点采样 (空间维度采样)
+# 从所有站点中随机选择指定数量的站点进行训练
+# - 每个站点仍保持完整的时间序列(12帧)
+# - 不影响时序特征提取
+# - 采样越少，训练越快，但可能降低预测精度
+# - 服务器满血版: null=使用全部站点(2048)
+num_stations: null  # null=使用全部站点, 或设置如 512, 1024
+
+# 🔥 样本采样 (样本维度采样，按比例)
+# 从训练/验证/测试集中按比例随机选择样本
+# - 与站点采样不同，这是在样本数量维度采样
+# - 每个样本仍包含所有站点（或采样后的站点）
+# - 可用于快速实验和调试
+# - 例如: sample_ratio=0.5 表示使用50%的样本
+train_sample_ratio: 1.0  # 1.0=使用全部训练样本, 0.5=使用50%
+val_sample_ratio: 1.0     # 1.0=使用全部验证样本
+test_sample_ratio: 1.0    # 1.0=使用全部测试样本
+
+# 训练配置
+training:
+  batch_size: 32          # 16GB显存推荐32 (配合梯度累积)
+  accumulation_steps: 2   # 梯度累积步数, 有效batch_size = batch_size * accumulation_steps = 64
+  max_epoch: 100
+  use_early_stop: true
+  patience: 10
+
+# 输出配置
+output:
+  base_dir: "./outputs"

@@ -1,0 +1,39 @@
+2024-10-08 15:11:21,133 - INFO - Log directory: ./libcity/log
+2024-10-08 15:11:21,133 - INFO - Begin pipeline, task=MTS_pred, model_name=AGCRN, dataset_name=cloud, exp_id=9227
+2024-10-08 15:11:21,133 - INFO - {'task': 'MTS_pred', 'model': 'AGCRN', 'dataset': 'cloud', 'saved_model': True, 'exp_id': '9227', 'seed': 0, 'batch_size': 1, 'max_epoch': 100, 'dataset_class': 'StatePointDataset', 'executor': 'StateExecutor', 'evaluator': 'StateEvaluator', 'embed_dim': 10, 'rnn_units': 64, 'num_layers': 2, 'cheb_order': 2, 'bidir_adj_mx': True, 'scaler': 'standard', 'load_external': False, 'normal_external': False, 'ext_scaler': 'none', 'add_time_in_day': False, 'add_day_in_week': False, 'learner': 'adam', 'learning_rate': 0.003, 'lr_decay': False, 'clip_grad_norm': False, 'use_early_stop': True, 'patience': 50, 'cache_dataset': True, 'num_workers': 0, 'pad_with_last_sample': True, 'train_rate': 0.7, 'eval_rate': 0.1, 'input_window': 12, 'output_window': 12, 'robustness_test': False, 'noise_type': 'gaussian', 'disturb_rate': 0.5, 'noise_mean': [5], 'noise_SD': [10], 'gpu': True, 'gpu_id': 0, 'train_loss': 'none', 'epoch': 0, 'weight_decay': 0, 'lr_epsilon': 1e-08, 'lr_beta1': 0.9, 'lr_beta2': 0.999, 'lr_alpha': 0.99, 'lr_momentum': 0, 'lr_scheduler': 'multisteplr', 'lr_decay_ratio': 0.1, 'steps': [5, 20, 40, 70], 'step_size': 10, 'lr_T_max': 30, 'lr_eta_min': 0, 'lr_patience': 10, 'lr_threshold': 0.0001, 'max_grad_norm': 1.0, 'log_level': 'INFO', 'log_every': 1, 'load_best_epoch': True, 'hyper_tune': False, 'metrics': ['MAE', 'MAPE', 'RMSE'], 'evaluator_mode': 'single', 'save_mode': ['csv'], 'geo': {'including_types': ['Point'], 'Point': {}}, 'rel': {'including_types': ['geo'], 'geo': {'cost': 'num'}}, 'dyna': {'including_types': ['state'], 'state': {'entity_id': 'geo_id', 'traffic_speed': 'num'}}, 'data_col': ['traffic_speed'], 'weight_col': 'cost', 'data_files': ['cloud'], 'geo_file': 'cloud', 'rel_file': 'cloud', 'output_dim': 1, 'time_intervals': 300, 'init_weight_inf_or_zero': 'inf', 'set_weight_link_or_dist': 'dist', 'calculate_weight_adj': True, 'weight_adj_epsilon': 0.1, 'device': device(type='cuda', index=0)}
+2024-10-08 15:11:23,355 - INFO - Loaded file cloud_feature.csv, shape=(3322, 2048, 1)
+2024-10-08 15:11:24,428 - INFO - Dataset created
+2024-10-08 15:11:24,428 - INFO - x shape: (3299, 12, 2048, 1), y shape: (3299, 12, 2048, 1)
+2024-10-08 15:11:24,433 - INFO - train	x: (2309, 12, 2048, 1), y: (2309, 12, 2048, 1)
+2024-10-08 15:11:24,433 - INFO - eval	x: (330, 12, 2048, 1), y: (330, 12, 2048, 1)
+2024-10-08 15:11:24,433 - INFO - test	x: (660, 12, 2048, 1), y: (660, 12, 2048, 1)
+2024-10-08 15:12:50,324 - INFO - Saved at ./libcity/cache/dataset_cache/point_based_cloud_12_12_0.7_0.1_standard_1_False_False_False_True.npz
+2024-10-08 15:12:50,585 - INFO - StandardScaler mean: 0.6730361005208646, std: 0.3631566026517174
+2024-10-08 15:12:50,585 - INFO - NoneScaler
+2024-10-08 15:12:51,888 - INFO - AGCRN(
+  (encoder): AVWDCRNN(
+    (dcrnn_cells): ModuleList(
+      (0-1): 2 x AGCRNCell(
+        (gate): AVWGCN()
+        (update): AVWGCN()
+      )
+    )
+  )
+  (end_conv): Conv2d(1, 12, kernel_size=(1, 64), stride=(1, 1))
+)
+2024-10-08 15:12:51,888 - INFO - node_embeddings	torch.Size([2048, 10])	cuda:0	True
+2024-10-08 15:12:51,888 - INFO - encoder.dcrnn_cells.0.gate.weights_pool	torch.Size([10, 2, 65, 128])	cuda:0	True
+2024-10-08 15:12:51,888 - INFO - encoder.dcrnn_cells.0.gate.bias_pool	torch.Size([10, 128])	cuda:0	True
+2024-10-08 15:12:51,889 - INFO - encoder.dcrnn_cells.0.update.weights_pool	torch.Size([10, 2, 65, 64])	cuda:0	True
+2024-10-08 15:12:51,889 - INFO - encoder.dcrnn_cells.0.update.bias_pool	torch.Size([10, 64])	cuda:0	True
+2024-10-08 15:12:51,889 - INFO - encoder.dcrnn_cells.1.gate.weights_pool	torch.Size([10, 2, 128, 128])	cuda:0	True
+2024-10-08 15:12:51,889 - INFO - encoder.dcrnn_cells.1.gate.bias_pool	torch.Size([10, 128])	cuda:0	True
+2024-10-08 15:12:51,889 - INFO - encoder.dcrnn_cells.1.update.weights_pool	torch.Size([10, 2, 128, 64])	cuda:0	True
+2024-10-08 15:12:51,889 - INFO - encoder.dcrnn_cells.1.update.bias_pool	torch.Size([10, 64])	cuda:0	True
+2024-10-08 15:12:51,889 - INFO - end_conv.weight	torch.Size([12, 1, 1, 64])	cuda:0	True
+2024-10-08 15:12:51,889 - INFO - end_conv.bias	torch.Size([12])	cuda:0	True
+2024-10-08 15:12:51,889 - INFO - Total parameter numbers: 766220
+2024-10-08 15:12:51,890 - INFO - You select `adam` optimizer.
+2024-10-08 15:12:52,393 - WARNING - Received none train loss func and will use the loss func defined in the model.
+2024-10-08 15:12:52,393 - INFO - Start training ...
+2024-10-08 15:12:52,393 - INFO - num_batches:2309

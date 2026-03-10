@@ -1,0 +1,140 @@
+2024-10-07 21:00:54,868 - INFO - Log directory: ./libcity/log
+2024-10-07 21:00:54,868 - INFO - Begin pipeline, task=MTS_pred, model_name=AGCRN, dataset_name=PEMS_BAY, exp_id=AGCRN(PEMS_BAY)
+2024-10-07 21:00:54,868 - INFO - {'task': 'MTS_pred', 'model': 'AGCRN', 'dataset': 'PEMS_BAY', 'saved_model': True, 'exp_id': 'AGCRN(PEMS_BAY)', 'seed': 0, 'batch_size': 64, 'max_epoch': 60, 'dataset_class': 'StatePointDataset', 'executor': 'StateExecutor', 'evaluator': 'StateEvaluator', 'embed_dim': 10, 'rnn_units': 64, 'num_layers': 2, 'cheb_order': 2, 'bidir_adj_mx': True, 'scaler': 'standard', 'load_external': False, 'normal_external': False, 'ext_scaler': 'none', 'add_time_in_day': False, 'add_day_in_week': False, 'learner': 'adam', 'learning_rate': 0.003, 'lr_decay': False, 'clip_grad_norm': False, 'use_early_stop': True, 'patience': 50, 'cache_dataset': True, 'num_workers': 0, 'pad_with_last_sample': True, 'train_rate': 0.7, 'eval_rate': 0.1, 'input_window': 12, 'output_window': 12, 'robustness_test': False, 'noise_type': 'gaussian', 'disturb_rate': 0.5, 'noise_mean': [5], 'noise_SD': [10], 'gpu': True, 'gpu_id': 0, 'train_loss': 'none', 'epoch': 0, 'weight_decay': 0, 'lr_epsilon': 1e-08, 'lr_beta1': 0.9, 'lr_beta2': 0.999, 'lr_alpha': 0.99, 'lr_momentum': 0, 'lr_scheduler': 'multisteplr', 'lr_decay_ratio': 0.1, 'steps': [5, 20, 40, 70], 'step_size': 10, 'lr_T_max': 30, 'lr_eta_min': 0, 'lr_patience': 10, 'lr_threshold': 0.0001, 'max_grad_norm': 1.0, 'log_level': 'INFO', 'log_every': 1, 'load_best_epoch': True, 'hyper_tune': False, 'metrics': ['MAE', 'MAPE', 'RMSE'], 'evaluator_mode': 'single', 'save_mode': ['csv'], 'geo': {'including_types': ['Point'], 'Point': {}}, 'rel': {'including_types': ['geo'], 'geo': {'cost': 'num'}}, 'dyna': {'including_types': ['state'], 'state': {'entity_id': 'geo_id', 'traffic_speed': 'num'}}, 'data_col': ['traffic_speed'], 'weight_col': 'cost', 'data_files': ['PEMS_BAY'], 'geo_file': 'PEMS_BAY', 'rel_file': 'PEMS_BAY', 'output_dim': 1, 'time_intervals': 300, 'init_weight_inf_or_zero': 'inf', 'set_weight_link_or_dist': 'dist', 'calculate_weight_adj': True, 'weight_adj_epsilon': 0.1, 'device': device(type='cuda', index=0)}
+2024-10-07 21:00:55,652 - INFO - Loaded file PEMS_BAY_feature.csv, shape=(52116, 325, 1)
+2024-10-07 21:00:59,179 - INFO - Dataset created
+2024-10-07 21:00:59,180 - INFO - x shape: (52093, 12, 325, 1), y shape: (52093, 12, 325, 1)
+2024-10-07 21:00:59,192 - INFO - train	x: (36465, 12, 325, 1), y: (36465, 12, 325, 1)
+2024-10-07 21:00:59,193 - INFO - eval	x: (5209, 12, 325, 1), y: (5209, 12, 325, 1)
+2024-10-07 21:00:59,193 - INFO - test	x: (10419, 12, 325, 1), y: (10419, 12, 325, 1)
+2024-10-07 21:01:52,292 - INFO - Saved at ./libcity/cache/dataset_cache/point_based_PEMS_BAY_12_12_0.7_0.1_standard_64_False_False_False_True.npz
+2024-10-07 21:01:52,705 - INFO - StandardScaler mean: 62.73567651594296, std: 9.438173664359947
+2024-10-07 21:01:52,705 - INFO - NoneScaler
+2024-10-07 21:01:55,092 - INFO - AGCRN(
+  (encoder): AVWDCRNN(
+    (dcrnn_cells): ModuleList(
+      (0-1): 2 x AGCRNCell(
+        (gate): AVWGCN()
+        (update): AVWGCN()
+      )
+    )
+  )
+  (end_conv): Conv2d(1, 12, kernel_size=(1, 64), stride=(1, 1))
+)
+2024-10-07 21:01:55,092 - INFO - node_embeddings	torch.Size([325, 10])	cuda:0	True
+2024-10-07 21:01:55,092 - INFO - encoder.dcrnn_cells.0.gate.weights_pool	torch.Size([10, 2, 65, 128])	cuda:0	True
+2024-10-07 21:01:55,092 - INFO - encoder.dcrnn_cells.0.gate.bias_pool	torch.Size([10, 128])	cuda:0	True
+2024-10-07 21:01:55,092 - INFO - encoder.dcrnn_cells.0.update.weights_pool	torch.Size([10, 2, 65, 64])	cuda:0	True
+2024-10-07 21:01:55,092 - INFO - encoder.dcrnn_cells.0.update.bias_pool	torch.Size([10, 64])	cuda:0	True
+2024-10-07 21:01:55,092 - INFO - encoder.dcrnn_cells.1.gate.weights_pool	torch.Size([10, 2, 128, 128])	cuda:0	True
+2024-10-07 21:01:55,092 - INFO - encoder.dcrnn_cells.1.gate.bias_pool	torch.Size([10, 128])	cuda:0	True
+2024-10-07 21:01:55,092 - INFO - encoder.dcrnn_cells.1.update.weights_pool	torch.Size([10, 2, 128, 64])	cuda:0	True
+2024-10-07 21:01:55,092 - INFO - encoder.dcrnn_cells.1.update.bias_pool	torch.Size([10, 64])	cuda:0	True
+2024-10-07 21:01:55,092 - INFO - end_conv.weight	torch.Size([12, 1, 1, 64])	cuda:0	True
+2024-10-07 21:01:55,092 - INFO - end_conv.bias	torch.Size([12])	cuda:0	True
+2024-10-07 21:01:55,092 - INFO - Total parameter numbers: 748990
+2024-10-07 21:01:55,092 - INFO - You select `adam` optimizer.
+2024-10-07 21:01:55,535 - WARNING - Received none train loss func and will use the loss func defined in the model.
+2024-10-07 21:01:55,535 - INFO - Start training ...
+2024-10-07 21:01:55,535 - INFO - num_batches:570
+2024-10-07 21:03:51,207 - INFO - epoch complete!
+2024-10-07 21:03:51,208 - INFO - evaluating now!
+2024-10-07 21:04:01,978 - INFO - Epoch [0/60] train_loss: 2.1526, val_loss: 1.9919, lr: 0.003000, 126.44s
+2024-10-07 21:04:01,988 - INFO - Saved model at 0
+2024-10-07 21:04:01,989 - INFO - Val loss decrease from inf to 1.9919, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch0.tar
+2024-10-07 21:07:10,050 - INFO - epoch complete!
+2024-10-07 21:07:10,051 - INFO - evaluating now!
+2024-10-07 21:07:29,896 - INFO - Epoch [1/60] train_loss: 1.7223, val_loss: 1.8198, lr: 0.003000, 207.91s
+2024-10-07 21:07:29,906 - INFO - Saved model at 1
+2024-10-07 21:07:29,907 - INFO - Val loss decrease from 1.9919 to 1.8198, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch1.tar
+2024-10-07 21:10:44,798 - INFO - epoch complete!
+2024-10-07 21:10:44,799 - INFO - evaluating now!
+2024-10-07 21:11:05,267 - INFO - Epoch [2/60] train_loss: 1.6285, val_loss: 1.7580, lr: 0.003000, 215.36s
+2024-10-07 21:11:05,283 - INFO - Saved model at 2
+2024-10-07 21:11:05,284 - INFO - Val loss decrease from 1.8198 to 1.7580, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch2.tar
+2024-10-07 21:15:11,052 - INFO - epoch complete!
+2024-10-07 21:15:11,053 - INFO - evaluating now!
+2024-10-07 21:15:29,020 - INFO - Epoch [3/60] train_loss: 1.5806, val_loss: 1.7161, lr: 0.003000, 263.74s
+2024-10-07 21:15:29,031 - INFO - Saved model at 3
+2024-10-07 21:15:29,031 - INFO - Val loss decrease from 1.7580 to 1.7161, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch3.tar
+2024-10-07 21:18:32,089 - INFO - epoch complete!
+2024-10-07 21:18:32,090 - INFO - evaluating now!
+2024-10-07 21:18:57,819 - INFO - Epoch [4/60] train_loss: 1.5459, val_loss: 1.7045, lr: 0.003000, 208.79s
+2024-10-07 21:18:57,833 - INFO - Saved model at 4
+2024-10-07 21:18:57,834 - INFO - Val loss decrease from 1.7161 to 1.7045, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch4.tar
+2024-10-07 21:22:58,825 - INFO - epoch complete!
+2024-10-07 21:22:58,826 - INFO - evaluating now!
+2024-10-07 21:23:24,324 - INFO - Epoch [5/60] train_loss: 1.5212, val_loss: 1.6845, lr: 0.003000, 266.49s
+2024-10-07 21:23:24,337 - INFO - Saved model at 5
+2024-10-07 21:23:24,337 - INFO - Val loss decrease from 1.7045 to 1.6845, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch5.tar
+2024-10-07 21:26:28,747 - INFO - epoch complete!
+2024-10-07 21:26:28,748 - INFO - evaluating now!
+2024-10-07 21:26:48,495 - INFO - Epoch [6/60] train_loss: 1.4983, val_loss: 1.6708, lr: 0.003000, 204.16s
+2024-10-07 21:26:48,512 - INFO - Saved model at 6
+2024-10-07 21:26:48,513 - INFO - Val loss decrease from 1.6845 to 1.6708, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch6.tar
+2024-10-07 21:30:28,204 - INFO - epoch complete!
+2024-10-07 21:30:28,214 - INFO - evaluating now!
+2024-10-07 21:31:01,422 - INFO - Epoch [7/60] train_loss: 1.4765, val_loss: 1.6462, lr: 0.003000, 252.91s
+2024-10-07 21:31:01,472 - INFO - Saved model at 7
+2024-10-07 21:31:01,472 - INFO - Val loss decrease from 1.6708 to 1.6462, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch7.tar
+2024-10-07 21:35:48,003 - INFO - epoch complete!
+2024-10-07 21:35:48,009 - INFO - evaluating now!
+2024-10-07 21:36:18,245 - INFO - Epoch [8/60] train_loss: 1.4583, val_loss: 1.6469, lr: 0.003000, 316.77s
+2024-10-07 21:41:07,488 - INFO - epoch complete!
+2024-10-07 21:41:07,489 - INFO - evaluating now!
+2024-10-07 21:41:46,851 - INFO - Epoch [9/60] train_loss: 1.4395, val_loss: 1.6366, lr: 0.003000, 328.60s
+2024-10-07 21:41:46,926 - INFO - Saved model at 9
+2024-10-07 21:41:46,929 - INFO - Val loss decrease from 1.6462 to 1.6366, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch9.tar
+2024-10-07 21:48:32,981 - INFO - epoch complete!
+2024-10-07 21:48:32,987 - INFO - evaluating now!
+2024-10-07 21:49:13,058 - INFO - Epoch [10/60] train_loss: 1.4262, val_loss: 1.6336, lr: 0.003000, 446.13s
+2024-10-07 21:49:13,115 - INFO - Saved model at 10
+2024-10-07 21:49:13,127 - INFO - Val loss decrease from 1.6366 to 1.6336, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch10.tar
+2024-10-07 21:56:37,033 - INFO - epoch complete!
+2024-10-07 21:56:37,033 - INFO - evaluating now!
+2024-10-07 21:57:17,637 - INFO - Epoch [11/60] train_loss: 1.4112, val_loss: 1.6387, lr: 0.003000, 484.51s
+2024-10-07 22:03:52,022 - INFO - epoch complete!
+2024-10-07 22:03:52,025 - INFO - evaluating now!
+2024-10-07 22:04:33,099 - INFO - Epoch [12/60] train_loss: 1.3985, val_loss: 1.6302, lr: 0.003000, 435.46s
+2024-10-07 22:04:33,159 - INFO - Saved model at 12
+2024-10-07 22:04:33,159 - INFO - Val loss decrease from 1.6336 to 1.6302, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch12.tar
+2024-10-07 22:11:12,843 - INFO - epoch complete!
+2024-10-07 22:11:12,843 - INFO - evaluating now!
+2024-10-07 22:11:43,753 - INFO - Epoch [13/60] train_loss: 1.3881, val_loss: 1.6285, lr: 0.003000, 430.59s
+2024-10-07 22:11:43,777 - INFO - Saved model at 13
+2024-10-07 22:11:43,777 - INFO - Val loss decrease from 1.6302 to 1.6285, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch13.tar
+2024-10-07 22:17:51,117 - INFO - epoch complete!
+2024-10-07 22:17:51,122 - INFO - evaluating now!
+2024-10-07 22:18:33,898 - INFO - Epoch [14/60] train_loss: 1.3732, val_loss: 1.6377, lr: 0.003000, 410.12s
+2024-10-07 22:24:49,306 - INFO - epoch complete!
+2024-10-07 22:24:49,309 - INFO - evaluating now!
+2024-10-07 22:25:21,729 - INFO - Epoch [15/60] train_loss: 1.3647, val_loss: 1.6222, lr: 0.003000, 407.83s
+2024-10-07 22:25:21,747 - INFO - Saved model at 15
+2024-10-07 22:25:21,749 - INFO - Val loss decrease from 1.6285 to 1.6222, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch15.tar
+2024-10-07 22:30:40,971 - INFO - epoch complete!
+2024-10-07 22:30:40,972 - INFO - evaluating now!
+2024-10-07 22:31:13,495 - INFO - Epoch [16/60] train_loss: 1.3545, val_loss: 1.6210, lr: 0.003000, 351.75s
+2024-10-07 22:31:13,514 - INFO - Saved model at 16
+2024-10-07 22:31:13,517 - INFO - Val loss decrease from 1.6222 to 1.6210, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch16.tar
+2024-10-07 22:36:55,679 - INFO - epoch complete!
+2024-10-07 22:36:55,679 - INFO - evaluating now!
+2024-10-07 22:37:34,449 - INFO - Epoch [17/60] train_loss: 1.3452, val_loss: 1.6199, lr: 0.003000, 380.93s
+2024-10-07 22:37:34,487 - INFO - Saved model at 17
+2024-10-07 22:37:34,493 - INFO - Val loss decrease from 1.6210 to 1.6199, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch17.tar
+2024-10-07 22:43:40,868 - INFO - epoch complete!
+2024-10-07 22:43:40,868 - INFO - evaluating now!
+2024-10-07 22:44:10,221 - INFO - Epoch [18/60] train_loss: 1.3371, val_loss: 1.6181, lr: 0.003000, 395.73s
+2024-10-07 22:44:10,235 - INFO - Saved model at 18
+2024-10-07 22:44:10,235 - INFO - Val loss decrease from 1.6199 to 1.6181, saving to ./libcity/cache/AGCRN(PEMS_BAY)/model_cache/AGCRN_PEMS_BAY_epoch18.tar
+2024-10-07 22:48:26,005 - INFO - epoch complete!
+2024-10-07 22:48:26,005 - INFO - evaluating now!
+2024-10-07 22:48:49,527 - INFO - Epoch [19/60] train_loss: 1.3295, val_loss: 1.6211, lr: 0.003000, 279.29s
+2024-10-07 22:53:43,569 - INFO - epoch complete!
+2024-10-07 22:53:43,571 - INFO - evaluating now!
+2024-10-07 22:54:13,347 - INFO - Epoch [20/60] train_loss: 1.3219, val_loss: 1.6239, lr: 0.003000, 323.82s
+2024-10-07 22:59:05,758 - INFO - epoch complete!
+2024-10-07 22:59:05,759 - INFO - evaluating now!
+2024-10-07 22:59:37,080 - INFO - Epoch [21/60] train_loss: 1.3139, val_loss: 1.6221, lr: 0.003000, 323.73s
+2024-10-07 23:03:36,186 - INFO - epoch complete!
+2024-10-07 23:03:36,187 - INFO - evaluating now!
+2024-10-07 23:03:59,194 - INFO - Epoch [22/60] train_loss: 1.3078, val_loss: 1.6327, lr: 0.003000, 262.11s

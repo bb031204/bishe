@@ -1,0 +1,68 @@
+{
+    "MTS_pred": {
+        "allowed_model": [
+            "STGCN", "GWNET", "AGCRN", 
+            "ASTGCN", "RNN", "LSTM", "GRU",
+            "GMAN", "HGCN", "STSGCN","STGNN"
+        ],
+        "allowed_dataset": [
+            "METR_LA", "PEMS_BAY", "PEMSD3", "PEMSD4", "PEMSD7", "PEMSD8", "PEMSD7(M)", "humidity", "cloud", "pems_228", "lh", "temperature", "wind"
+        ],
+        "STGCN": {
+            "dataset_class": "StatePointDataset",
+            "executor": "StateExecutor",
+            "evaluator": "StateEvaluator"
+        },
+        "GWNET": {
+            "dataset_class": "StatePointDataset",
+            "executor": "StateExecutor",
+            "evaluator": "StateEvaluator"
+        },
+        "AGCRN": {
+            "dataset_class": "StatePointDataset",
+            "executor": "StateExecutor",
+            "evaluator": "StateEvaluator"
+        },
+        "RNN": {
+            "dataset_class": "StatePointDataset",
+            "executor": "StateExecutor",
+            "evaluator": "StateEvaluator"
+        },
+        "LSTM": {
+            "dataset_class": "StatePointDataset",
+            "executor": "StateExecutor",
+            "evaluator": "StateEvaluator"
+        },
+        "GRU": {
+            "dataset_class": "StatePointDataset",
+            "executor": "StateExecutor",
+            "evaluator": "StateEvaluator"
+        },
+        "ASTGCN": {
+            "dataset_class": "StatePointDataset",
+            "executor": "StateExecutor",
+            "evaluator": "StateEvaluator"
+        },
+        "GMAN": {
+            "dataset_class": "GMANDataset",
+            "executor": "StateExecutor",
+            "evaluator": "StateEvaluator"
+        },
+        "HGCN": {
+            "dataset_class": "HGCNDataset",
+            "executor": "StateExecutor",
+            "evaluator": "StateEvaluator"
+        },
+        "STSGCN": {
+            "dataset_class": "StatePointDataset",
+            "executor": "StateExecutor",
+            "evaluator": "StateEvaluator"
+        },
+        "STGNN": {
+            "dataset_class": "StatePointDataset",
+            "executor": "StateExecutor",
+            "evaluator": "StateEvaluator"
+        }
+        
+    }
+}

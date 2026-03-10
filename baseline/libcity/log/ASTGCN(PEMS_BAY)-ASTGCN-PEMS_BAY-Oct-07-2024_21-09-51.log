@@ -1,0 +1,203 @@
+2024-10-07 21:09:51,912 - INFO - Log directory: ./libcity/log
+2024-10-07 21:09:51,912 - INFO - Begin pipeline, task=MTS_pred, model_name=ASTGCN, dataset_name=PEMS_BAY, exp_id=ASTGCN(PEMS_BAY)
+2024-10-07 21:09:51,912 - INFO - {'task': 'MTS_pred', 'model': 'ASTGCN', 'dataset': 'PEMS_BAY', 'saved_model': True, 'exp_id': 'ASTGCN(PEMS_BAY)', 'seed': 0, 'batch_size': 64, 'max_epoch': 60, 'dataset_class': 'StatePointDataset', 'executor': 'StateExecutor', 'evaluator': 'StateEvaluator', 'nb_block': 2, 'K': 3, 'nb_chev_filter': 64, 'nb_time_filter': 64, 'bidir_adj_mx': True, 'scaler': 'standard', 'load_external': False, 'normal_external': False, 'ext_scaler': 'none', 'add_time_in_day': False, 'add_day_in_week': False, 'train_rate': 0.6, 'eval_rate': 0.2, 'learner': 'adam', 'learning_rate': 0.0001, 'lr_decay': False, 'clip_grad_norm': False, 'use_early_stop': False, 'cache_dataset': True, 'num_workers': 0, 'pad_with_last_sample': True, 'input_window': 12, 'output_window': 12, 'robustness_test': False, 'noise_type': 'gaussian', 'disturb_rate': 0.5, 'noise_mean': [5], 'noise_SD': [10], 'gpu': True, 'gpu_id': 0, 'train_loss': 'none', 'epoch': 0, 'weight_decay': 0, 'lr_epsilon': 1e-08, 'lr_beta1': 0.9, 'lr_beta2': 0.999, 'lr_alpha': 0.99, 'lr_momentum': 0, 'lr_scheduler': 'multisteplr', 'lr_decay_ratio': 0.1, 'steps': [5, 20, 40, 70], 'step_size': 10, 'lr_T_max': 30, 'lr_eta_min': 0, 'lr_patience': 10, 'lr_threshold': 0.0001, 'max_grad_norm': 1.0, 'patience': 50, 'log_level': 'INFO', 'log_every': 1, 'load_best_epoch': True, 'hyper_tune': False, 'metrics': ['MAE', 'MAPE', 'RMSE'], 'evaluator_mode': 'single', 'save_mode': ['csv'], 'geo': {'including_types': ['Point'], 'Point': {}}, 'rel': {'including_types': ['geo'], 'geo': {'cost': 'num'}}, 'dyna': {'including_types': ['state'], 'state': {'entity_id': 'geo_id', 'traffic_speed': 'num'}}, 'data_col': ['traffic_speed'], 'weight_col': 'cost', 'data_files': ['PEMS_BAY'], 'geo_file': 'PEMS_BAY', 'rel_file': 'PEMS_BAY', 'output_dim': 1, 'time_intervals': 300, 'init_weight_inf_or_zero': 'inf', 'set_weight_link_or_dist': 'dist', 'calculate_weight_adj': True, 'weight_adj_epsilon': 0.1, 'device': device(type='cuda', index=0)}
+2024-10-07 21:09:52,637 - INFO - Loaded file PEMS_BAY_feature.csv, shape=(52116, 325, 1)
+2024-10-07 21:09:58,310 - INFO - Dataset created
+2024-10-07 21:09:58,311 - INFO - x shape: (52093, 12, 325, 1), y shape: (52093, 12, 325, 1)
+2024-10-07 21:09:58,406 - INFO - train	x: (31256, 12, 325, 1), y: (31256, 12, 325, 1)
+2024-10-07 21:09:58,407 - INFO - eval	x: (10418, 12, 325, 1), y: (10418, 12, 325, 1)
+2024-10-07 21:09:58,407 - INFO - test	x: (10419, 12, 325, 1), y: (10419, 12, 325, 1)
+2024-10-07 21:10:53,492 - INFO - Saved at ./libcity/cache/dataset_cache/point_based_PEMS_BAY_12_12_0.6_0.2_standard_64_False_False_False_True.npz
+2024-10-07 21:10:53,862 - INFO - StandardScaler mean: 62.74923074872212, std: 9.36532998874915
+2024-10-07 21:10:53,862 - INFO - NoneScaler
+2024-10-07 21:10:57,639 - INFO - ASTGCN(
+  (ASTGCN_submodule): ASTGCNSubmodule(
+    (BlockList): ModuleList(
+      (0): ASTGCNBlock(
+        (TAt): TemporalAttentionLayer()
+        (SAt): SpatialAttentionLayer()
+        (cheb_conv_SAt): ChebConvWithSAt(
+          (Theta): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 1x64 (cuda:0)]
+              (1): Parameter containing: [torch.float32 of size 1x64 (cuda:0)]
+              (2): Parameter containing: [torch.float32 of size 1x64 (cuda:0)]
+          )
+        )
+        (time_conv): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+        (residual_conv): Conv2d(1, 64, kernel_size=(1, 1), stride=(1, 1))
+        (ln): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (1): ASTGCNBlock(
+        (TAt): TemporalAttentionLayer()
+        (SAt): SpatialAttentionLayer()
+        (cheb_conv_SAt): ChebConvWithSAt(
+          (Theta): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 64x64 (cuda:0)]
+              (1): Parameter containing: [torch.float32 of size 64x64 (cuda:0)]
+              (2): Parameter containing: [torch.float32 of size 64x64 (cuda:0)]
+          )
+        )
+        (time_conv): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+        (residual_conv): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+        (ln): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+    (final_conv): Conv2d(12, 12, kernel_size=(1, 64), stride=(1, 1))
+  )
+)
+2024-10-07 21:10:57,640 - INFO - ASTGCN_submodule.BlockList.0.TAt.U1	torch.Size([325])	cuda:0	True
+2024-10-07 21:10:57,640 - INFO - ASTGCN_submodule.BlockList.0.TAt.U2	torch.Size([1, 325])	cuda:0	True
+2024-10-07 21:10:57,640 - INFO - ASTGCN_submodule.BlockList.0.TAt.U3	torch.Size([1])	cuda:0	True
+2024-10-07 21:10:57,640 - INFO - ASTGCN_submodule.BlockList.0.TAt.be	torch.Size([1, 12, 12])	cuda:0	True
+2024-10-07 21:10:57,640 - INFO - ASTGCN_submodule.BlockList.0.TAt.Ve	torch.Size([12, 12])	cuda:0	True
+2024-10-07 21:10:57,641 - INFO - ASTGCN_submodule.BlockList.0.SAt.W1	torch.Size([12])	cuda:0	True
+2024-10-07 21:10:57,641 - INFO - ASTGCN_submodule.BlockList.0.SAt.W2	torch.Size([1, 12])	cuda:0	True
+2024-10-07 21:10:57,641 - INFO - ASTGCN_submodule.BlockList.0.SAt.W3	torch.Size([1])	cuda:0	True
+2024-10-07 21:10:57,641 - INFO - ASTGCN_submodule.BlockList.0.SAt.bs	torch.Size([1, 325, 325])	cuda:0	True
+2024-10-07 21:10:57,641 - INFO - ASTGCN_submodule.BlockList.0.SAt.Vs	torch.Size([325, 325])	cuda:0	True
+2024-10-07 21:10:57,641 - INFO - ASTGCN_submodule.BlockList.0.cheb_conv_SAt.Theta.0	torch.Size([1, 64])	cuda:0	True
+2024-10-07 21:10:57,641 - INFO - ASTGCN_submodule.BlockList.0.cheb_conv_SAt.Theta.1	torch.Size([1, 64])	cuda:0	True
+2024-10-07 21:10:57,641 - INFO - ASTGCN_submodule.BlockList.0.cheb_conv_SAt.Theta.2	torch.Size([1, 64])	cuda:0	True
+2024-10-07 21:10:57,641 - INFO - ASTGCN_submodule.BlockList.0.time_conv.weight	torch.Size([64, 64, 1, 3])	cuda:0	True
+2024-10-07 21:10:57,642 - INFO - ASTGCN_submodule.BlockList.0.time_conv.bias	torch.Size([64])	cuda:0	True
+2024-10-07 21:10:57,642 - INFO - ASTGCN_submodule.BlockList.0.residual_conv.weight	torch.Size([64, 1, 1, 1])	cuda:0	True
+2024-10-07 21:10:57,642 - INFO - ASTGCN_submodule.BlockList.0.residual_conv.bias	torch.Size([64])	cuda:0	True
+2024-10-07 21:10:57,642 - INFO - ASTGCN_submodule.BlockList.0.ln.weight	torch.Size([64])	cuda:0	True
+2024-10-07 21:10:57,642 - INFO - ASTGCN_submodule.BlockList.0.ln.bias	torch.Size([64])	cuda:0	True
+2024-10-07 21:10:57,642 - INFO - ASTGCN_submodule.BlockList.1.TAt.U1	torch.Size([325])	cuda:0	True
+2024-10-07 21:10:57,642 - INFO - ASTGCN_submodule.BlockList.1.TAt.U2	torch.Size([64, 325])	cuda:0	True
+2024-10-07 21:10:57,642 - INFO - ASTGCN_submodule.BlockList.1.TAt.U3	torch.Size([64])	cuda:0	True
+2024-10-07 21:10:57,642 - INFO - ASTGCN_submodule.BlockList.1.TAt.be	torch.Size([1, 12, 12])	cuda:0	True
+2024-10-07 21:10:57,642 - INFO - ASTGCN_submodule.BlockList.1.TAt.Ve	torch.Size([12, 12])	cuda:0	True
+2024-10-07 21:10:57,643 - INFO - ASTGCN_submodule.BlockList.1.SAt.W1	torch.Size([12])	cuda:0	True
+2024-10-07 21:10:57,643 - INFO - ASTGCN_submodule.BlockList.1.SAt.W2	torch.Size([64, 12])	cuda:0	True
+2024-10-07 21:10:57,643 - INFO - ASTGCN_submodule.BlockList.1.SAt.W3	torch.Size([64])	cuda:0	True
+2024-10-07 21:10:57,643 - INFO - ASTGCN_submodule.BlockList.1.SAt.bs	torch.Size([1, 325, 325])	cuda:0	True
+2024-10-07 21:10:57,643 - INFO - ASTGCN_submodule.BlockList.1.SAt.Vs	torch.Size([325, 325])	cuda:0	True
+2024-10-07 21:10:57,643 - INFO - ASTGCN_submodule.BlockList.1.cheb_conv_SAt.Theta.0	torch.Size([64, 64])	cuda:0	True
+2024-10-07 21:10:57,643 - INFO - ASTGCN_submodule.BlockList.1.cheb_conv_SAt.Theta.1	torch.Size([64, 64])	cuda:0	True
+2024-10-07 21:10:57,643 - INFO - ASTGCN_submodule.BlockList.1.cheb_conv_SAt.Theta.2	torch.Size([64, 64])	cuda:0	True
+2024-10-07 21:10:57,643 - INFO - ASTGCN_submodule.BlockList.1.time_conv.weight	torch.Size([64, 64, 1, 3])	cuda:0	True
+2024-10-07 21:10:57,643 - INFO - ASTGCN_submodule.BlockList.1.time_conv.bias	torch.Size([64])	cuda:0	True
+2024-10-07 21:10:57,644 - INFO - ASTGCN_submodule.BlockList.1.residual_conv.weight	torch.Size([64, 64, 1, 1])	cuda:0	True
+2024-10-07 21:10:57,644 - INFO - ASTGCN_submodule.BlockList.1.residual_conv.bias	torch.Size([64])	cuda:0	True
+2024-10-07 21:10:57,644 - INFO - ASTGCN_submodule.BlockList.1.ln.weight	torch.Size([64])	cuda:0	True
+2024-10-07 21:10:57,644 - INFO - ASTGCN_submodule.BlockList.1.ln.bias	torch.Size([64])	cuda:0	True
+2024-10-07 21:10:57,644 - INFO - ASTGCN_submodule.final_conv.weight	torch.Size([12, 12, 1, 64])	cuda:0	True
+2024-10-07 21:10:57,644 - INFO - ASTGCN_submodule.final_conv.bias	torch.Size([12])	cuda:0	True
+2024-10-07 21:10:57,644 - INFO - Total parameter numbers: 496741
+2024-10-07 21:10:57,644 - INFO - You select `adam` optimizer.
+2024-10-07 21:10:58,169 - WARNING - Received none train loss func and will use the loss func defined in the model.
+2024-10-07 21:10:58,170 - INFO - Start training ...
+2024-10-07 21:10:58,170 - INFO - num_batches:489
+2024-10-07 21:13:51,760 - INFO - epoch complete!
+2024-10-07 21:13:51,760 - INFO - evaluating now!
+2024-10-07 21:14:17,694 - INFO - Epoch [0/60] train_loss: 42.0611, val_loss: 31.9820, lr: 0.000100, 199.52s
+2024-10-07 21:14:17,708 - INFO - Saved model at 0
+2024-10-07 21:14:17,708 - INFO - Val loss decrease from inf to 31.9820, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch0.tar
+2024-10-07 21:16:30,439 - INFO - epoch complete!
+2024-10-07 21:16:30,440 - INFO - evaluating now!
+2024-10-07 21:16:46,406 - INFO - Epoch [1/60] train_loss: 23.8894, val_loss: 26.4070, lr: 0.000100, 148.70s
+2024-10-07 21:16:46,420 - INFO - Saved model at 1
+2024-10-07 21:16:46,420 - INFO - Val loss decrease from 31.9820 to 26.4070, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch1.tar
+2024-10-07 21:19:15,237 - INFO - epoch complete!
+2024-10-07 21:19:15,237 - INFO - evaluating now!
+2024-10-07 21:19:40,355 - INFO - Epoch [2/60] train_loss: 20.6269, val_loss: 23.2514, lr: 0.000100, 173.93s
+2024-10-07 21:19:40,369 - INFO - Saved model at 2
+2024-10-07 21:19:40,369 - INFO - Val loss decrease from 26.4070 to 23.2514, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch2.tar
+2024-10-07 21:22:33,404 - INFO - epoch complete!
+2024-10-07 21:22:33,405 - INFO - evaluating now!
+2024-10-07 21:22:59,144 - INFO - Epoch [3/60] train_loss: 18.5453, val_loss: 21.2640, lr: 0.000100, 198.78s
+2024-10-07 21:22:59,159 - INFO - Saved model at 3
+2024-10-07 21:22:59,159 - INFO - Val loss decrease from 23.2514 to 21.2640, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch3.tar
+2024-10-07 21:25:15,279 - INFO - epoch complete!
+2024-10-07 21:25:15,280 - INFO - evaluating now!
+2024-10-07 21:25:34,550 - INFO - Epoch [4/60] train_loss: 17.1073, val_loss: 19.9742, lr: 0.000100, 155.39s
+2024-10-07 21:25:34,587 - INFO - Saved model at 4
+2024-10-07 21:25:34,587 - INFO - Val loss decrease from 21.2640 to 19.9742, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch4.tar
+2024-10-07 21:27:41,927 - INFO - epoch complete!
+2024-10-07 21:27:41,927 - INFO - evaluating now!
+2024-10-07 21:28:01,501 - INFO - Epoch [5/60] train_loss: 16.0539, val_loss: 19.1443, lr: 0.000100, 146.91s
+2024-10-07 21:28:01,515 - INFO - Saved model at 5
+2024-10-07 21:28:01,515 - INFO - Val loss decrease from 19.9742 to 19.1443, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch5.tar
+2024-10-07 21:30:58,348 - INFO - epoch complete!
+2024-10-07 21:30:58,360 - INFO - evaluating now!
+2024-10-07 21:31:36,049 - INFO - Epoch [6/60] train_loss: 15.1979, val_loss: 18.4684, lr: 0.000100, 214.53s
+2024-10-07 21:31:36,136 - INFO - Saved model at 6
+2024-10-07 21:31:36,137 - INFO - Val loss decrease from 19.1443 to 18.4684, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch6.tar
+2024-10-07 21:35:00,718 - INFO - epoch complete!
+2024-10-07 21:35:00,724 - INFO - evaluating now!
+2024-10-07 21:35:31,188 - INFO - Epoch [7/60] train_loss: 14.5403, val_loss: 18.1232, lr: 0.000100, 235.05s
+2024-10-07 21:35:31,235 - INFO - Saved model at 7
+2024-10-07 21:35:31,236 - INFO - Val loss decrease from 18.4684 to 18.1232, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch7.tar
+2024-10-07 21:38:49,650 - INFO - epoch complete!
+2024-10-07 21:38:49,651 - INFO - evaluating now!
+2024-10-07 21:39:17,720 - INFO - Epoch [8/60] train_loss: 14.0007, val_loss: 17.7105, lr: 0.000100, 226.48s
+2024-10-07 21:39:17,735 - INFO - Saved model at 8
+2024-10-07 21:39:17,735 - INFO - Val loss decrease from 18.1232 to 17.7105, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch8.tar
+2024-10-07 21:42:57,957 - INFO - epoch complete!
+2024-10-07 21:42:57,957 - INFO - evaluating now!
+2024-10-07 21:43:41,832 - INFO - Epoch [9/60] train_loss: 13.5520, val_loss: 17.5066, lr: 0.000100, 264.10s
+2024-10-07 21:43:42,059 - INFO - Saved model at 9
+2024-10-07 21:43:42,059 - INFO - Val loss decrease from 17.7105 to 17.5066, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch9.tar
+2024-10-07 21:48:21,615 - INFO - epoch complete!
+2024-10-07 21:48:21,616 - INFO - evaluating now!
+2024-10-07 21:49:04,936 - INFO - Epoch [10/60] train_loss: 13.1572, val_loss: 17.3777, lr: 0.000100, 322.88s
+2024-10-07 21:49:04,984 - INFO - Saved model at 10
+2024-10-07 21:49:04,987 - INFO - Val loss decrease from 17.5066 to 17.3777, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch10.tar
+2024-10-07 21:53:57,940 - INFO - epoch complete!
+2024-10-07 21:53:57,940 - INFO - evaluating now!
+2024-10-07 21:54:46,481 - INFO - Epoch [11/60] train_loss: 12.8069, val_loss: 17.2583, lr: 0.000100, 341.49s
+2024-10-07 21:54:46,495 - INFO - Saved model at 11
+2024-10-07 21:54:46,495 - INFO - Val loss decrease from 17.3777 to 17.2583, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch11.tar
+2024-10-07 21:59:17,747 - INFO - epoch complete!
+2024-10-07 21:59:17,747 - INFO - evaluating now!
+2024-10-07 22:00:02,662 - INFO - Epoch [12/60] train_loss: 12.5385, val_loss: 17.1676, lr: 0.000100, 316.17s
+2024-10-07 22:00:02,736 - INFO - Saved model at 12
+2024-10-07 22:00:02,739 - INFO - Val loss decrease from 17.2583 to 17.1676, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch12.tar
+2024-10-07 22:04:28,280 - INFO - epoch complete!
+2024-10-07 22:04:28,280 - INFO - evaluating now!
+2024-10-07 22:05:13,801 - INFO - Epoch [13/60] train_loss: 12.2774, val_loss: 17.1823, lr: 0.000100, 311.06s
+2024-10-07 22:09:47,600 - INFO - epoch complete!
+2024-10-07 22:09:47,600 - INFO - evaluating now!
+2024-10-07 22:10:31,760 - INFO - Epoch [14/60] train_loss: 12.0651, val_loss: 16.9043, lr: 0.000100, 317.96s
+2024-10-07 22:10:31,820 - INFO - Saved model at 14
+2024-10-07 22:10:31,821 - INFO - Val loss decrease from 17.1676 to 16.9043, saving to ./libcity/cache/ASTGCN(PEMS_BAY)/model_cache/ASTGCN_PEMS_BAY_epoch14.tar
+2024-10-07 22:14:07,729 - INFO - epoch complete!
+2024-10-07 22:14:07,734 - INFO - evaluating now!
+2024-10-07 22:14:50,168 - INFO - Epoch [15/60] train_loss: 11.8606, val_loss: 17.0316, lr: 0.000100, 258.35s
+2024-10-07 22:19:21,985 - INFO - epoch complete!
+2024-10-07 22:19:21,987 - INFO - evaluating now!
+2024-10-07 22:20:07,316 - INFO - Epoch [16/60] train_loss: 11.6796, val_loss: 17.0096, lr: 0.000100, 317.14s
+2024-10-07 22:24:15,984 - INFO - epoch complete!
+2024-10-07 22:24:15,984 - INFO - evaluating now!
+2024-10-07 22:24:49,845 - INFO - Epoch [17/60] train_loss: 11.5064, val_loss: 17.2063, lr: 0.000100, 282.53s
+2024-10-07 22:28:25,853 - INFO - epoch complete!
+2024-10-07 22:28:25,856 - INFO - evaluating now!
+2024-10-07 22:29:00,498 - INFO - Epoch [18/60] train_loss: 11.3616, val_loss: 17.1322, lr: 0.000100, 250.65s
+2024-10-07 22:32:30,182 - INFO - epoch complete!
+2024-10-07 22:32:30,182 - INFO - evaluating now!
+2024-10-07 22:33:02,645 - INFO - Epoch [19/60] train_loss: 11.2159, val_loss: 16.9786, lr: 0.000100, 242.15s
+2024-10-07 22:37:13,851 - INFO - epoch complete!
+2024-10-07 22:37:13,852 - INFO - evaluating now!
+2024-10-07 22:37:53,896 - INFO - Epoch [20/60] train_loss: 11.0777, val_loss: 17.0969, lr: 0.000100, 291.25s
+2024-10-07 22:42:14,595 - INFO - epoch complete!
+2024-10-07 22:42:14,595 - INFO - evaluating now!
+2024-10-07 22:42:55,642 - INFO - Epoch [21/60] train_loss: 10.9542, val_loss: 17.0730, lr: 0.000100, 301.75s
+2024-10-07 22:46:19,919 - INFO - epoch complete!
+2024-10-07 22:46:19,919 - INFO - evaluating now!
+2024-10-07 22:46:51,049 - INFO - Epoch [22/60] train_loss: 10.8291, val_loss: 17.2411, lr: 0.000100, 235.41s
+2024-10-07 22:49:31,756 - INFO - epoch complete!
+2024-10-07 22:49:31,756 - INFO - evaluating now!
+2024-10-07 22:50:02,274 - INFO - Epoch [23/60] train_loss: 10.7164, val_loss: 17.1185, lr: 0.000100, 191.23s
+2024-10-07 22:53:24,798 - INFO - epoch complete!
+2024-10-07 22:53:24,799 - INFO - evaluating now!
+2024-10-07 22:53:56,185 - INFO - Epoch [24/60] train_loss: 10.6157, val_loss: 17.2661, lr: 0.000100, 233.91s
+2024-10-07 22:57:18,250 - INFO - epoch complete!
+2024-10-07 22:57:18,251 - INFO - evaluating now!
+2024-10-07 22:57:50,000 - INFO - Epoch [25/60] train_loss: 10.5002, val_loss: 17.2700, lr: 0.000100, 233.81s
+2024-10-07 23:01:03,932 - INFO - epoch complete!
+2024-10-07 23:01:03,933 - INFO - evaluating now!
+2024-10-07 23:01:27,226 - INFO - Epoch [26/60] train_loss: 10.4036, val_loss: 17.3507, lr: 0.000100, 217.22s
+2024-10-07 23:04:06,339 - INFO - epoch complete!
+2024-10-07 23:04:06,339 - INFO - evaluating now!

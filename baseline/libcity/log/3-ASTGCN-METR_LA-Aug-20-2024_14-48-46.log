@@ -1,0 +1,606 @@
+2024-08-20 14:48:46,489 - INFO - Log directory: ./libcity/log
+2024-08-20 14:48:46,490 - INFO - Begin pipeline, task=MTS_pred, model_name=ASTGCN, dataset_name=METR_LA, exp_id=3
+2024-08-20 14:48:46,490 - INFO - {'task': 'MTS_pred', 'model': 'ASTGCN', 'dataset': 'METR_LA', 'saved_model': True, 'exp_id': '3', 'seed': 0, 'max_epoch': 150, 'dataset_class': 'StatePointDataset', 'executor': 'StateExecutor', 'evaluator': 'StateEvaluator', 'nb_block': 2, 'K': 3, 'nb_chev_filter': 64, 'nb_time_filter': 64, 'bidir_adj_mx': True, 'scaler': 'standard', 'load_external': False, 'normal_external': False, 'ext_scaler': 'none', 'add_time_in_day': False, 'add_day_in_week': False, 'train_rate': 0.6, 'eval_rate': 0.2, 'learner': 'adam', 'learning_rate': 0.0001, 'lr_decay': False, 'clip_grad_norm': False, 'use_early_stop': False, 'batch_size': 64, 'cache_dataset': True, 'num_workers': 0, 'pad_with_last_sample': True, 'input_window': 12, 'output_window': 12, 'robustness_test': False, 'noise_type': 'gaussian', 'disturb_rate': 0.5, 'noise_mean': [5], 'noise_SD': [10], 'gpu': True, 'gpu_id': 0, 'train_loss': 'none', 'epoch': 0, 'weight_decay': 0, 'lr_epsilon': 1e-08, 'lr_beta1': 0.9, 'lr_beta2': 0.999, 'lr_alpha': 0.99, 'lr_momentum': 0, 'lr_scheduler': 'multisteplr', 'lr_decay_ratio': 0.1, 'steps': [5, 20, 40, 70], 'step_size': 10, 'lr_T_max': 30, 'lr_eta_min': 0, 'lr_patience': 10, 'lr_threshold': 0.0001, 'max_grad_norm': 1.0, 'patience': 50, 'log_level': 'INFO', 'log_every': 1, 'load_best_epoch': True, 'hyper_tune': False, 'metrics': ['MAE', 'MAPE', 'RMSE'], 'evaluator_mode': 'single', 'save_mode': ['csv'], 'geo': {'including_types': ['Point'], 'Point': {}}, 'rel': {'including_types': ['geo'], 'geo': {'cost': 'num'}}, 'dyna': {'including_types': ['state'], 'state': {'entity_id': 'geo_id', 'traffic_speed': 'num'}}, 'data_col': ['traffic_speed'], 'weight_col': 'cost', 'data_files': ['METR_LA'], 'geo_file': 'METR_LA', 'rel_file': 'METR_LA', 'output_dim': 1, 'time_intervals': 300, 'init_weight_inf_or_zero': 'inf', 'set_weight_link_or_dist': 'dist', 'calculate_weight_adj': True, 'weight_adj_epsilon': 0.1, 'device': device(type='cuda', index=0)}
+2024-08-20 14:48:46,495 - INFO - Loaded file METR_LA.geo, num_nodes=207
+2024-08-20 14:48:46,502 - INFO - set_weight_link_or_dist: dist
+2024-08-20 14:48:46,502 - INFO - init_weight_inf_or_zero: inf
+2024-08-20 14:48:46,556 - INFO - Loaded file METR_LA.rel, shape=(207, 207)
+2024-08-20 14:48:46,556 - INFO - Start Calculate the weight by Gauss kernel!
+2024-08-20 14:48:46,557 - INFO - Loading file METR_LA.dyna
+2024-08-20 14:48:51,361 - INFO - Loaded file METR_LA.dyna, shape=(34272, 207, 1)
+2024-08-20 14:48:53,646 - INFO - Dataset created
+2024-08-20 14:48:53,647 - INFO - x shape: (34249, 12, 207, 1), y shape: (34249, 12, 207, 1)
+2024-08-20 14:48:53,650 - INFO - train	x: (20549, 12, 207, 1), y: (20549, 12, 207, 1)
+2024-08-20 14:48:53,650 - INFO - eval	x: (6850, 12, 207, 1), y: (6850, 12, 207, 1)
+2024-08-20 14:48:53,651 - INFO - test	x: (6850, 12, 207, 1), y: (6850, 12, 207, 1)
+2024-08-20 14:49:12,940 - INFO - Saved at ./libcity/cache/dataset_cache/point_based_METR_LA_12_12_0.6_0.2_standard_64_False_False_False_True.npz
+2024-08-20 14:49:13,381 - INFO - StandardScaler mean: 54.10160182214729, std: 19.84129811739302
+2024-08-20 14:49:13,381 - INFO - NoneScaler
+2024-08-20 14:49:23,976 - INFO - ASTGCN(
+  (ASTGCN_submodule): ASTGCNSubmodule(
+    (BlockList): ModuleList(
+      (0): ASTGCNBlock(
+        (TAt): TemporalAttentionLayer()
+        (SAt): SpatialAttentionLayer()
+        (cheb_conv_SAt): ChebConvWithSAt(
+          (Theta): ParameterList(
+              (0): Parameter containing: [torch.cuda.FloatTensor of size 1x64 (GPU 0)]
+              (1): Parameter containing: [torch.cuda.FloatTensor of size 1x64 (GPU 0)]
+              (2): Parameter containing: [torch.cuda.FloatTensor of size 1x64 (GPU 0)]
+          )
+        )
+        (time_conv): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+        (residual_conv): Conv2d(1, 64, kernel_size=(1, 1), stride=(1, 1))
+        (ln): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (1): ASTGCNBlock(
+        (TAt): TemporalAttentionLayer()
+        (SAt): SpatialAttentionLayer()
+        (cheb_conv_SAt): ChebConvWithSAt(
+          (Theta): ParameterList(
+              (0): Parameter containing: [torch.cuda.FloatTensor of size 64x64 (GPU 0)]
+              (1): Parameter containing: [torch.cuda.FloatTensor of size 64x64 (GPU 0)]
+              (2): Parameter containing: [torch.cuda.FloatTensor of size 64x64 (GPU 0)]
+          )
+        )
+        (time_conv): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+        (residual_conv): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+        (ln): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+    (final_conv): Conv2d(12, 12, kernel_size=(1, 64), stride=(1, 1))
+  )
+)
+2024-08-20 14:49:23,977 - INFO - ASTGCN_submodule.BlockList.0.TAt.U1	torch.Size([207])	cuda:0	True
+2024-08-20 14:49:23,977 - INFO - ASTGCN_submodule.BlockList.0.TAt.U2	torch.Size([1, 207])	cuda:0	True
+2024-08-20 14:49:23,977 - INFO - ASTGCN_submodule.BlockList.0.TAt.U3	torch.Size([1])	cuda:0	True
+2024-08-20 14:49:23,977 - INFO - ASTGCN_submodule.BlockList.0.TAt.be	torch.Size([1, 12, 12])	cuda:0	True
+2024-08-20 14:49:23,977 - INFO - ASTGCN_submodule.BlockList.0.TAt.Ve	torch.Size([12, 12])	cuda:0	True
+2024-08-20 14:49:23,977 - INFO - ASTGCN_submodule.BlockList.0.SAt.W1	torch.Size([12])	cuda:0	True
+2024-08-20 14:49:23,977 - INFO - ASTGCN_submodule.BlockList.0.SAt.W2	torch.Size([1, 12])	cuda:0	True
+2024-08-20 14:49:23,977 - INFO - ASTGCN_submodule.BlockList.0.SAt.W3	torch.Size([1])	cuda:0	True
+2024-08-20 14:49:23,977 - INFO - ASTGCN_submodule.BlockList.0.SAt.bs	torch.Size([1, 207, 207])	cuda:0	True
+2024-08-20 14:49:23,977 - INFO - ASTGCN_submodule.BlockList.0.SAt.Vs	torch.Size([207, 207])	cuda:0	True
+2024-08-20 14:49:23,978 - INFO - ASTGCN_submodule.BlockList.0.cheb_conv_SAt.Theta.0	torch.Size([1, 64])	cuda:0	True
+2024-08-20 14:49:23,978 - INFO - ASTGCN_submodule.BlockList.0.cheb_conv_SAt.Theta.1	torch.Size([1, 64])	cuda:0	True
+2024-08-20 14:49:23,978 - INFO - ASTGCN_submodule.BlockList.0.cheb_conv_SAt.Theta.2	torch.Size([1, 64])	cuda:0	True
+2024-08-20 14:49:23,978 - INFO - ASTGCN_submodule.BlockList.0.time_conv.weight	torch.Size([64, 64, 1, 3])	cuda:0	True
+2024-08-20 14:49:23,978 - INFO - ASTGCN_submodule.BlockList.0.time_conv.bias	torch.Size([64])	cuda:0	True
+2024-08-20 14:49:23,978 - INFO - ASTGCN_submodule.BlockList.0.residual_conv.weight	torch.Size([64, 1, 1, 1])	cuda:0	True
+2024-08-20 14:49:23,978 - INFO - ASTGCN_submodule.BlockList.0.residual_conv.bias	torch.Size([64])	cuda:0	True
+2024-08-20 14:49:23,978 - INFO - ASTGCN_submodule.BlockList.0.ln.weight	torch.Size([64])	cuda:0	True
+2024-08-20 14:49:23,978 - INFO - ASTGCN_submodule.BlockList.0.ln.bias	torch.Size([64])	cuda:0	True
+2024-08-20 14:49:23,978 - INFO - ASTGCN_submodule.BlockList.1.TAt.U1	torch.Size([207])	cuda:0	True
+2024-08-20 14:49:23,978 - INFO - ASTGCN_submodule.BlockList.1.TAt.U2	torch.Size([64, 207])	cuda:0	True
+2024-08-20 14:49:23,978 - INFO - ASTGCN_submodule.BlockList.1.TAt.U3	torch.Size([64])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.TAt.be	torch.Size([1, 12, 12])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.TAt.Ve	torch.Size([12, 12])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.SAt.W1	torch.Size([12])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.SAt.W2	torch.Size([64, 12])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.SAt.W3	torch.Size([64])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.SAt.bs	torch.Size([1, 207, 207])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.SAt.Vs	torch.Size([207, 207])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.cheb_conv_SAt.Theta.0	torch.Size([64, 64])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.cheb_conv_SAt.Theta.1	torch.Size([64, 64])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.cheb_conv_SAt.Theta.2	torch.Size([64, 64])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.time_conv.weight	torch.Size([64, 64, 1, 3])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.time_conv.bias	torch.Size([64])	cuda:0	True
+2024-08-20 14:49:23,979 - INFO - ASTGCN_submodule.BlockList.1.residual_conv.weight	torch.Size([64, 64, 1, 1])	cuda:0	True
+2024-08-20 14:49:23,980 - INFO - ASTGCN_submodule.BlockList.1.residual_conv.bias	torch.Size([64])	cuda:0	True
+2024-08-20 14:49:23,980 - INFO - ASTGCN_submodule.BlockList.1.ln.weight	torch.Size([64])	cuda:0	True
+2024-08-20 14:49:23,980 - INFO - ASTGCN_submodule.BlockList.1.ln.bias	torch.Size([64])	cuda:0	True
+2024-08-20 14:49:23,980 - INFO - ASTGCN_submodule.final_conv.weight	torch.Size([12, 12, 1, 64])	cuda:0	True
+2024-08-20 14:49:23,980 - INFO - ASTGCN_submodule.final_conv.bias	torch.Size([12])	cuda:0	True
+2024-08-20 14:49:23,980 - INFO - Total parameter numbers: 237731
+2024-08-20 14:49:23,980 - INFO - You select `adam` optimizer.
+2024-08-20 14:49:23,980 - WARNING - Received none train loss func and will use the loss func defined in the model.
+2024-08-20 14:49:23,980 - INFO - Start training ...
+2024-08-20 14:49:23,981 - INFO - num_batches:322
+2024-08-20 14:51:37,198 - INFO - epoch complete!
+2024-08-20 14:51:37,198 - INFO - evaluating now!
+2024-08-20 14:51:53,040 - INFO - Epoch [0/150] train_loss: 211.8808, val_loss: 128.4403, lr: 0.000100, 149.06s
+2024-08-20 14:51:53,057 - INFO - Saved model at 0
+2024-08-20 14:51:53,058 - INFO - Val loss decrease from inf to 128.4403, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch0.tar
+2024-08-20 14:54:06,231 - INFO - epoch complete!
+2024-08-20 14:54:06,231 - INFO - evaluating now!
+2024-08-20 14:54:22,116 - INFO - Epoch [1/150] train_loss: 129.5978, val_loss: 118.5442, lr: 0.000100, 149.06s
+2024-08-20 14:54:22,133 - INFO - Saved model at 1
+2024-08-20 14:54:22,133 - INFO - Val loss decrease from 128.4403 to 118.5442, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch1.tar
+2024-08-20 14:56:35,151 - INFO - epoch complete!
+2024-08-20 14:56:35,152 - INFO - evaluating now!
+2024-08-20 14:56:51,013 - INFO - Epoch [2/150] train_loss: 122.8164, val_loss: 114.9421, lr: 0.000100, 148.88s
+2024-08-20 14:56:51,027 - INFO - Saved model at 2
+2024-08-20 14:56:51,027 - INFO - Val loss decrease from 118.5442 to 114.9421, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch2.tar
+2024-08-20 14:59:05,774 - INFO - epoch complete!
+2024-08-20 14:59:05,775 - INFO - evaluating now!
+2024-08-20 14:59:20,483 - INFO - Epoch [3/150] train_loss: 119.4309, val_loss: 112.3801, lr: 0.000100, 149.46s
+2024-08-20 14:59:20,501 - INFO - Saved model at 3
+2024-08-20 14:59:20,502 - INFO - Val loss decrease from 114.9421 to 112.3801, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch3.tar
+2024-08-20 15:01:34,758 - INFO - epoch complete!
+2024-08-20 15:01:34,758 - INFO - evaluating now!
+2024-08-20 15:01:50,586 - INFO - Epoch [4/150] train_loss: 117.2680, val_loss: 111.0078, lr: 0.000100, 150.08s
+2024-08-20 15:01:50,601 - INFO - Saved model at 4
+2024-08-20 15:01:50,601 - INFO - Val loss decrease from 112.3801 to 111.0078, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch4.tar
+2024-08-20 15:04:03,637 - INFO - epoch complete!
+2024-08-20 15:04:03,638 - INFO - evaluating now!
+2024-08-20 15:04:19,522 - INFO - Epoch [5/150] train_loss: 115.7000, val_loss: 110.6210, lr: 0.000100, 148.92s
+2024-08-20 15:04:19,537 - INFO - Saved model at 5
+2024-08-20 15:04:19,537 - INFO - Val loss decrease from 111.0078 to 110.6210, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch5.tar
+2024-08-20 15:06:32,653 - INFO - epoch complete!
+2024-08-20 15:06:32,654 - INFO - evaluating now!
+2024-08-20 15:06:48,530 - INFO - Epoch [6/150] train_loss: 114.2173, val_loss: 108.7331, lr: 0.000100, 148.99s
+2024-08-20 15:06:48,546 - INFO - Saved model at 6
+2024-08-20 15:06:48,546 - INFO - Val loss decrease from 110.6210 to 108.7331, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch6.tar
+2024-08-20 15:09:01,732 - INFO - epoch complete!
+2024-08-20 15:09:01,732 - INFO - evaluating now!
+2024-08-20 15:09:17,632 - INFO - Epoch [7/150] train_loss: 112.8055, val_loss: 108.4615, lr: 0.000100, 149.09s
+2024-08-20 15:09:17,650 - INFO - Saved model at 7
+2024-08-20 15:09:17,650 - INFO - Val loss decrease from 108.7331 to 108.4615, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch7.tar
+2024-08-20 15:11:30,862 - INFO - epoch complete!
+2024-08-20 15:11:30,862 - INFO - evaluating now!
+2024-08-20 15:11:46,792 - INFO - Epoch [8/150] train_loss: 111.4923, val_loss: 107.0067, lr: 0.000100, 149.14s
+2024-08-20 15:11:46,809 - INFO - Saved model at 8
+2024-08-20 15:11:46,809 - INFO - Val loss decrease from 108.4615 to 107.0067, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch8.tar
+2024-08-20 15:14:00,320 - INFO - epoch complete!
+2024-08-20 15:14:00,321 - INFO - evaluating now!
+2024-08-20 15:14:15,995 - INFO - Epoch [9/150] train_loss: 110.4595, val_loss: 106.5899, lr: 0.000100, 149.19s
+2024-08-20 15:14:16,012 - INFO - Saved model at 9
+2024-08-20 15:14:16,013 - INFO - Val loss decrease from 107.0067 to 106.5899, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch9.tar
+2024-08-20 15:16:30,937 - INFO - epoch complete!
+2024-08-20 15:16:30,938 - INFO - evaluating now!
+2024-08-20 15:16:46,370 - INFO - Epoch [10/150] train_loss: 109.2987, val_loss: 108.2011, lr: 0.000100, 150.36s
+2024-08-20 15:18:59,944 - INFO - epoch complete!
+2024-08-20 15:18:59,944 - INFO - evaluating now!
+2024-08-20 15:19:16,032 - INFO - Epoch [11/150] train_loss: 108.4800, val_loss: 105.8497, lr: 0.000100, 149.66s
+2024-08-20 15:19:16,048 - INFO - Saved model at 11
+2024-08-20 15:19:16,048 - INFO - Val loss decrease from 106.5899 to 105.8497, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch11.tar
+2024-08-20 15:21:29,097 - INFO - epoch complete!
+2024-08-20 15:21:29,097 - INFO - evaluating now!
+2024-08-20 15:21:45,474 - INFO - Epoch [12/150] train_loss: 107.4914, val_loss: 105.5693, lr: 0.000100, 149.43s
+2024-08-20 15:21:45,489 - INFO - Saved model at 12
+2024-08-20 15:21:45,489 - INFO - Val loss decrease from 105.8497 to 105.5693, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch12.tar
+2024-08-20 15:23:58,015 - INFO - epoch complete!
+2024-08-20 15:23:58,015 - INFO - evaluating now!
+2024-08-20 15:24:14,726 - INFO - Epoch [13/150] train_loss: 106.7592, val_loss: 107.8092, lr: 0.000100, 149.24s
+2024-08-20 15:26:26,835 - INFO - epoch complete!
+2024-08-20 15:26:26,835 - INFO - evaluating now!
+2024-08-20 15:26:43,935 - INFO - Epoch [14/150] train_loss: 106.0864, val_loss: 105.2149, lr: 0.000100, 149.21s
+2024-08-20 15:26:43,950 - INFO - Saved model at 14
+2024-08-20 15:26:43,951 - INFO - Val loss decrease from 105.5693 to 105.2149, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch14.tar
+2024-08-20 15:28:55,889 - INFO - epoch complete!
+2024-08-20 15:28:55,890 - INFO - evaluating now!
+2024-08-20 15:29:13,396 - INFO - Epoch [15/150] train_loss: 105.4139, val_loss: 104.7027, lr: 0.000100, 149.45s
+2024-08-20 15:29:13,413 - INFO - Saved model at 15
+2024-08-20 15:29:13,413 - INFO - Val loss decrease from 105.2149 to 104.7027, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch15.tar
+2024-08-20 15:31:26,048 - INFO - epoch complete!
+2024-08-20 15:31:26,049 - INFO - evaluating now!
+2024-08-20 15:31:42,742 - INFO - Epoch [16/150] train_loss: 104.9018, val_loss: 104.8028, lr: 0.000100, 149.33s
+2024-08-20 15:33:56,119 - INFO - epoch complete!
+2024-08-20 15:33:56,119 - INFO - evaluating now!
+2024-08-20 15:34:13,399 - INFO - Epoch [17/150] train_loss: 104.2340, val_loss: 104.6230, lr: 0.000100, 150.66s
+2024-08-20 15:34:13,414 - INFO - Saved model at 17
+2024-08-20 15:34:13,414 - INFO - Val loss decrease from 104.7027 to 104.6230, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch17.tar
+2024-08-20 15:36:25,577 - INFO - epoch complete!
+2024-08-20 15:36:25,578 - INFO - evaluating now!
+2024-08-20 15:36:42,533 - INFO - Epoch [18/150] train_loss: 103.6414, val_loss: 104.6449, lr: 0.000100, 149.12s
+2024-08-20 15:38:54,940 - INFO - epoch complete!
+2024-08-20 15:38:54,941 - INFO - evaluating now!
+2024-08-20 15:39:11,528 - INFO - Epoch [19/150] train_loss: 103.2733, val_loss: 105.3823, lr: 0.000100, 148.99s
+2024-08-20 15:41:24,300 - INFO - epoch complete!
+2024-08-20 15:41:24,300 - INFO - evaluating now!
+2024-08-20 15:41:40,619 - INFO - Epoch [20/150] train_loss: 102.7263, val_loss: 104.8173, lr: 0.000100, 149.09s
+2024-08-20 15:43:53,711 - INFO - epoch complete!
+2024-08-20 15:43:53,711 - INFO - evaluating now!
+2024-08-20 15:44:09,756 - INFO - Epoch [21/150] train_loss: 102.3367, val_loss: 104.7514, lr: 0.000100, 149.14s
+2024-08-20 15:46:23,069 - INFO - epoch complete!
+2024-08-20 15:46:23,069 - INFO - evaluating now!
+2024-08-20 15:46:38,948 - INFO - Epoch [22/150] train_loss: 101.8615, val_loss: 104.4601, lr: 0.000100, 149.19s
+2024-08-20 15:46:38,964 - INFO - Saved model at 22
+2024-08-20 15:46:38,964 - INFO - Val loss decrease from 104.6230 to 104.4601, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch22.tar
+2024-08-20 15:48:53,642 - INFO - epoch complete!
+2024-08-20 15:48:53,643 - INFO - evaluating now!
+2024-08-20 15:49:08,107 - INFO - Epoch [23/150] train_loss: 101.4863, val_loss: 104.2246, lr: 0.000100, 149.14s
+2024-08-20 15:49:08,122 - INFO - Saved model at 23
+2024-08-20 15:49:08,122 - INFO - Val loss decrease from 104.4601 to 104.2246, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch23.tar
+2024-08-20 15:51:23,022 - INFO - epoch complete!
+2024-08-20 15:51:23,022 - INFO - evaluating now!
+2024-08-20 15:51:38,885 - INFO - Epoch [24/150] train_loss: 101.1654, val_loss: 104.3546, lr: 0.000100, 150.76s
+2024-08-20 15:53:52,143 - INFO - epoch complete!
+2024-08-20 15:53:52,143 - INFO - evaluating now!
+2024-08-20 15:54:08,009 - INFO - Epoch [25/150] train_loss: 100.6913, val_loss: 106.6151, lr: 0.000100, 149.12s
+2024-08-20 15:56:21,221 - INFO - epoch complete!
+2024-08-20 15:56:21,221 - INFO - evaluating now!
+2024-08-20 15:56:37,092 - INFO - Epoch [26/150] train_loss: 100.2901, val_loss: 104.9441, lr: 0.000100, 149.08s
+2024-08-20 15:58:50,370 - INFO - epoch complete!
+2024-08-20 15:58:50,370 - INFO - evaluating now!
+2024-08-20 15:59:06,242 - INFO - Epoch [27/150] train_loss: 99.9204, val_loss: 104.1402, lr: 0.000100, 149.15s
+2024-08-20 15:59:06,257 - INFO - Saved model at 27
+2024-08-20 15:59:06,257 - INFO - Val loss decrease from 104.2246 to 104.1402, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch27.tar
+2024-08-20 16:01:19,599 - INFO - epoch complete!
+2024-08-20 16:01:19,599 - INFO - evaluating now!
+2024-08-20 16:01:35,410 - INFO - Epoch [28/150] train_loss: 99.5711, val_loss: 103.8518, lr: 0.000100, 149.15s
+2024-08-20 16:01:35,430 - INFO - Saved model at 28
+2024-08-20 16:01:35,430 - INFO - Val loss decrease from 104.1402 to 103.8518, saving to ./libcity/cache/3/model_cache/ASTGCN_METR_LA_epoch28.tar
+2024-08-20 16:03:48,703 - INFO - epoch complete!
+2024-08-20 16:03:48,704 - INFO - evaluating now!
+2024-08-20 16:04:04,567 - INFO - Epoch [29/150] train_loss: 99.2396, val_loss: 104.2109, lr: 0.000100, 149.14s
+2024-08-20 16:06:19,455 - INFO - epoch complete!
+2024-08-20 16:06:19,456 - INFO - evaluating now!
+2024-08-20 16:06:33,699 - INFO - Epoch [30/150] train_loss: 98.7778, val_loss: 104.6475, lr: 0.000100, 149.13s
+2024-08-20 16:08:48,630 - INFO - epoch complete!
+2024-08-20 16:08:48,630 - INFO - evaluating now!
+2024-08-20 16:09:04,449 - INFO - Epoch [31/150] train_loss: 98.4254, val_loss: 104.5476, lr: 0.000100, 150.75s
+2024-08-20 16:11:17,645 - INFO - epoch complete!
+2024-08-20 16:11:17,645 - INFO - evaluating now!
+2024-08-20 16:11:33,466 - INFO - Epoch [32/150] train_loss: 98.0060, val_loss: 104.8839, lr: 0.000100, 149.02s
+2024-08-20 16:13:46,775 - INFO - epoch complete!
+2024-08-20 16:13:46,776 - INFO - evaluating now!
+2024-08-20 16:14:02,706 - INFO - Epoch [33/150] train_loss: 97.5262, val_loss: 105.6373, lr: 0.000100, 149.24s
+2024-08-20 16:16:15,796 - INFO - epoch complete!
+2024-08-20 16:16:15,796 - INFO - evaluating now!
+2024-08-20 16:16:32,084 - INFO - Epoch [34/150] train_loss: 97.4556, val_loss: 105.3717, lr: 0.000100, 149.38s
+2024-08-20 16:18:45,046 - INFO - epoch complete!
+2024-08-20 16:18:45,047 - INFO - evaluating now!
+2024-08-20 16:19:01,721 - INFO - Epoch [35/150] train_loss: 97.0024, val_loss: 105.1356, lr: 0.000100, 149.64s
+2024-08-20 16:21:14,176 - INFO - epoch complete!
+2024-08-20 16:21:14,176 - INFO - evaluating now!
+2024-08-20 16:21:31,178 - INFO - Epoch [36/150] train_loss: 96.5067, val_loss: 105.0355, lr: 0.000100, 149.46s
+2024-08-20 16:23:45,007 - INFO - epoch complete!
+2024-08-20 16:23:45,008 - INFO - evaluating now!
+2024-08-20 16:24:00,821 - INFO - Epoch [37/150] train_loss: 96.5240, val_loss: 105.3700, lr: 0.000100, 149.64s
+2024-08-20 16:26:14,031 - INFO - epoch complete!
+2024-08-20 16:26:14,032 - INFO - evaluating now!
+2024-08-20 16:26:31,635 - INFO - Epoch [38/150] train_loss: 96.1208, val_loss: 106.4612, lr: 0.000100, 150.81s
+2024-08-20 16:28:43,316 - INFO - epoch complete!
+2024-08-20 16:28:43,317 - INFO - evaluating now!
+2024-08-20 16:29:00,690 - INFO - Epoch [39/150] train_loss: 95.6780, val_loss: 105.0569, lr: 0.000100, 149.05s
+2024-08-20 16:31:12,664 - INFO - epoch complete!
+2024-08-20 16:31:12,665 - INFO - evaluating now!
+2024-08-20 16:31:29,756 - INFO - Epoch [40/150] train_loss: 95.5199, val_loss: 105.3571, lr: 0.000100, 149.07s
+2024-08-20 16:33:41,959 - INFO - epoch complete!
+2024-08-20 16:33:41,960 - INFO - evaluating now!
+2024-08-20 16:33:58,766 - INFO - Epoch [41/150] train_loss: 95.0144, val_loss: 105.6355, lr: 0.000100, 149.01s
+2024-08-20 16:36:11,364 - INFO - epoch complete!
+2024-08-20 16:36:11,365 - INFO - evaluating now!
+2024-08-20 16:36:27,801 - INFO - Epoch [42/150] train_loss: 94.8002, val_loss: 106.3295, lr: 0.000100, 149.03s
+2024-08-20 16:38:40,786 - INFO - epoch complete!
+2024-08-20 16:38:40,786 - INFO - evaluating now!
+2024-08-20 16:38:56,878 - INFO - Epoch [43/150] train_loss: 94.2671, val_loss: 106.2256, lr: 0.000100, 149.08s
+2024-08-20 16:41:11,859 - INFO - epoch complete!
+2024-08-20 16:41:11,859 - INFO - evaluating now!
+2024-08-20 16:41:26,723 - INFO - Epoch [44/150] train_loss: 94.0122, val_loss: 107.0156, lr: 0.000100, 149.84s
+2024-08-20 16:43:40,871 - INFO - epoch complete!
+2024-08-20 16:43:40,871 - INFO - evaluating now!
+2024-08-20 16:43:56,744 - INFO - Epoch [45/150] train_loss: 93.7488, val_loss: 106.3105, lr: 0.000100, 150.02s
+2024-08-20 16:46:10,016 - INFO - epoch complete!
+2024-08-20 16:46:10,016 - INFO - evaluating now!
+2024-08-20 16:46:25,902 - INFO - Epoch [46/150] train_loss: 93.3459, val_loss: 106.6999, lr: 0.000100, 149.16s
+2024-08-20 16:48:39,235 - INFO - epoch complete!
+2024-08-20 16:48:39,235 - INFO - evaluating now!
+2024-08-20 16:48:55,126 - INFO - Epoch [47/150] train_loss: 93.0304, val_loss: 108.2605, lr: 0.000100, 149.22s
+2024-08-20 16:51:08,417 - INFO - epoch complete!
+2024-08-20 16:51:08,418 - INFO - evaluating now!
+2024-08-20 16:51:24,311 - INFO - Epoch [48/150] train_loss: 92.6381, val_loss: 107.4575, lr: 0.000100, 149.18s
+2024-08-20 16:53:37,581 - INFO - epoch complete!
+2024-08-20 16:53:37,582 - INFO - evaluating now!
+2024-08-20 16:53:53,469 - INFO - Epoch [49/150] train_loss: 92.2923, val_loss: 107.5167, lr: 0.000100, 149.16s
+2024-08-20 16:56:06,959 - INFO - epoch complete!
+2024-08-20 16:56:06,960 - INFO - evaluating now!
+2024-08-20 16:56:22,656 - INFO - Epoch [50/150] train_loss: 91.9691, val_loss: 107.8657, lr: 0.000100, 149.19s
+2024-08-20 16:58:37,530 - INFO - epoch complete!
+2024-08-20 16:58:37,531 - INFO - evaluating now!
+2024-08-20 16:58:52,867 - INFO - Epoch [51/150] train_loss: 91.6277, val_loss: 109.3668, lr: 0.000100, 150.21s
+2024-08-20 17:01:06,777 - INFO - epoch complete!
+2024-08-20 17:01:06,778 - INFO - evaluating now!
+2024-08-20 17:01:22,638 - INFO - Epoch [52/150] train_loss: 91.2958, val_loss: 107.9812, lr: 0.000100, 149.77s
+2024-08-20 17:03:35,886 - INFO - epoch complete!
+2024-08-20 17:03:35,887 - INFO - evaluating now!
+2024-08-20 17:03:51,744 - INFO - Epoch [53/150] train_loss: 91.0316, val_loss: 108.6095, lr: 0.000100, 149.11s
+2024-08-20 17:06:05,218 - INFO - epoch complete!
+2024-08-20 17:06:05,219 - INFO - evaluating now!
+2024-08-20 17:06:21,139 - INFO - Epoch [54/150] train_loss: 90.9290, val_loss: 108.3657, lr: 0.000100, 149.39s
+2024-08-20 17:08:34,447 - INFO - epoch complete!
+2024-08-20 17:08:34,447 - INFO - evaluating now!
+2024-08-20 17:08:50,419 - INFO - Epoch [55/150] train_loss: 90.2953, val_loss: 110.0472, lr: 0.000100, 149.28s
+2024-08-20 17:11:03,673 - INFO - epoch complete!
+2024-08-20 17:11:03,674 - INFO - evaluating now!
+2024-08-20 17:11:19,896 - INFO - Epoch [56/150] train_loss: 90.0214, val_loss: 111.2469, lr: 0.000100, 149.48s
+2024-08-20 17:13:33,347 - INFO - epoch complete!
+2024-08-20 17:13:33,347 - INFO - evaluating now!
+2024-08-20 17:13:49,405 - INFO - Epoch [57/150] train_loss: 89.8299, val_loss: 109.4452, lr: 0.000100, 149.51s
+2024-08-20 17:16:03,541 - INFO - epoch complete!
+2024-08-20 17:16:03,542 - INFO - evaluating now!
+2024-08-20 17:16:20,327 - INFO - Epoch [58/150] train_loss: 89.5468, val_loss: 110.0998, lr: 0.000100, 150.92s
+2024-08-20 17:18:32,688 - INFO - epoch complete!
+2024-08-20 17:18:32,688 - INFO - evaluating now!
+2024-08-20 17:18:49,957 - INFO - Epoch [59/150] train_loss: 89.2441, val_loss: 110.4410, lr: 0.000100, 149.63s
+2024-08-20 17:21:01,749 - INFO - epoch complete!
+2024-08-20 17:21:01,750 - INFO - evaluating now!
+2024-08-20 17:21:19,355 - INFO - Epoch [60/150] train_loss: 88.9152, val_loss: 110.0166, lr: 0.000100, 149.40s
+2024-08-20 17:23:31,001 - INFO - epoch complete!
+2024-08-20 17:23:31,002 - INFO - evaluating now!
+2024-08-20 17:23:48,396 - INFO - Epoch [61/150] train_loss: 88.4220, val_loss: 111.7286, lr: 0.000100, 149.04s
+2024-08-20 17:26:00,328 - INFO - epoch complete!
+2024-08-20 17:26:00,328 - INFO - evaluating now!
+2024-08-20 17:26:17,460 - INFO - Epoch [62/150] train_loss: 88.4825, val_loss: 111.6516, lr: 0.000100, 149.06s
+2024-08-20 17:28:27,719 - INFO - epoch complete!
+2024-08-20 17:28:27,719 - INFO - evaluating now!
+2024-08-20 17:28:40,801 - INFO - Epoch [63/150] train_loss: 88.1599, val_loss: 111.3098, lr: 0.000100, 143.34s
+2024-08-20 17:30:15,380 - INFO - epoch complete!
+2024-08-20 17:30:15,380 - INFO - evaluating now!
+2024-08-20 17:30:26,421 - INFO - Epoch [64/150] train_loss: 87.6239, val_loss: 111.1398, lr: 0.000100, 105.62s
+2024-08-20 17:32:01,397 - INFO - epoch complete!
+2024-08-20 17:32:01,398 - INFO - evaluating now!
+2024-08-20 17:32:12,087 - INFO - Epoch [65/150] train_loss: 87.3561, val_loss: 112.0369, lr: 0.000100, 105.67s
+2024-08-20 17:33:47,028 - INFO - epoch complete!
+2024-08-20 17:33:47,029 - INFO - evaluating now!
+2024-08-20 17:33:57,682 - INFO - Epoch [66/150] train_loss: 86.9836, val_loss: 111.1743, lr: 0.000100, 105.59s
+2024-08-20 17:35:32,637 - INFO - epoch complete!
+2024-08-20 17:35:32,638 - INFO - evaluating now!
+2024-08-20 17:35:43,326 - INFO - Epoch [67/150] train_loss: 86.7563, val_loss: 113.5024, lr: 0.000100, 105.64s
+2024-08-20 17:37:18,323 - INFO - epoch complete!
+2024-08-20 17:37:18,324 - INFO - evaluating now!
+2024-08-20 17:37:29,028 - INFO - Epoch [68/150] train_loss: 86.2675, val_loss: 113.1037, lr: 0.000100, 105.70s
+2024-08-20 17:39:04,092 - INFO - epoch complete!
+2024-08-20 17:39:04,093 - INFO - evaluating now!
+2024-08-20 17:39:14,778 - INFO - Epoch [69/150] train_loss: 86.4641, val_loss: 120.4790, lr: 0.000100, 105.75s
+2024-08-20 17:40:49,720 - INFO - epoch complete!
+2024-08-20 17:40:49,721 - INFO - evaluating now!
+2024-08-20 17:41:00,445 - INFO - Epoch [70/150] train_loss: 85.9856, val_loss: 112.7308, lr: 0.000100, 105.67s
+2024-08-20 17:42:35,364 - INFO - epoch complete!
+2024-08-20 17:42:35,364 - INFO - evaluating now!
+2024-08-20 17:42:46,056 - INFO - Epoch [71/150] train_loss: 85.7228, val_loss: 114.5338, lr: 0.000100, 105.61s
+2024-08-20 17:44:21,064 - INFO - epoch complete!
+2024-08-20 17:44:21,064 - INFO - evaluating now!
+2024-08-20 17:44:32,267 - INFO - Epoch [72/150] train_loss: 85.2732, val_loss: 114.5976, lr: 0.000100, 106.21s
+2024-08-20 17:46:06,720 - INFO - epoch complete!
+2024-08-20 17:46:06,720 - INFO - evaluating now!
+2024-08-20 17:46:18,402 - INFO - Epoch [73/150] train_loss: 85.2362, val_loss: 115.9837, lr: 0.000100, 106.13s
+2024-08-20 17:47:52,298 - INFO - epoch complete!
+2024-08-20 17:47:52,299 - INFO - evaluating now!
+2024-08-20 17:48:04,437 - INFO - Epoch [74/150] train_loss: 84.8644, val_loss: 115.7490, lr: 0.000100, 106.03s
+2024-08-20 17:49:38,168 - INFO - epoch complete!
+2024-08-20 17:49:38,168 - INFO - evaluating now!
+2024-08-20 17:49:50,033 - INFO - Epoch [75/150] train_loss: 84.6936, val_loss: 116.3922, lr: 0.000100, 105.60s
+2024-08-20 17:51:24,267 - INFO - epoch complete!
+2024-08-20 17:51:24,267 - INFO - evaluating now!
+2024-08-20 17:51:35,636 - INFO - Epoch [76/150] train_loss: 84.5745, val_loss: 115.4519, lr: 0.000100, 105.60s
+2024-08-20 17:53:10,478 - INFO - epoch complete!
+2024-08-20 17:53:10,479 - INFO - evaluating now!
+2024-08-20 17:53:21,458 - INFO - Epoch [77/150] train_loss: 83.8511, val_loss: 117.6993, lr: 0.000100, 105.82s
+2024-08-20 17:54:56,494 - INFO - epoch complete!
+2024-08-20 17:54:56,495 - INFO - evaluating now!
+2024-08-20 17:55:07,183 - INFO - Epoch [78/150] train_loss: 83.8594, val_loss: 118.6929, lr: 0.000100, 105.72s
+2024-08-20 17:56:42,255 - INFO - epoch complete!
+2024-08-20 17:56:42,256 - INFO - evaluating now!
+2024-08-20 17:56:52,934 - INFO - Epoch [79/150] train_loss: 83.5504, val_loss: 117.4309, lr: 0.000100, 105.75s
+2024-08-20 17:58:27,915 - INFO - epoch complete!
+2024-08-20 17:58:27,916 - INFO - evaluating now!
+2024-08-20 17:58:38,579 - INFO - Epoch [80/150] train_loss: 83.4052, val_loss: 117.9870, lr: 0.000100, 105.64s
+2024-08-20 18:00:13,525 - INFO - epoch complete!
+2024-08-20 18:00:13,525 - INFO - evaluating now!
+2024-08-20 18:00:24,236 - INFO - Epoch [81/150] train_loss: 83.1076, val_loss: 117.6633, lr: 0.000100, 105.66s
+2024-08-20 18:01:59,206 - INFO - epoch complete!
+2024-08-20 18:01:59,207 - INFO - evaluating now!
+2024-08-20 18:02:09,914 - INFO - Epoch [82/150] train_loss: 82.8124, val_loss: 116.0644, lr: 0.000100, 105.68s
+2024-08-20 18:03:44,890 - INFO - epoch complete!
+2024-08-20 18:03:44,891 - INFO - evaluating now!
+2024-08-20 18:03:55,586 - INFO - Epoch [83/150] train_loss: 82.6386, val_loss: 119.6968, lr: 0.000100, 105.67s
+2024-08-20 18:05:30,561 - INFO - epoch complete!
+2024-08-20 18:05:30,562 - INFO - evaluating now!
+2024-08-20 18:05:41,492 - INFO - Epoch [84/150] train_loss: 82.2514, val_loss: 117.0005, lr: 0.000100, 105.91s
+2024-08-20 18:07:16,086 - INFO - epoch complete!
+2024-08-20 18:07:16,086 - INFO - evaluating now!
+2024-08-20 18:07:27,593 - INFO - Epoch [85/150] train_loss: 82.2161, val_loss: 116.0731, lr: 0.000100, 106.10s
+2024-08-20 18:09:01,780 - INFO - epoch complete!
+2024-08-20 18:09:01,780 - INFO - evaluating now!
+2024-08-20 18:09:13,713 - INFO - Epoch [86/150] train_loss: 81.9613, val_loss: 121.8458, lr: 0.000100, 106.12s
+2024-08-20 18:10:47,464 - INFO - epoch complete!
+2024-08-20 18:10:47,465 - INFO - evaluating now!
+2024-08-20 18:10:59,578 - INFO - Epoch [87/150] train_loss: 81.8317, val_loss: 118.0937, lr: 0.000100, 105.86s
+2024-08-20 18:12:33,508 - INFO - epoch complete!
+2024-08-20 18:12:33,509 - INFO - evaluating now!
+2024-08-20 18:12:45,111 - INFO - Epoch [88/150] train_loss: 81.7494, val_loss: 124.9313, lr: 0.000100, 105.53s
+2024-08-20 18:14:19,673 - INFO - epoch complete!
+2024-08-20 18:14:19,673 - INFO - evaluating now!
+2024-08-20 18:14:30,878 - INFO - Epoch [89/150] train_loss: 81.2546, val_loss: 119.6346, lr: 0.000100, 105.77s
+2024-08-20 18:16:05,874 - INFO - epoch complete!
+2024-08-20 18:16:05,874 - INFO - evaluating now!
+2024-08-20 18:16:16,505 - INFO - Epoch [90/150] train_loss: 81.0773, val_loss: 123.6061, lr: 0.000100, 105.63s
+2024-08-20 18:17:51,467 - INFO - epoch complete!
+2024-08-20 18:17:51,468 - INFO - evaluating now!
+2024-08-20 18:18:02,171 - INFO - Epoch [91/150] train_loss: 80.9505, val_loss: 119.3042, lr: 0.000100, 105.67s
+2024-08-20 18:19:37,241 - INFO - epoch complete!
+2024-08-20 18:19:37,241 - INFO - evaluating now!
+2024-08-20 18:19:47,934 - INFO - Epoch [92/150] train_loss: 80.6895, val_loss: 121.3169, lr: 0.000100, 105.76s
+2024-08-20 18:21:22,966 - INFO - epoch complete!
+2024-08-20 18:21:22,967 - INFO - evaluating now!
+2024-08-20 18:21:33,641 - INFO - Epoch [93/150] train_loss: 80.5023, val_loss: 122.0120, lr: 0.000100, 105.71s
+2024-08-20 18:23:08,663 - INFO - epoch complete!
+2024-08-20 18:23:08,663 - INFO - evaluating now!
+2024-08-20 18:23:19,446 - INFO - Epoch [94/150] train_loss: 80.3132, val_loss: 125.1312, lr: 0.000100, 105.80s
+2024-08-20 18:24:54,472 - INFO - epoch complete!
+2024-08-20 18:24:54,473 - INFO - evaluating now!
+2024-08-20 18:25:05,203 - INFO - Epoch [95/150] train_loss: 80.1913, val_loss: 122.2879, lr: 0.000100, 105.76s
+2024-08-20 18:26:40,394 - INFO - epoch complete!
+2024-08-20 18:26:40,395 - INFO - evaluating now!
+2024-08-20 18:26:51,112 - INFO - Epoch [96/150] train_loss: 79.8848, val_loss: 121.8720, lr: 0.000100, 105.91s
+2024-08-20 18:28:26,201 - INFO - epoch complete!
+2024-08-20 18:28:26,202 - INFO - evaluating now!
+2024-08-20 18:28:37,376 - INFO - Epoch [97/150] train_loss: 79.6496, val_loss: 124.6280, lr: 0.000100, 106.26s
+2024-08-20 18:30:11,951 - INFO - epoch complete!
+2024-08-20 18:30:11,952 - INFO - evaluating now!
+2024-08-20 18:30:23,694 - INFO - Epoch [98/150] train_loss: 79.4907, val_loss: 124.2767, lr: 0.000100, 106.32s
+2024-08-20 18:31:57,600 - INFO - epoch complete!
+2024-08-20 18:31:57,601 - INFO - evaluating now!
+2024-08-20 18:32:09,790 - INFO - Epoch [99/150] train_loss: 79.3225, val_loss: 124.6291, lr: 0.000100, 106.10s
+2024-08-20 18:33:43,771 - INFO - epoch complete!
+2024-08-20 18:33:43,771 - INFO - evaluating now!
+2024-08-20 18:33:55,530 - INFO - Epoch [100/150] train_loss: 79.2718, val_loss: 123.9655, lr: 0.000100, 105.74s
+2024-08-20 18:35:30,148 - INFO - epoch complete!
+2024-08-20 18:35:30,149 - INFO - evaluating now!
+2024-08-20 18:35:41,407 - INFO - Epoch [101/150] train_loss: 78.9099, val_loss: 123.9859, lr: 0.000100, 105.88s
+2024-08-20 18:37:16,536 - INFO - epoch complete!
+2024-08-20 18:37:16,536 - INFO - evaluating now!
+2024-08-20 18:37:27,208 - INFO - Epoch [102/150] train_loss: 78.7618, val_loss: 124.5029, lr: 0.000100, 105.80s
+2024-08-20 18:39:02,304 - INFO - epoch complete!
+2024-08-20 18:39:02,304 - INFO - evaluating now!
+2024-08-20 18:39:12,985 - INFO - Epoch [103/150] train_loss: 78.6968, val_loss: 121.6241, lr: 0.000100, 105.78s
+2024-08-20 18:40:48,144 - INFO - epoch complete!
+2024-08-20 18:40:48,145 - INFO - evaluating now!
+2024-08-20 18:40:58,817 - INFO - Epoch [104/150] train_loss: 78.3079, val_loss: 123.8312, lr: 0.000100, 105.83s
+2024-08-20 18:42:34,008 - INFO - epoch complete!
+2024-08-20 18:42:34,008 - INFO - evaluating now!
+2024-08-20 18:42:44,669 - INFO - Epoch [105/150] train_loss: 78.5985, val_loss: 126.8912, lr: 0.000100, 105.85s
+2024-08-20 18:44:19,780 - INFO - epoch complete!
+2024-08-20 18:44:19,781 - INFO - evaluating now!
+2024-08-20 18:44:30,529 - INFO - Epoch [106/150] train_loss: 78.3370, val_loss: 123.5591, lr: 0.000100, 105.86s
+2024-08-20 18:46:05,613 - INFO - epoch complete!
+2024-08-20 18:46:05,614 - INFO - evaluating now!
+2024-08-20 18:46:16,315 - INFO - Epoch [107/150] train_loss: 78.0850, val_loss: 126.1377, lr: 0.000100, 105.79s
+2024-08-20 18:47:51,413 - INFO - epoch complete!
+2024-08-20 18:47:51,414 - INFO - evaluating now!
+2024-08-20 18:48:02,191 - INFO - Epoch [108/150] train_loss: 77.8791, val_loss: 127.8484, lr: 0.000100, 105.88s
+2024-08-20 18:49:37,089 - INFO - epoch complete!
+2024-08-20 18:49:37,089 - INFO - evaluating now!
+2024-08-20 18:49:48,439 - INFO - Epoch [109/150] train_loss: 77.7415, val_loss: 122.4430, lr: 0.000100, 106.25s
+2024-08-20 18:51:22,869 - INFO - epoch complete!
+2024-08-20 18:51:22,870 - INFO - evaluating now!
+2024-08-20 18:51:34,642 - INFO - Epoch [110/150] train_loss: 77.6545, val_loss: 127.2775, lr: 0.000100, 106.20s
+2024-08-20 18:53:08,528 - INFO - epoch complete!
+2024-08-20 18:53:08,529 - INFO - evaluating now!
+2024-08-20 18:53:20,619 - INFO - Epoch [111/150] train_loss: 78.0797, val_loss: 128.7967, lr: 0.000100, 105.98s
+2024-08-20 18:54:54,484 - INFO - epoch complete!
+2024-08-20 18:54:54,484 - INFO - evaluating now!
+2024-08-20 18:55:06,096 - INFO - Epoch [112/150] train_loss: 78.6317, val_loss: 134.3103, lr: 0.000100, 105.48s
+2024-08-20 18:56:40,541 - INFO - epoch complete!
+2024-08-20 18:56:40,542 - INFO - evaluating now!
+2024-08-20 18:56:51,730 - INFO - Epoch [113/150] train_loss: 78.5826, val_loss: 128.9002, lr: 0.000100, 105.63s
+2024-08-20 18:58:26,744 - INFO - epoch complete!
+2024-08-20 18:58:26,745 - INFO - evaluating now!
+2024-08-20 18:58:37,430 - INFO - Epoch [114/150] train_loss: 78.2770, val_loss: 128.7631, lr: 0.000100, 105.70s
+2024-08-20 19:00:12,503 - INFO - epoch complete!
+2024-08-20 19:00:12,504 - INFO - evaluating now!
+2024-08-20 19:00:23,314 - INFO - Epoch [115/150] train_loss: 78.0275, val_loss: 133.6851, lr: 0.000100, 105.88s
+2024-08-20 19:01:58,479 - INFO - epoch complete!
+2024-08-20 19:01:58,480 - INFO - evaluating now!
+2024-08-20 19:02:09,224 - INFO - Epoch [116/150] train_loss: 77.9519, val_loss: 126.4051, lr: 0.000100, 105.91s
+2024-08-20 19:03:44,292 - INFO - epoch complete!
+2024-08-20 19:03:44,292 - INFO - evaluating now!
+2024-08-20 19:03:54,967 - INFO - Epoch [117/150] train_loss: 77.7257, val_loss: 133.4687, lr: 0.000100, 105.74s
+2024-08-20 19:05:30,035 - INFO - epoch complete!
+2024-08-20 19:05:30,036 - INFO - evaluating now!
+2024-08-20 19:05:40,690 - INFO - Epoch [118/150] train_loss: 77.6146, val_loss: 135.2379, lr: 0.000100, 105.72s
+2024-08-20 19:07:15,728 - INFO - epoch complete!
+2024-08-20 19:07:15,729 - INFO - evaluating now!
+2024-08-20 19:07:26,387 - INFO - Epoch [119/150] train_loss: 77.4737, val_loss: 130.2069, lr: 0.000100, 105.70s
+2024-08-20 19:09:01,474 - INFO - epoch complete!
+2024-08-20 19:09:01,474 - INFO - evaluating now!
+2024-08-20 19:09:12,210 - INFO - Epoch [120/150] train_loss: 77.1246, val_loss: 126.3981, lr: 0.000100, 105.82s
+2024-08-20 19:10:47,127 - INFO - epoch complete!
+2024-08-20 19:10:47,127 - INFO - evaluating now!
+2024-08-20 19:10:58,299 - INFO - Epoch [121/150] train_loss: 76.9700, val_loss: 132.1115, lr: 0.000100, 106.09s
+2024-08-20 19:12:32,832 - INFO - epoch complete!
+2024-08-20 19:12:32,833 - INFO - evaluating now!
+2024-08-20 19:12:44,511 - INFO - Epoch [122/150] train_loss: 76.7742, val_loss: 129.5784, lr: 0.000100, 106.21s
+2024-08-20 19:14:18,542 - INFO - epoch complete!
+2024-08-20 19:14:18,543 - INFO - evaluating now!
+2024-08-20 19:14:30,699 - INFO - Epoch [123/150] train_loss: 76.6955, val_loss: 140.8034, lr: 0.000100, 106.19s
+2024-08-20 19:16:04,625 - INFO - epoch complete!
+2024-08-20 19:16:04,626 - INFO - evaluating now!
+2024-08-20 19:16:16,334 - INFO - Epoch [124/150] train_loss: 76.7616, val_loss: 130.3701, lr: 0.000100, 105.63s
+2024-08-20 19:17:50,745 - INFO - epoch complete!
+2024-08-20 19:17:50,745 - INFO - evaluating now!
+2024-08-20 19:18:01,968 - INFO - Epoch [125/150] train_loss: 76.6109, val_loss: 140.6931, lr: 0.000100, 105.63s
+2024-08-20 19:19:36,905 - INFO - epoch complete!
+2024-08-20 19:19:36,906 - INFO - evaluating now!
+2024-08-20 19:19:47,618 - INFO - Epoch [126/150] train_loss: 76.5488, val_loss: 127.9479, lr: 0.000100, 105.65s
+2024-08-20 19:21:22,655 - INFO - epoch complete!
+2024-08-20 19:21:22,655 - INFO - evaluating now!
+2024-08-20 19:21:33,307 - INFO - Epoch [127/150] train_loss: 76.1517, val_loss: 128.8194, lr: 0.000100, 105.69s
+2024-08-20 19:23:08,348 - INFO - epoch complete!
+2024-08-20 19:23:08,349 - INFO - evaluating now!
+2024-08-20 19:23:19,007 - INFO - Epoch [128/150] train_loss: 76.2873, val_loss: 131.8836, lr: 0.000100, 105.70s
+2024-08-20 19:24:54,132 - INFO - epoch complete!
+2024-08-20 19:24:54,133 - INFO - evaluating now!
+2024-08-20 19:25:04,802 - INFO - Epoch [129/150] train_loss: 76.0839, val_loss: 129.5891, lr: 0.000100, 105.79s
+2024-08-20 19:26:39,852 - INFO - epoch complete!
+2024-08-20 19:26:39,853 - INFO - evaluating now!
+2024-08-20 19:26:50,537 - INFO - Epoch [130/150] train_loss: 75.9796, val_loss: 130.7663, lr: 0.000100, 105.74s
+2024-08-20 19:28:25,496 - INFO - epoch complete!
+2024-08-20 19:28:25,497 - INFO - evaluating now!
+2024-08-20 19:28:36,182 - INFO - Epoch [131/150] train_loss: 75.5248, val_loss: 135.2719, lr: 0.000100, 105.64s
+2024-08-20 19:30:11,196 - INFO - epoch complete!
+2024-08-20 19:30:11,196 - INFO - evaluating now!
+2024-08-20 19:30:21,906 - INFO - Epoch [132/150] train_loss: 75.4850, val_loss: 134.1489, lr: 0.000100, 105.72s
+2024-08-20 19:31:56,980 - INFO - epoch complete!
+2024-08-20 19:31:56,981 - INFO - evaluating now!
+2024-08-20 19:32:08,069 - INFO - Epoch [133/150] train_loss: 75.4843, val_loss: 137.1934, lr: 0.000100, 106.16s
+2024-08-20 19:33:42,698 - INFO - epoch complete!
+2024-08-20 19:33:42,699 - INFO - evaluating now!
+2024-08-20 19:33:54,323 - INFO - Epoch [134/150] train_loss: 75.3977, val_loss: 137.5149, lr: 0.000100, 106.25s
+2024-08-20 19:35:28,345 - INFO - epoch complete!
+2024-08-20 19:35:28,345 - INFO - evaluating now!
+2024-08-20 19:35:40,346 - INFO - Epoch [135/150] train_loss: 75.3388, val_loss: 136.4264, lr: 0.000100, 106.02s
+2024-08-20 19:37:14,166 - INFO - epoch complete!
+2024-08-20 19:37:14,167 - INFO - evaluating now!
+2024-08-20 19:37:25,988 - INFO - Epoch [136/150] train_loss: 75.1536, val_loss: 135.3493, lr: 0.000100, 105.64s
+2024-08-20 19:39:00,154 - INFO - epoch complete!
+2024-08-20 19:39:00,155 - INFO - evaluating now!
+2024-08-20 19:39:11,565 - INFO - Epoch [137/150] train_loss: 75.1725, val_loss: 132.2832, lr: 0.000100, 105.58s
+2024-08-20 19:40:46,319 - INFO - epoch complete!
+2024-08-20 19:40:46,319 - INFO - evaluating now!
+2024-08-20 19:40:57,268 - INFO - Epoch [138/150] train_loss: 75.0266, val_loss: 137.6518, lr: 0.000100, 105.70s
+2024-08-20 19:42:32,331 - INFO - epoch complete!
+2024-08-20 19:42:32,331 - INFO - evaluating now!
+2024-08-20 19:42:43,003 - INFO - Epoch [139/150] train_loss: 74.8692, val_loss: 137.4087, lr: 0.000100, 105.73s
+2024-08-20 19:44:17,997 - INFO - epoch complete!
+2024-08-20 19:44:17,998 - INFO - evaluating now!
+2024-08-20 19:44:28,694 - INFO - Epoch [140/150] train_loss: 74.8140, val_loss: 134.5039, lr: 0.000100, 105.69s
+2024-08-20 19:46:03,729 - INFO - epoch complete!
+2024-08-20 19:46:03,730 - INFO - evaluating now!
+2024-08-20 19:46:14,415 - INFO - Epoch [141/150] train_loss: 74.7050, val_loss: 135.7846, lr: 0.000100, 105.72s
+2024-08-20 19:47:49,513 - INFO - epoch complete!
+2024-08-20 19:47:49,514 - INFO - evaluating now!
+2024-08-20 19:48:00,182 - INFO - Epoch [142/150] train_loss: 74.6228, val_loss: 137.6088, lr: 0.000100, 105.77s
+2024-08-20 19:49:35,239 - INFO - epoch complete!
+2024-08-20 19:49:35,240 - INFO - evaluating now!
+2024-08-20 19:49:45,918 - INFO - Epoch [143/150] train_loss: 74.5644, val_loss: 135.1391, lr: 0.000100, 105.74s
+2024-08-20 19:51:20,974 - INFO - epoch complete!
+2024-08-20 19:51:20,974 - INFO - evaluating now!
+2024-08-20 19:51:31,656 - INFO - Epoch [144/150] train_loss: 74.5309, val_loss: 138.8752, lr: 0.000100, 105.74s
+2024-08-20 19:53:06,712 - INFO - epoch complete!
+2024-08-20 19:53:06,712 - INFO - evaluating now!
+2024-08-20 19:53:17,674 - INFO - Epoch [145/150] train_loss: 74.3759, val_loss: 135.3081, lr: 0.000100, 106.02s
+2024-08-20 19:54:52,507 - INFO - epoch complete!
+2024-08-20 19:54:52,507 - INFO - evaluating now!
+2024-08-20 19:55:03,898 - INFO - Epoch [146/150] train_loss: 74.0953, val_loss: 137.0068, lr: 0.000100, 106.22s
+2024-08-20 19:56:38,158 - INFO - epoch complete!
+2024-08-20 19:56:38,159 - INFO - evaluating now!
+2024-08-20 19:56:50,020 - INFO - Epoch [147/150] train_loss: 73.9965, val_loss: 142.6765, lr: 0.000100, 106.12s
+2024-08-20 19:58:23,932 - INFO - epoch complete!
+2024-08-20 19:58:23,933 - INFO - evaluating now!
+2024-08-20 19:58:35,999 - INFO - Epoch [148/150] train_loss: 74.0585, val_loss: 143.6582, lr: 0.000100, 105.98s
+2024-08-20 20:00:10,073 - INFO - epoch complete!
+2024-08-20 20:00:10,074 - INFO - evaluating now!
+2024-08-20 20:00:21,658 - INFO - Epoch [149/150] train_loss: 73.8598, val_loss: 133.7677, lr: 0.000100, 105.66s
+2024-08-20 20:00:21,658 - INFO - Trained totally 150 epochs, average train time is 111.151s, average eval time is 13.230s
+2024-08-20 20:00:21,774 - INFO - Loaded model at 28
+2024-08-20 20:00:21,774 - INFO - Saved model at ./libcity/cache/3/model_cache/ASTGCN_METR_LA.m
+2024-08-20 20:00:21,788 - INFO - Start evaluating ...
+2024-08-20 20:00:49,391 - INFO - Note that you select the single mode to evaluate!
+2024-08-20 20:00:49,396 - INFO - Evaluate result is saved at ./libcity/cache/3/evaluate_cache/2024_08_20_20_00_49_ASTGCN_METR_LA.csv
+2024-08-20 20:00:49,404 - INFO - 
+         MAE      MAPE      RMSE
+1   2.945370  0.068121  5.630548
+2   3.235199  0.076221  6.296090
+3   3.497373  0.082913  6.831299
+4   3.728031  0.088769  7.276694
+5   3.930371  0.094010  7.660294
+6   4.142482  0.099101  7.998008
+7   4.321391  0.103608  8.281485
+8   4.497087  0.107904  8.544514
+9   4.647027  0.111769  8.771850
+10  4.780921  0.115306  8.975343
+11  4.919326  0.118751  9.166425
+12  5.041036  0.121964  9.341828

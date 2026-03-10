@@ -1,0 +1,360 @@
+2024-10-07 20:44:44,179 - INFO - Log directory: ./libcity/log
+2024-10-07 20:44:44,179 - INFO - Begin pipeline, task=MTS_pred, model_name=GWNET, dataset_name=humidity, exp_id=0014
+2024-10-07 20:44:44,179 - INFO - {'task': 'MTS_pred', 'model': 'GWNET', 'dataset': 'humidity', 'saved_model': True, 'exp_id': '0014', 'seed': 0, 'batch_size': 4, 'max_epoch': 50, 'dataset_class': 'StatePointDataset', 'executor': 'StateExecutor', 'evaluator': 'StateEvaluator', 'dropout': 0.3, 'blocks': 4, 'layers': 2, 'apt_layer': True, 'gcn_bool': True, 'addaptadj': True, 'adjtype': 'doubletransition', 'bidir_adj_mx': False, 'randomadj': True, 'aptonly': True, 'kernel_size': 2, 'nhid': 32, 'residual_channels': 32, 'dilation_channels': 32, 'skip_channels': 256, 'end_channels': 512, 'scaler': 'standard', 'load_external': False, 'normal_external': False, 'ext_scaler': 'none', 'add_time_in_day': False, 'add_day_in_week': False, 'learner': 'adam', 'learning_rate': 0.001, 'lr_decay': False, 'clip_grad_norm': True, 'max_grad_norm': 5, 'use_early_stop': False, 'cache_dataset': True, 'num_workers': 0, 'pad_with_last_sample': True, 'train_rate': 0.7, 'eval_rate': 0.1, 'input_window': 12, 'output_window': 12, 'robustness_test': False, 'noise_type': 'gaussian', 'disturb_rate': 0.5, 'noise_mean': [5], 'noise_SD': [10], 'gpu': True, 'gpu_id': 0, 'train_loss': 'none', 'epoch': 0, 'weight_decay': 0, 'lr_epsilon': 1e-08, 'lr_beta1': 0.9, 'lr_beta2': 0.999, 'lr_alpha': 0.99, 'lr_momentum': 0, 'lr_scheduler': 'multisteplr', 'lr_decay_ratio': 0.1, 'steps': [5, 20, 40, 70], 'step_size': 10, 'lr_T_max': 30, 'lr_eta_min': 0, 'lr_patience': 10, 'lr_threshold': 0.0001, 'patience': 50, 'log_level': 'INFO', 'log_every': 1, 'load_best_epoch': True, 'hyper_tune': False, 'metrics': ['MAE', 'MAPE', 'RMSE'], 'evaluator_mode': 'single', 'save_mode': ['csv'], 'geo': {'including_types': ['Point'], 'Point': {}}, 'rel': {'including_types': ['geo'], 'geo': {'cost': 'num'}}, 'dyna': {'including_types': ['state'], 'state': {'entity_id': 'geo_id', 'traffic_speed': 'num'}}, 'data_col': ['traffic_speed'], 'weight_col': 'cost', 'data_files': ['humidity'], 'geo_file': 'humidity', 'rel_file': 'humidity', 'output_dim': 1, 'time_intervals': 300, 'init_weight_inf_or_zero': 'inf', 'set_weight_link_or_dist': 'dist', 'calculate_weight_adj': True, 'weight_adj_epsilon': 0.1, 'device': device(type='cuda', index=0)}
+2024-10-07 20:44:45,937 - INFO - Loaded file humidity_feature.csv, shape=(3322, 2048, 1)
+2024-10-07 20:44:46,788 - INFO - Dataset created
+2024-10-07 20:44:46,788 - INFO - x shape: (3299, 12, 2048, 1), y shape: (3299, 12, 2048, 1)
+2024-10-07 20:44:46,792 - INFO - train	x: (2309, 12, 2048, 1), y: (2309, 12, 2048, 1)
+2024-10-07 20:44:46,792 - INFO - eval	x: (330, 12, 2048, 1), y: (330, 12, 2048, 1)
+2024-10-07 20:44:46,792 - INFO - test	x: (660, 12, 2048, 1), y: (660, 12, 2048, 1)
+2024-10-07 20:46:29,129 - INFO - Saved at ./libcity/cache/dataset_cache/point_based_humidity_12_12_0.7_0.1_standard_4_False_False_False_True.npz
+2024-10-07 20:46:29,298 - INFO - StandardScaler mean: 78.66855544535464, std: 17.406175498267864
+2024-10-07 20:46:29,298 - INFO - NoneScaler
+2024-10-07 20:46:30,611 - INFO - receptive_field: 13
+2024-10-07 20:46:30,658 - INFO - GWNET(
+  (filter_convs): ModuleList(
+    (0): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (1): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (2): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (3): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (4): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (5): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (6): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (7): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+  )
+  (gate_convs): ModuleList(
+    (0): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (1): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (2): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (3): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (4): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (5): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (6): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (7): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+  )
+  (residual_convs): ModuleList(
+    (0-7): 8 x Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (skip_convs): ModuleList(
+    (0-7): 8 x Conv2d(32, 256, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (bn): ModuleList(
+    (0-7): 8 x BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (gconv): ModuleList(
+    (0-7): 8 x GCN(
+      (nconv): NConv()
+      (mlp): Linear(
+        (mlp): Conv2d(96, 32, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+  )
+  (start_conv): Conv2d(1, 32, kernel_size=(1, 1), stride=(1, 1))
+  (end_conv_1): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1))
+  (end_conv_2): Conv2d(512, 12, kernel_size=(1, 1), stride=(1, 1))
+)
+2024-10-07 20:46:30,658 - INFO - nodevec1	torch.Size([2048, 10])	cuda:0	True
+2024-10-07 20:46:30,658 - INFO - nodevec2	torch.Size([10, 2048])	cuda:0	True
+2024-10-07 20:46:30,658 - INFO - filter_convs.0.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.0.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.1.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.1.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.2.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.2.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.3.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.3.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.4.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.4.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.5.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.5.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.6.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.6.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.7.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - filter_convs.7.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.0.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.0.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.1.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.1.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.2.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.2.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.3.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.3.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.4.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.4.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.5.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.5.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,659 - INFO - gate_convs.6.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - gate_convs.6.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - gate_convs.7.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - gate_convs.7.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.0.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.0.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.1.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.1.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.2.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.2.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.3.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.3.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.4.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.4.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.5.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.5.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.6.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.6.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.7.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - residual_convs.7.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - skip_convs.0.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - skip_convs.0.bias	torch.Size([256])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - skip_convs.1.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - skip_convs.1.bias	torch.Size([256])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - skip_convs.2.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - skip_convs.2.bias	torch.Size([256])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - skip_convs.3.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,660 - INFO - skip_convs.3.bias	torch.Size([256])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - skip_convs.4.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - skip_convs.4.bias	torch.Size([256])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - skip_convs.5.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - skip_convs.5.bias	torch.Size([256])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - skip_convs.6.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - skip_convs.6.bias	torch.Size([256])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - skip_convs.7.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - skip_convs.7.bias	torch.Size([256])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.0.weight	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.0.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.1.weight	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.1.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.2.weight	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.2.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.3.weight	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.3.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.4.weight	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.4.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.5.weight	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.5.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.6.weight	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.6.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.7.weight	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - bn.7.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - gconv.0.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - gconv.0.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - gconv.1.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,661 - INFO - gconv.1.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - gconv.2.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - gconv.2.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - gconv.3.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - gconv.3.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - gconv.4.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - gconv.4.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - gconv.5.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - gconv.5.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - gconv.6.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - gconv.6.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - gconv.7.mlp.mlp.weight	torch.Size([32, 96, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - gconv.7.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - start_conv.weight	torch.Size([32, 1, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - start_conv.bias	torch.Size([32])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - end_conv_1.weight	torch.Size([512, 256, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - end_conv_1.bias	torch.Size([512])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - end_conv_2.weight	torch.Size([12, 512, 1, 1])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - end_conv_2.bias	torch.Size([12])	cuda:0	True
+2024-10-07 20:46:30,662 - INFO - Total parameter numbers: 313420
+2024-10-07 20:46:30,662 - INFO - You select `adam` optimizer.
+2024-10-07 20:46:31,076 - WARNING - Received none train loss func and will use the loss func defined in the model.
+2024-10-07 20:46:31,076 - INFO - Start training ...
+2024-10-07 20:46:31,076 - INFO - num_batches:578
+2024-10-07 20:46:57,178 - INFO - epoch complete!
+2024-10-07 20:46:57,178 - INFO - evaluating now!
+2024-10-07 20:46:58,171 - INFO - Epoch [0/50] train_loss: 8.5949, val_loss: 8.2553, lr: 0.001000, 27.09s
+2024-10-07 20:46:58,192 - INFO - Saved model at 0
+2024-10-07 20:46:58,192 - INFO - Val loss decrease from inf to 8.2553, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch0.tar
+2024-10-07 20:47:22,564 - INFO - epoch complete!
+2024-10-07 20:47:22,564 - INFO - evaluating now!
+2024-10-07 20:47:23,553 - INFO - Epoch [1/50] train_loss: 8.3305, val_loss: 8.1542, lr: 0.001000, 25.36s
+2024-10-07 20:47:23,574 - INFO - Saved model at 1
+2024-10-07 20:47:23,574 - INFO - Val loss decrease from 8.2553 to 8.1542, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch1.tar
+2024-10-07 20:47:49,122 - INFO - epoch complete!
+2024-10-07 20:47:49,122 - INFO - evaluating now!
+2024-10-07 20:47:50,109 - INFO - Epoch [2/50] train_loss: 8.2252, val_loss: 8.1147, lr: 0.001000, 26.53s
+2024-10-07 20:47:50,130 - INFO - Saved model at 2
+2024-10-07 20:47:50,130 - INFO - Val loss decrease from 8.1542 to 8.1147, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch2.tar
+2024-10-07 20:48:15,682 - INFO - epoch complete!
+2024-10-07 20:48:15,683 - INFO - evaluating now!
+2024-10-07 20:48:16,663 - INFO - Epoch [3/50] train_loss: 8.1594, val_loss: 8.0230, lr: 0.001000, 26.53s
+2024-10-07 20:48:16,684 - INFO - Saved model at 3
+2024-10-07 20:48:16,684 - INFO - Val loss decrease from 8.1147 to 8.0230, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch3.tar
+2024-10-07 20:48:42,218 - INFO - epoch complete!
+2024-10-07 20:48:42,218 - INFO - evaluating now!
+2024-10-07 20:48:43,213 - INFO - Epoch [4/50] train_loss: 8.1136, val_loss: 8.0185, lr: 0.001000, 26.53s
+2024-10-07 20:48:43,233 - INFO - Saved model at 4
+2024-10-07 20:48:43,234 - INFO - Val loss decrease from 8.0230 to 8.0185, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch4.tar
+2024-10-07 20:49:07,643 - INFO - epoch complete!
+2024-10-07 20:49:07,643 - INFO - evaluating now!
+2024-10-07 20:49:08,627 - INFO - Epoch [5/50] train_loss: 8.0823, val_loss: 7.9807, lr: 0.001000, 25.39s
+2024-10-07 20:49:08,647 - INFO - Saved model at 5
+2024-10-07 20:49:08,647 - INFO - Val loss decrease from 8.0185 to 7.9807, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch5.tar
+2024-10-07 20:49:34,151 - INFO - epoch complete!
+2024-10-07 20:49:34,152 - INFO - evaluating now!
+2024-10-07 20:49:35,144 - INFO - Epoch [6/50] train_loss: 8.0531, val_loss: 7.9892, lr: 0.001000, 26.50s
+2024-10-07 20:50:00,687 - INFO - epoch complete!
+2024-10-07 20:50:00,687 - INFO - evaluating now!
+2024-10-07 20:50:01,667 - INFO - Epoch [7/50] train_loss: 8.0329, val_loss: 7.9452, lr: 0.001000, 26.52s
+2024-10-07 20:50:01,688 - INFO - Saved model at 7
+2024-10-07 20:50:01,688 - INFO - Val loss decrease from 7.9807 to 7.9452, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch7.tar
+2024-10-07 20:50:27,264 - INFO - epoch complete!
+2024-10-07 20:50:27,264 - INFO - evaluating now!
+2024-10-07 20:50:28,257 - INFO - Epoch [8/50] train_loss: 8.0124, val_loss: 7.9537, lr: 0.001000, 26.57s
+2024-10-07 20:50:52,674 - INFO - epoch complete!
+2024-10-07 20:50:52,674 - INFO - evaluating now!
+2024-10-07 20:50:53,666 - INFO - Epoch [9/50] train_loss: 7.9952, val_loss: 7.9201, lr: 0.001000, 25.41s
+2024-10-07 20:50:53,686 - INFO - Saved model at 9
+2024-10-07 20:50:53,687 - INFO - Val loss decrease from 7.9452 to 7.9201, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch9.tar
+2024-10-07 20:51:19,289 - INFO - epoch complete!
+2024-10-07 20:51:19,289 - INFO - evaluating now!
+2024-10-07 20:51:20,281 - INFO - Epoch [10/50] train_loss: 7.9788, val_loss: 7.9141, lr: 0.001000, 26.59s
+2024-10-07 20:51:20,301 - INFO - Saved model at 10
+2024-10-07 20:51:20,301 - INFO - Val loss decrease from 7.9201 to 7.9141, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch10.tar
+2024-10-07 20:51:45,910 - INFO - epoch complete!
+2024-10-07 20:51:45,910 - INFO - evaluating now!
+2024-10-07 20:51:46,909 - INFO - Epoch [11/50] train_loss: 7.9674, val_loss: 7.9059, lr: 0.001000, 26.61s
+2024-10-07 20:51:46,930 - INFO - Saved model at 11
+2024-10-07 20:51:46,930 - INFO - Val loss decrease from 7.9141 to 7.9059, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch11.tar
+2024-10-07 20:52:12,495 - INFO - epoch complete!
+2024-10-07 20:52:12,495 - INFO - evaluating now!
+2024-10-07 20:52:13,445 - INFO - Epoch [12/50] train_loss: 7.9531, val_loss: 7.9077, lr: 0.001000, 26.51s
+2024-10-07 20:52:37,955 - INFO - epoch complete!
+2024-10-07 20:52:37,956 - INFO - evaluating now!
+2024-10-07 20:52:38,945 - INFO - Epoch [13/50] train_loss: 7.9417, val_loss: 7.9113, lr: 0.001000, 25.50s
+2024-10-07 20:53:04,541 - INFO - epoch complete!
+2024-10-07 20:53:04,542 - INFO - evaluating now!
+2024-10-07 20:53:05,565 - INFO - Epoch [14/50] train_loss: 7.9329, val_loss: 7.8905, lr: 0.001000, 26.62s
+2024-10-07 20:53:05,587 - INFO - Saved model at 14
+2024-10-07 20:53:05,588 - INFO - Val loss decrease from 7.9059 to 7.8905, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch14.tar
+2024-10-07 20:53:31,170 - INFO - epoch complete!
+2024-10-07 20:53:31,170 - INFO - evaluating now!
+2024-10-07 20:53:32,183 - INFO - Epoch [15/50] train_loss: 7.9220, val_loss: 7.8976, lr: 0.001000, 26.60s
+2024-10-07 20:53:57,656 - INFO - epoch complete!
+2024-10-07 20:53:57,656 - INFO - evaluating now!
+2024-10-07 20:53:58,600 - INFO - Epoch [16/50] train_loss: 7.9153, val_loss: 7.9097, lr: 0.001000, 26.42s
+2024-10-07 20:54:23,216 - INFO - epoch complete!
+2024-10-07 20:54:23,216 - INFO - evaluating now!
+2024-10-07 20:54:24,212 - INFO - Epoch [17/50] train_loss: 7.9063, val_loss: 7.8737, lr: 0.001000, 25.61s
+2024-10-07 20:54:24,232 - INFO - Saved model at 17
+2024-10-07 20:54:24,232 - INFO - Val loss decrease from 7.8905 to 7.8737, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch17.tar
+2024-10-07 20:54:49,810 - INFO - epoch complete!
+2024-10-07 20:54:49,810 - INFO - evaluating now!
+2024-10-07 20:54:50,806 - INFO - Epoch [18/50] train_loss: 7.8988, val_loss: 7.9258, lr: 0.001000, 26.57s
+2024-10-07 20:55:16,393 - INFO - epoch complete!
+2024-10-07 20:55:16,393 - INFO - evaluating now!
+2024-10-07 20:55:17,390 - INFO - Epoch [19/50] train_loss: 7.8934, val_loss: 7.8892, lr: 0.001000, 26.58s
+2024-10-07 20:55:42,690 - INFO - epoch complete!
+2024-10-07 20:55:42,690 - INFO - evaluating now!
+2024-10-07 20:55:43,620 - INFO - Epoch [20/50] train_loss: 7.8860, val_loss: 7.8955, lr: 0.001000, 26.23s
+2024-10-07 20:56:08,406 - INFO - epoch complete!
+2024-10-07 20:56:08,406 - INFO - evaluating now!
+2024-10-07 20:56:09,402 - INFO - Epoch [21/50] train_loss: 7.8803, val_loss: 7.9254, lr: 0.001000, 25.78s
+2024-10-07 20:56:35,047 - INFO - epoch complete!
+2024-10-07 20:56:35,048 - INFO - evaluating now!
+2024-10-07 20:56:36,046 - INFO - Epoch [22/50] train_loss: 7.8752, val_loss: 7.8800, lr: 0.001000, 26.64s
+2024-10-07 20:57:01,631 - INFO - epoch complete!
+2024-10-07 20:57:01,631 - INFO - evaluating now!
+2024-10-07 20:57:02,623 - INFO - Epoch [23/50] train_loss: 7.8684, val_loss: 7.8936, lr: 0.001000, 26.58s
+2024-10-07 20:57:27,757 - INFO - epoch complete!
+2024-10-07 20:57:27,757 - INFO - evaluating now!
+2024-10-07 20:57:28,689 - INFO - Epoch [24/50] train_loss: 7.8628, val_loss: 7.8749, lr: 0.001000, 26.07s
+2024-10-07 20:57:53,633 - INFO - epoch complete!
+2024-10-07 20:57:53,633 - INFO - evaluating now!
+2024-10-07 20:57:54,624 - INFO - Epoch [25/50] train_loss: 7.8579, val_loss: 7.9078, lr: 0.001000, 25.93s
+2024-10-07 20:58:20,195 - INFO - epoch complete!
+2024-10-07 20:58:20,195 - INFO - evaluating now!
+2024-10-07 20:58:21,183 - INFO - Epoch [26/50] train_loss: 7.8551, val_loss: 7.8798, lr: 0.001000, 26.56s
+2024-10-07 20:58:46,823 - INFO - epoch complete!
+2024-10-07 20:58:46,823 - INFO - evaluating now!
+2024-10-07 20:58:47,812 - INFO - Epoch [27/50] train_loss: 7.8497, val_loss: 7.8661, lr: 0.001000, 26.63s
+2024-10-07 20:58:47,833 - INFO - Saved model at 27
+2024-10-07 20:58:47,833 - INFO - Val loss decrease from 7.8737 to 7.8661, saving to ./libcity/cache/0014/model_cache/GWNET_humidity_epoch27.tar
+2024-10-07 20:59:12,779 - INFO - epoch complete!
+2024-10-07 20:59:12,779 - INFO - evaluating now!
+2024-10-07 20:59:13,717 - INFO - Epoch [28/50] train_loss: 7.8454, val_loss: 7.8796, lr: 0.001000, 25.88s
+2024-10-07 20:59:38,858 - INFO - epoch complete!
+2024-10-07 20:59:38,859 - INFO - evaluating now!
+2024-10-07 20:59:39,851 - INFO - Epoch [29/50] train_loss: 7.8398, val_loss: 7.8722, lr: 0.001000, 26.13s
+2024-10-07 21:00:05,447 - INFO - epoch complete!
+2024-10-07 21:00:05,448 - INFO - evaluating now!
+2024-10-07 21:00:06,439 - INFO - Epoch [30/50] train_loss: 7.8352, val_loss: 7.8952, lr: 0.001000, 26.59s
+2024-10-07 21:00:32,036 - INFO - epoch complete!
+2024-10-07 21:00:32,036 - INFO - evaluating now!
+2024-10-07 21:00:33,030 - INFO - Epoch [31/50] train_loss: 7.8312, val_loss: 7.9143, lr: 0.001000, 26.59s
+2024-10-07 21:00:57,982 - INFO - epoch complete!
+2024-10-07 21:00:57,983 - INFO - evaluating now!
+2024-10-07 21:00:58,969 - INFO - Epoch [32/50] train_loss: 7.8260, val_loss: 7.8935, lr: 0.001000, 25.94s
+2024-10-07 21:01:26,983 - INFO - epoch complete!
+2024-10-07 21:01:26,983 - INFO - evaluating now!
+2024-10-07 21:01:27,984 - INFO - Epoch [33/50] train_loss: 7.8232, val_loss: 7.8850, lr: 0.001000, 29.01s
+2024-10-07 21:01:53,649 - INFO - epoch complete!
+2024-10-07 21:01:53,650 - INFO - evaluating now!
+2024-10-07 21:01:54,671 - INFO - Epoch [34/50] train_loss: 7.8190, val_loss: 7.8942, lr: 0.001000, 26.69s
+2024-10-07 21:02:27,223 - INFO - epoch complete!
+2024-10-07 21:02:27,224 - INFO - evaluating now!
+2024-10-07 21:02:28,502 - INFO - Epoch [35/50] train_loss: 7.8153, val_loss: 7.8897, lr: 0.001000, 33.83s
+2024-10-07 21:03:00,921 - INFO - epoch complete!
+2024-10-07 21:03:00,922 - INFO - evaluating now!
+2024-10-07 21:03:02,147 - INFO - Epoch [36/50] train_loss: 7.8126, val_loss: 7.9010, lr: 0.001000, 33.64s
+2024-10-07 21:03:34,437 - INFO - epoch complete!
+2024-10-07 21:03:34,438 - INFO - evaluating now!
+2024-10-07 21:03:35,720 - INFO - Epoch [37/50] train_loss: 7.8107, val_loss: 7.8860, lr: 0.001000, 33.57s
+2024-10-07 21:04:07,268 - INFO - epoch complete!
+2024-10-07 21:04:07,268 - INFO - evaluating now!
+2024-10-07 21:04:08,690 - INFO - Epoch [38/50] train_loss: 7.8030, val_loss: 7.8996, lr: 0.001000, 32.97s
+2024-10-07 21:05:01,871 - INFO - epoch complete!
+2024-10-07 21:05:01,871 - INFO - evaluating now!
+2024-10-07 21:05:04,062 - INFO - Epoch [39/50] train_loss: 7.8000, val_loss: 7.9451, lr: 0.001000, 55.37s
+2024-10-07 21:05:58,364 - INFO - epoch complete!
+2024-10-07 21:05:58,364 - INFO - evaluating now!
+2024-10-07 21:06:00,530 - INFO - Epoch [40/50] train_loss: 7.7972, val_loss: 7.9010, lr: 0.001000, 56.47s
+2024-10-07 21:06:53,203 - INFO - epoch complete!
+2024-10-07 21:06:53,203 - INFO - evaluating now!
+2024-10-07 21:06:55,240 - INFO - Epoch [41/50] train_loss: 7.7935, val_loss: 7.9235, lr: 0.001000, 54.71s
+2024-10-07 21:07:47,711 - INFO - epoch complete!
+2024-10-07 21:07:47,711 - INFO - evaluating now!
+2024-10-07 21:07:49,854 - INFO - Epoch [42/50] train_loss: 7.7909, val_loss: 7.9216, lr: 0.001000, 54.61s
+2024-10-07 21:08:44,130 - INFO - epoch complete!
+2024-10-07 21:08:44,130 - INFO - evaluating now!
+2024-10-07 21:08:46,269 - INFO - Epoch [43/50] train_loss: 7.7842, val_loss: 7.9191, lr: 0.001000, 56.41s
+2024-10-07 21:09:40,538 - INFO - epoch complete!
+2024-10-07 21:09:40,538 - INFO - evaluating now!
+2024-10-07 21:09:42,678 - INFO - Epoch [44/50] train_loss: 7.7832, val_loss: 7.9241, lr: 0.001000, 56.41s
+2024-10-07 21:10:36,095 - INFO - epoch complete!
+2024-10-07 21:10:36,095 - INFO - evaluating now!
+2024-10-07 21:10:38,218 - INFO - Epoch [45/50] train_loss: 7.7810, val_loss: 7.9106, lr: 0.001000, 55.54s
+2024-10-07 21:11:38,206 - INFO - epoch complete!
+2024-10-07 21:11:38,206 - INFO - evaluating now!
+2024-10-07 21:11:41,002 - INFO - Epoch [46/50] train_loss: 7.7749, val_loss: 7.8916, lr: 0.001000, 62.78s
+2024-10-07 21:12:50,006 - INFO - epoch complete!
+2024-10-07 21:12:50,006 - INFO - evaluating now!
+2024-10-07 21:12:52,746 - INFO - Epoch [47/50] train_loss: 7.7739, val_loss: 7.9218, lr: 0.001000, 71.74s
+2024-10-07 21:14:00,615 - INFO - epoch complete!
+2024-10-07 21:14:00,615 - INFO - evaluating now!
+2024-10-07 21:14:03,002 - INFO - Epoch [48/50] train_loss: 7.7701, val_loss: 7.9252, lr: 0.001000, 70.26s
+2024-10-07 21:15:09,893 - INFO - epoch complete!
+2024-10-07 21:15:09,894 - INFO - evaluating now!
+2024-10-07 21:15:12,448 - INFO - Epoch [49/50] train_loss: 7.7705, val_loss: 7.9103, lr: 0.001000, 69.45s
+2024-10-07 21:15:12,448 - INFO - Trained totally 50 epochs, average train time is 33.119s, average eval time is 1.303s
+2024-10-07 21:15:13,538 - INFO - Loaded model at 27
+2024-10-07 21:15:13,539 - INFO - Saved model at ./libcity/cache/0014/model_cache/GWNET_humidity.m
+2024-10-07 21:15:13,562 - INFO - Start evaluating ...
+2024-10-07 21:15:30,721 - INFO - Note that you select the single mode to evaluate!
+2024-10-07 21:15:30,727 - INFO - Evaluate result is saved at ./libcity/cache/0014/evaluate_cache/2024_10_07_21_15_30_GWNET_humidity.csv
+2024-10-07 21:15:30,732 - INFO - 
+         MAE      MAPE       RMSE
+1   7.045856  0.106400   9.831151
+2   7.384333  0.112629  10.256054
+3   7.554573  0.115967  10.465529
+4   7.654399  0.117921  10.586713
+5   7.721679  0.119228  10.666890
+6   7.770849  0.120190  10.725126
+7   7.808633  0.120893  10.770414
+8   7.839127  0.121481  10.808849
+9   7.864746  0.121942  10.839880
+10  7.886323  0.122272  10.868632
+11  7.905273  0.122571  10.892645
+12  7.922119  0.122819  10.913279
