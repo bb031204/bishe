@@ -61,6 +61,23 @@ class ConfigParser(object):
                     file.'.format(config_file))
 
     def _load_default_config(self):
+        dataset_dir = self.config.get('dataset_dir')
+        if dataset_dir:
+            raw_dataset_config_path = os.path.join(
+                '.', 'raw_data', self.config['dataset'], 'config.json'
+            )
+            dataset_config_path = os.path.join(
+                dataset_dir, self.config['dataset'], 'config.json'
+            )
+            os.makedirs(os.path.dirname(raw_dataset_config_path), exist_ok=True)
+            if os.path.exists(dataset_config_path):
+                with open(dataset_config_path, 'r') as src_file:
+                    dataset_cfg = json.load(src_file)
+                with open(raw_dataset_config_path, 'w') as dst_file:
+                    json.dump(dataset_cfg, dst_file)
+            elif not os.path.exists(raw_dataset_config_path):
+                with open(raw_dataset_config_path, 'w') as dst_file:
+                    json.dump({}, dst_file)
         # 首先加载 task config
         with open('./libcity/config/task_config.json', 'r') as f:
             task_config = json.load(f)

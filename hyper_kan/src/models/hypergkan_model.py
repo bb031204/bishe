@@ -204,9 +204,11 @@ class HyperGKAN(nn.Module):
         self.gru_type = gru_type
         
         # Decoder: HyperGKAN layers
+        # 注意: decoder_input 来自 encoder HyperGKAN 输出 (hidden_channels 维),
+        #       而非 encoder GRU 输出, 所以所有 decoder 层的 d_model 都是 hidden_channels
         self.decoder_layers = nn.ModuleList([
             HyperGKANLayer(
-                d_model=gru_hidden_size if i == 0 else hidden_channels,
+                d_model=hidden_channels,
                 hidden_channels=hidden_channels,
                 use_kan=use_kan,
                 grid_size=kan_grid_size,

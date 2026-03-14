@@ -188,6 +188,10 @@ def load_yaml_config(config_path):
     """加载YAML配置文件"""
     with open(config_path, 'r', encoding='utf-8') as f:
         config = yaml.safe_load(f)
+    datasets_dir = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), '..', 'datasets')
+    )
+    config['dataset_dir'] = datasets_dir
     return config
 
 
@@ -635,7 +639,7 @@ def main():
 
     # 命令行覆盖
     if gpu_override is not None:
-        yaml_cfg.setdefault('global', {})['gpu_id'] = gpu_override
+        yaml_cfg.setdefault('global', {})['gpu_id'] = 0
     if args.seed is not None:
         yaml_cfg.setdefault('global', {})['seed'] = args.seed
 

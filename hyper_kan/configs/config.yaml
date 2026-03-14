@@ -7,16 +7,16 @@
 # 选择后，数据路径、预处理策略、超图K值、输出维度均会自动适配
 dataset_selection:
   Temperature: false    # 温度 (K→°C, output_dim=1, K=5)
-  Cloud: false        # 云量 (fraction [0,1], output_dim=1, K=5)
+  Cloud: true        # 云量 (fraction [0,1], output_dim=1, K=5)
   Humidity: false    # 湿度 (%, output_dim=1, K=2, 论文Section 4.4)
-  Wind: true        # 风速 (m/s, u+v分量, output_dim=2, K=5)
+  Wind: false        # 风速 (m/s, u+v分量, output_dim=2, K=5)
 
 # 元数据配置（element 和 experiment_name 由 dataset_selection 自动决定）
 meta:
   experiment_name: "HyperGKAN_Temperature"  # 由 dataset_selection 自动覆盖
   element: "Temperature"                     # 由 dataset_selection 自动覆盖
   device: "cuda"  # cuda / cpu
-  gpu: 0  # 指定使用的 GPU 编号 (0-5)，可通过 --gpu 命令行参数覆盖
+  gpu: 1  # 指定使用的 GPU 编号 (0-5)，可通过 --gpu 命令行参数覆盖
   seed: 42
   num_workers: 4  # Linux服务器设为4加速数据加载
 
@@ -78,7 +78,10 @@ data:
   test_ratio: 0.15
 
   # Batch配置
-  batch_size: 16  # 🔥 论文设定：batch_size=16，多卡DataParallel自动分配
+  # 🔥 有效batch_size = batch_size × accumulation_steps = 4 × 4 = 16 (论文设定)
+  # P100 16GB显存无法承受 batch=16 × 2048站点 × 12时间步 × 32通道
+  # 因此用梯度累积等效实现论文的 batch_size=16
+  batch_size: 4
   shuffle_train: true
 
 # 超图构建配置
@@ -139,7 +142,7 @@ model:
     # │   4    │ 分4次调用     │ ~40%     │ +20%        │
     # │  12    │ 按时间步循环  │ ~25%     │ +100%(慢1倍) │
     # └────────┴──────────────┴──────────┴─────────────┘
-    chunks: 1  # 🔥 推荐12以最大化节省显存（不影响训练质量）
+    chunks: 1  # 🔥 按时间步分块处理KAN，大幅节省显存（不影响训练质量）
     
   # HyperGKAN Layer配置
   hypergkan_layer:
@@ -186,7 +189,7 @@ training:
   # 训练策略
   epochs: 500   # 🔥 论文设定：最大训练500轮
   early_stopping:
-    patience: 35  # 🔥 论文设定：连续35个epoch无改善则早停
+    patience: 20  # 🔥 论文设定：连续35个epoch无改善则早停
     min_delta: 1.0e-6
   
   # 梯度处理
@@ -195,8 +198,8 @@ training:
   # AMP混合精度训练
   use_amp: true
   
-  # 梯度累积 (batch_size=16已满足论文设定，无需累积)
-  accumulation_steps: 1  # 🔥 batch=16 × accum=1 = 有效batch=16
+  # 梯度累积 (实际batch=4 × 累积4步 = 有效batch=16，等效论文设定)
+  accumulation_steps: 4  # 🔥 batch=4 × accum=4 = 有效batch=16
   
   # Checkpoint保存
   save_best_only: true

@@ -5,17 +5,17 @@
 
 # 🔥 数据集选择（严格互斥：每次只能有一个为 true）
 dataset_selection:
-  Temperature: false     # 温度 (K→°C, output_dim=1)
+  Temperature: true     # 温度 (K→°C, output_dim=1)
   Cloud: false          # 云量 (fraction [0,1], output_dim=1)
   Humidity: false     # 湿度 (%, output_dim=1)
-  Wind: true            # 风速 (m/s, u+v分量, output_dim=2)
+  Wind: false            # 风速 (m/s, u+v分量, output_dim=2)
 
 # 🔥 基线模型选择（可同时选择多个，批量跑）
 models:
   - STGCN
   - GWNET
- # - AGCRN
- # - ASTGCN
+  - AGCRN
+  - ASTGCN
   - GRU
   - LSTM
   - STGNN
@@ -61,9 +61,9 @@ test_sample_ratio: 1.0    # 1.0=使用全部测试样本
 training:
   batch_size: 32          # 16GB显存推荐32 (配合梯度累积)
   accumulation_steps: 2   # 梯度累积步数, 有效batch_size = batch_size * accumulation_steps = 64
-  max_epoch: 100
+  max_epoch: 200
   use_early_stop: true
-  patience: 10
+  patience: 15
 
 # 输出配置
 output:
